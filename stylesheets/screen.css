@@ -1,18 +1,18 @@
 /*
 Error: Invalid CSS after "	}": expected selector or at-rule, was "}"
-        on line 75 of /Users/thehackercat/Cyborg103/GitHub/octopress/sass/parts/_archive.scss
+        on line 74 of /Users/thehackercat/Cyborg103/GitHub/octopress/sass/parts/_archive.scss
         from line 9 of /Users/thehackercat/Cyborg103/GitHub/octopress/sass/_parts.scss
         from line 6 of /Users/thehackercat/Cyborg103/GitHub/octopress/sass/screen.scss
 
-70: 			.date:before{content: "\f073";}
-71: 			.tags:before{content: "\f02c";}
-72: 			.comments:before{content: "\f075";}
-73: 		}
-74: 	}
-75: }
+69: 			.date:before{content: "\f073";}
+70: 			.tags:before{content: "\f02c";}
+71: 			.comments:before{content: "\f075";}
+72: 		}
+73: 	}
+74: }
 
 Backtrace:
-/Users/thehackercat/Cyborg103/GitHub/octopress/sass/parts/_archive.scss:75
+/Users/thehackercat/Cyborg103/GitHub/octopress/sass/parts/_archive.scss:74
 /Users/thehackercat/Cyborg103/GitHub/octopress/sass/_parts.scss:9
 /Users/thehackercat/Cyborg103/GitHub/octopress/sass/screen.scss:6
 /Library/Ruby/Gems/2.0.0/gems/sass-3.4.19/lib/sass/scss/parser.rb:1161:in `expected'
@@ -77,4 +77,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Invalid CSS after \"	}\": expected selector or at-rule, was \"}\"\A         on line 75 of /Users/thehackercat/Cyborg103/GitHub/octopress/sass/parts/_archive.scss\A         from line 9 of /Users/thehackercat/Cyborg103/GitHub/octopress/sass/_parts.scss\A         from line 6 of /Users/thehackercat/Cyborg103/GitHub/octopress/sass/screen.scss\A \A 70: 			.date:before{content: \"\f073\";}\A 71: 			.tags:before{content: \"\f02c\";}\A 72: 			.comments:before{content: \"\f075\";}\A 73: 		}\A 74: 	}\A 75: }"; }
+  content: "Error: Invalid CSS after \"	}\": expected selector or at-rule, was \"}\"\A         on line 74 of /Users/thehackercat/Cyborg103/GitHub/octopress/sass/parts/_archive.scss\A         from line 9 of /Users/thehackercat/Cyborg103/GitHub/octopress/sass/_parts.scss\A         from line 6 of /Users/thehackercat/Cyborg103/GitHub/octopress/sass/screen.scss\A \A 69: 			.date:before{content: \"\f073\";}\A 70: 			.tags:before{content: \"\f02c\";}\A 71: 			.comments:before{content: \"\f075\";}\A 72: 		}\A 73: 	}\A 74: }"; }
