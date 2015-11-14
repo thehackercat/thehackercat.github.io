@@ -5,16 +5,19 @@
     <lastmod>2015-11-09T11:25:00+08:00</lastmod>
   </url>
   <url>
-    <loc>http://thehackercat.me/blog/archives/</loc>
+    <loc>http://thehackercat.me/blog/</loc>
   </url>
   <url>
     <loc>http://thehackercat.me/archives/</loc>
   </url>
   <url>
-    <loc>http://thehackercat.me/blog/</loc>
+    <loc>http://thehackercat.me/</loc>
   </url>
   <url>
-    <loc>http://thehackercat.me/</loc>
+    <loc>http://thehackercat.me/blog/archives/</loc>
+  </url>
+  <url>
+    <loc>http://thehackercat.me/about/</loc>
   </url>
   <url>
     <loc>http://thehackercat.me/blog/categories/octopress/</loc>
