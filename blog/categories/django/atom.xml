@@ -4,7 +4,7 @@
   <title><![CDATA[分类：django | TheHackerCat's blog]]></title>
   <link href="http://thehackercat.me/blog/categories/django/atom.xml" rel="self"/>
   <link href="http://thehackercat.me/"/>
-  <updated>2015-11-15T10:09:15+08:00</updated>
+  <updated>2015-11-15T10:24:37+08:00</updated>
   <id>http://thehackercat.me/</id>
   <author>
     <name><![CDATA[TheHackerCat]]></name>
@@ -41,7 +41,7 @@
 
 <p>当我在 Django 中编写完视图要想将其路由要页面上时，我发现了 Django 的 URLconf 路由机制，他实现了为相应的视图函数路由到相应界面的映射功能，也就是说，当用户访问了 <code>http://127.0.0.1:8000/hello/</code> 时， Django 调用了视图 views.py 中的 hello () 函数。</p>
 
-<pre><code>from django.conf.urls import include, url
+<pre><code class="python ">from django.conf.urls import include, url
 from mysite.views import hello,current_datetime,hours_ahead,letter
 
 urlpatterns = [
@@ -56,12 +56,12 @@ url(r'^time/plus/(\d{1,2})/ $',hours_ahead),
 
 <p>注意到在其中 web.py 文件中的第2964行开始的如下代码：</p>
 
-<pre><code>application = tornado.web.Application([
+<pre><code class="python ">application = tornado.web.Application([
     (r"/", MainHandler),
 ])
 http_server = tornado.httpserver.HTTPServer(application)
 http_server.listen(options.port)
-tornado.ioloop.IOLoop.current().start()
+tornado.ioloop.IOLoop.current( ).start( )
 </code></pre>
 
 <p>可以看出 torando 现把一个路由表作为一个参数，传给 Application 类的构造函数，接着创建了一个实例，然后再把这个实例传递给 http_server 。那么当客户端发起<code>get /</code>请求的时候, http server 接收到这个请求，在路由表中匹配 url pattern ，最后交给 MainHandler 去处理。</p>

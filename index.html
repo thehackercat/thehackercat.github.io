@@ -130,28 +130,48 @@ $(document).ready(
 
 <p>当我在 Django 中编写完视图要想将其路由要页面上时，我发现了 Django 的 URLconf 路由机制，他实现了为相应的视图函数路由到相应界面的映射功能，也就是说，当用户访问了 <code>http://127.0.0.1:8000/hello/</code> 时， Django 调用了视图 views.py 中的 hello () 函数。</p>
 
-<pre><code>from django.conf.urls import include, url
-from mysite.views import hello,current_datetime,hours_ahead,letter
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">include</span><span class="p">,</span> <span class="n">url</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">mysite.views</span> <span class="kn">import</span> <span class="n">hello</span><span class="p">,</span><span class="n">current_datetime</span><span class="p">,</span><span class="n">hours_ahead</span><span class="p">,</span><span class="n">letter</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'><span class="n">url</span><span class="p">(</span><span class="s">r&#39;^hello/$&#39;</span><span class="p">,</span> <span class="n">hello</span><span class="p">),</span>
+</span><span class='line'><span class="n">url</span><span class="p">(</span><span class="s">r&#39;^time/$&#39;</span><span class="p">,</span> <span class="n">current_datetime</span><span class="p">),</span>
+</span><span class='line'><span class="n">url</span><span class="p">(</span><span class="s">r&#39;^time/plus/(\d{1,2})/ $&#39;</span><span class="p">,</span><span class="n">hours_ahead</span><span class="p">),</span>
+</span><span class='line'><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
 
-urlpatterns = [
-url(r'^hello/$', hello),
-url(r'^time/$', current_datetime),
-url(r'^time/plus/(\d{1,2})/ $',hours_ahead),
-]
-</code></pre>
+
+<p></p>
 
 <p>可以看出， URLconf 的路由是通过正则表达式来匹配一个完整的 hello 的 URL ，这样的话就可以保证 诸如 /hello/foo/ 等 URL 不会被匹配到。
 为了更深入了解 URLconf 路由的机制，我找到了类似的 <a href="https://github.com/tornadoweb/tornado">tornado</a> 框架来对比。</p>
 
 <p>注意到在其中 web.py 文件中的第2964行开始的如下代码：</p>
 
-<pre><code>application = tornado.web.Application([
-    (r"/", MainHandler),
-])
-http_server = tornado.httpserver.HTTPServer(application)
-http_server.listen(options.port)
-tornado.ioloop.IOLoop.current().start()
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">application</span> <span class="o">=</span> <span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">Application</span><span class="p">([</span>
+</span><span class='line'>  <span class="p">(</span><span class="s">r&quot;/&quot;</span><span class="p">,</span> <span class="n">MainHandler</span><span class="p">),</span>
+</span><span class='line'><span class="p">])</span>
+</span><span class='line'><span class="n">http_server</span> <span class="o">=</span> <span class="n">tornado</span><span class="o">.</span><span class="n">httpserver</span><span class="o">.</span><span class="n">HTTPServer</span><span class="p">(</span><span class="n">application</span><span class="p">)</span>
+</span><span class='line'><span class="n">http_server</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
+</span><span class='line'><span class="n">tornado</span><span class="o">.</span><span class="n">ioloop</span><span class="o">.</span><span class="n">IOLoop</span><span class="o">.</span><span class="n">current</span><span class="p">(</span> <span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">(</span> <span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
 
 <p>可以看出 torando 现把一个路由表作为一个参数，传给 Application 类的构造函数，接着创建了一个实例，然后再把这个实例传递给 http_server 。那么当客户端发起<code>get /</code>请求的时候, http server 接收到这个请求，在路由表中匹配 url pattern ，最后交给 MainHandler 去处理。</p>
 
