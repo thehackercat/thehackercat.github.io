@@ -4,7 +4,7 @@
   <title><![CDATA[分类：django | TheHackerCat's blog]]></title>
   <link href="http://thehackercat.me/blog/categories/django/atom.xml" rel="self"/>
   <link href="http://thehackercat.me/"/>
-  <updated>2015-11-16T00:34:44+08:00</updated>
+  <updated>2015-11-17T09:38:04+08:00</updated>
   <id>http://thehackercat.me/</id>
   <author>
     <name><![CDATA[TheHackerCat]]></name>
@@ -12,6 +12,15 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[ Django 学习笔记2-- Templates ]]></title>
+    <link href="http://thehackercat.me/blog/2015/11/16/django-learning2/"/>
+    <updated>2015-11-16T15:15:55+08:00</updated>
+    <id>http://thehackercat.me/blog/2015/11/16/django-learning2</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[ Django 学习笔记1-- URLconf ]]></title>
