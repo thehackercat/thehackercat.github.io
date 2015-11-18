@@ -9,7 +9,14 @@
 
 <meta name="author" content="TheHackerCat"> 
 
-<meta name="description" content="由于 Django Templates 中用到的 Liquid Lang 与 Jekyll Web Pages 生成方式相同，导致了无法编译过程中误把实例代码当成 Jekyll Web Pages 生成代码而编译错误的问题，目前暂时没找到解决方法，故留下地址供下载。十分抱歉，我已向作者提交了 &hellip;"> <meta name="keywords" content="">
+<meta name="description" content="虽然 Django 中 Html 可以直接硬编码到 Python 中，但是这种行为并不利于前端开发人员进行维护。所以 Django 有了流模板 ( Liquid Templates )。 流模板基础 举个例子，下面这个模板大致含括了 Django 模板的几个特性。 1
+2
+3
+4
+5
+6
+7
+8 &hellip;"> <meta name="keywords" content="">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -98,7 +105,142 @@ $(document).ready(
 
 	<div id="content" class="inner"><article class="post">
 	<h2 class="title">Django 学习笔记2-- Templates</h2>
-	<div class="entry-content"><p>由于 Django Templates 中用到的 Liquid Lang 与 Jekyll Web Pages 生成方式相同，导致了无法编译过程中误把实例代码当成 Jekyll Web Pages 生成代码而编译错误的问题，目前暂时没找到解决方法，故留下<a href="http://thehackercat-hackercat.stor.sinaapp.com/%E6%B5%81%E6%A8%A1%E6%9D%BF%E5%9F%BA%E7%A1%80.md">地址</a>供下载。十分抱歉，我已向作者提交了 issue ，如果你们有好的解决办法，请留言或者邮件告诉我，感恩 T.T</p>
+	<div class="entry-content"><p>虽然 Django 中 Html 可以直接硬编码到 Python 中，但是这种行为并不利于前端开发人员进行维护。所以 Django 有了<a href="http://liquidmarkup.org/">流模板</a> ( Liquid Templates )。</p>
+
+<h2>流模板基础</h2>
+
+<p>举个例子，下面这个模板大致含括了 Django 模板的几个特性。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>
+</span><span class='line'>{% load staticfiles %}
+</span><span class='line'><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span><span class='line'><span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'><span class="nt">&lt;head&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;UTF-8&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;title&gt;</span>{% block title %}{% endblock %}<span class="nt">&lt;/title&gt;</span>
+</span><span class='line'><span class="nt">&lt;/head&gt;</span>
+</span><span class='line'><span class="nt">&lt;body&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;p&gt;</span>Dear {{ person_name }},<span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nt">&lt;p&gt;</span>Thanks for placing an order from {{ company }}. It&#39;s scheduled to ship on {{ ship_date|date:&quot;F J,Y &quot; }}.<span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'>    {% if ordered_warranty %}
+</span><span class='line'>    <span class="nt">&lt;p&gt;</span>Your warranty information will be included in the packaging.<span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;p&gt;</span>Here are the items you&#39;ve ordered: <span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nt">&lt;ul&gt;</span>
+</span><span class='line'>    {% for item in item_list %}
+</span><span class='line'>        <span class="nt">&lt;li&gt;</span>
+</span><span class='line'>            {{ item }}
+</span><span class='line'>        <span class="nt">&lt;/li&gt;</span>
+</span><span class='line'>    {% endfor %}
+</span><span class='line'>    <span class="nt">&lt;/ul&gt;</span>
+</span><span class='line'>    {% else %}
+</span><span class='line'>    <span class="nt">&lt;p&gt;</span>You didnt order a warranty, so you&#39;re on your own when the products inevitably stop working. <span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>    {% endif %}
+</span><span class='line'>
+</span><span class='line'>    <span class="nt">&lt;p&gt;</span>Sincerely,<span class="nt">&lt;br</span> <span class="nt">/&gt;</span>{{ company }}<span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;p&gt;</span>footer<span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>    {% block footer %}
+</span><span class='line'>    <span class="nt">&lt;hr&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;p&gt;</span>Thanks for visiting my site.<span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>    {% endblock %}
+</span><span class='line'><span class="nt">&lt;/body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>看出，模板是基于 Html 的，事实上它就是保存成一个 .html 文件，它跟我们所看到的 html 的区别就在于多了一些由 <code>{{ }}</code>括起来的变量以及由<code>{% %}</code>括起来的模板标签，此外变量还通过过滤器 <code>|</code>来对文本输出格式进行转换。</p>
+
+<p>而这里<code>{{ }}</code>里的变量相当于一个形参，真正显示出来的是在我们渲染模板的 Python 文件里所传给它的值。</p>
+
+<p>比如在下面的模板渲染代码里</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">c</span> <span class="o">=</span> <span class="n">Context</span><span class="p">({</span><span class="s">&#39;person_name&#39;</span><span class="p">:</span><span class="s">&#39;LexusLee&#39;</span><span class="p">,</span>
+</span><span class='line'>          <span class="s">&#39;company&#39;</span><span class="p">:</span> <span class="s">&#39;UESTC&#39;</span><span class="p">,</span>
+</span><span class='line'>          <span class="s">&#39;ship_date&#39;</span><span class="p">:</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2015</span><span class="p">,</span><span class="mi">09</span><span class="p">,</span><span class="mi">24</span><span class="p">),</span>
+</span><span class='line'>          <span class="s">&#39;ordered_warranty&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>那么模板中的<code>person_name</code>最终显示的就是<code>LexusLee</code>。</p>
+
+<h2>模板标签</h2>
+
+<ol>
+<li><code>{% if variable %} {% else %} {% endif %}</code>用于判断变量 variable 是否为真，为真则执行 else 标签前的内容，否则执行 else 便签内的内容，跟大部分编程语言中的条件语句用法一致。</li>
+<li>同理<code>{% for %} {% endfor %}</code>的用法也和大部分编程语言中循环语句的用法一致。需要注意的是，每个 for 循环中还有一个成为<code>{% forloop %}</code>的模板变量，这个变量能提示一些循环进度信息相关的属性，关于这个变量的详细统发可以参照<a href="http://djangobook.py3k.cn/appendixF/">这一节</a>。</li>
+<li><code>{% block content %} {% endblock %}</code>是用来处理<a href="http://djangobook.py3k.cn/appendixF/">模板继承</a>和重载的标签，来避免重复和冗余的代码。比如上述的实例模板( base.html )中，我希望在多个文件中都能显示 footer ，而不需要重复编码，故在该模板中写了<code>{% block footer %}</code>,而在另一个文件中只需要写</li>
+</ol>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>
+</span><span class='line'>{% extends &quot;base.html&quot; %}
+</span><span class='line'>{% block footer %}
+</span><span class='line'><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;https://github.com/thehackercat&quot;</span><span class="nt">&gt;</span>Github<span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>{% endblock %}
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样所有的 footer 中都会有</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;https://github.com/thehackercat&quot;</span><span class="nt">&gt;</span>Github<span class="nt">&lt;/a&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这行代码。而之前<code>{% block footer %} {% endblock %}</code>框中的代码将会被 overwrite ，也就是说<strong>对于重载模块，子模板可以重载这些部分，如果子模板不重载这些部分，则会按照默认的内容显示</strong>。
+4. <code>{% load staticfiles %}</code>用来加载静态资源，比如加载 CSS 、 JS 等静态文件时会用到。
+5. <code>{# #}</code> 用于注释。</p>
 </div>
 
 

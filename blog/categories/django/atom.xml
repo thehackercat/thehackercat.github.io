@@ -4,7 +4,7 @@
   <title><![CDATA[分类：django | TheHackerCat's blog]]></title>
   <link href="http://thehackercat.me/blog/categories/django/atom.xml" rel="self"/>
   <link href="http://thehackercat.me/"/>
-  <updated>2015-11-17T20:26:14+08:00</updated>
+  <updated>2015-11-18T08:34:24+08:00</updated>
   <id>http://thehackercat.me/</id>
   <author>
     <name><![CDATA[TheHackerCat]]></name>
@@ -18,7 +18,87 @@
     <link href="http://thehackercat.me/blog/2015/11/16/django-learning2/"/>
     <updated>2015-11-16T15:15:55+08:00</updated>
     <id>http://thehackercat.me/blog/2015/11/16/django-learning2</id>
-    <content type="html"><![CDATA[<p>由于 Django Templates 中用到的 Liquid Lang 与 Jekyll Web Pages 生成方式相同，导致了无法编译过程中误把实例代码当成 Jekyll Web Pages 生成代码而编译错误的问题，目前暂时没找到解决方法，故留下<a href="http://thehackercat-hackercat.stor.sinaapp.com/%E6%B5%81%E6%A8%A1%E6%9D%BF%E5%9F%BA%E7%A1%80.md">地址</a>供下载。十分抱歉，我已向作者提交了 issue ，如果你们有好的解决办法，请留言或者邮件告诉我，感恩 T.T</p>
+    <content type="html"><![CDATA[<p>虽然 Django 中 Html 可以直接硬编码到 Python 中，但是这种行为并不利于前端开发人员进行维护。所以 Django 有了<a href="http://liquidmarkup.org/">流模板</a> ( Liquid Templates )。</p>
+
+<h2>流模板基础</h2>
+
+<p>举个例子，下面这个模板大致含括了 Django 模板的几个特性。</p>
+
+<pre><code class="html">
+{% load staticfiles %}
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;{% block title %}{% endblock %}&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;p&gt;Dear {{ person_name }},&lt;/p&gt;
+
+    &lt;p&gt;Thanks for placing an order from {{ company }}. It's scheduled to ship on {{ ship_date|date:"F J,Y " }}.&lt;/p&gt;
+
+    {% if ordered_warranty %}
+    &lt;p&gt;Your warranty information will be included in the packaging.&lt;/p&gt;
+    &lt;p&gt;Here are the items you've ordered: &lt;/p&gt;
+
+    &lt;ul&gt;
+    {% for item in item_list %}
+        &lt;li&gt;
+            {{ item }}
+        &lt;/li&gt;
+    {% endfor %}
+    &lt;/ul&gt;
+    {% else %}
+    &lt;p&gt;You didnt order a warranty, so you're on your own when the products inevitably stop working. &lt;/p&gt;
+    {% endif %}
+
+    &lt;p&gt;Sincerely,&lt;br /&gt;{{ company }}&lt;/p&gt;
+    &lt;p&gt;footer&lt;/p&gt;
+    {% block footer %}
+    &lt;hr&gt;
+    &lt;p&gt;Thanks for visiting my site.&lt;/p&gt;
+    {% endblock %}
+&lt;/body&gt;
+&lt;/html&gt;
+
+</code></pre>
+
+<p>看出，模板是基于 Html 的，事实上它就是保存成一个 .html 文件，它跟我们所看到的 html 的区别就在于多了一些由 <code>{{ }}</code>括起来的变量以及由<code>{% %}</code>括起来的模板标签，此外变量还通过过滤器 <code>|</code>来对文本输出格式进行转换。</p>
+
+<p>而这里<code>{{ }}</code>里的变量相当于一个形参，真正显示出来的是在我们渲染模板的 Python 文件里所传给它的值。</p>
+
+<p>比如在下面的模板渲染代码里
+<code>python
+c = Context({'person_name':'LexusLee',
+            'company': 'UESTC',
+            'ship_date':datetime.date(2015,09,24),
+            'ordered_warranty': False})
+</code>
+那么模板中的<code>person_name</code>最终显示的就是<code>LexusLee</code>。</p>
+
+<h2>模板标签</h2>
+
+<ol>
+<li><code>{% if variable %} {% else %} {% endif %}</code>用于判断变量 variable 是否为真，为真则执行 else 标签前的内容，否则执行 else 便签内的内容，跟大部分编程语言中的条件语句用法一致。</li>
+<li>同理<code>{% for %} {% endfor %}</code>的用法也和大部分编程语言中循环语句的用法一致。需要注意的是，每个 for 循环中还有一个成为<code>{% forloop %}</code>的模板变量，这个变量能提示一些循环进度信息相关的属性，关于这个变量的详细统发可以参照<a href="http://djangobook.py3k.cn/appendixF/">这一节</a>。</li>
+<li><code>{% block content %} {% endblock %}</code>是用来处理<a href="http://djangobook.py3k.cn/appendixF/">模板继承</a>和重载的标签，来避免重复和冗余的代码。比如上述的实例模板( base.html )中，我希望在多个文件中都能显示 footer ，而不需要重复编码，故在该模板中写了<code>{% block footer %}</code>,而在另一个文件中只需要写
+<code>html
+
+{% extends "base.html" %}
+{% block footer %}
+&lt;a href="https://github.com/thehackercat"&gt;Github&lt;/a&gt;
+{% endblock %}
+
+</code>
+这样所有的 footer 中都会有
+<code>html
+&lt;a href="https://github.com/thehackercat"&gt;Github&lt;/a&gt;
+</code>
+这行代码。而之前<code>{% block footer %} {% endblock %}</code>框中的代码将会被 overwrite ，也就是说<strong>对于重载模块，子模板可以重载这些部分，如果子模板不重载这些部分，则会按照默认的内容显示</strong>。</li>
+<li><code>{% load staticfiles %}</code>用来加载静态资源，比如加载 CSS 、 JS 等静态文件时会用到。</li>
+<li><code>{# #}</code> 用于注释。</li>
+</ol>
+
 ]]></content>
   </entry>
   
