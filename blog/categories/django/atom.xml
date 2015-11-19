@@ -4,7 +4,7 @@
   <title><![CDATA[分类：django | TheHackerCat's blog]]></title>
   <link href="http://thehackercat.me/blog/categories/django/atom.xml" rel="self"/>
   <link href="http://thehackercat.me/"/>
-  <updated>2015-11-18T08:34:24+08:00</updated>
+  <updated>2015-11-19T19:39:04+08:00</updated>
   <id>http://thehackercat.me/</id>
   <author>
     <name><![CDATA[TheHackerCat]]></name>
@@ -99,6 +99,8 @@ c = Context({'person_name':'LexusLee',
 <li><code>{# #}</code> 用于注释。</li>
 </ol>
 
+
+<h2>如何在 Octopress 中生成包含 liquid 语句的代码</h2>
 ]]></content>
   </entry>
   
