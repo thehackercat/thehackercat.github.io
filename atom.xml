@@ -4,7 +4,7 @@
   <title><![CDATA[TheHackerCat's blog]]></title>
   <link href="http://thehackercat.me/atom.xml" rel="self"/>
   <link href="http://thehackercat.me/"/>
-  <updated>2015-11-19T19:39:04+08:00</updated>
+  <updated>2015-11-20T17:13:15+08:00</updated>
   <id>http://thehackercat.me/</id>
   <author>
     <name><![CDATA[TheHackerCat]]></name>
@@ -12,6 +12,65 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[在 Octopress 中生成包含 liquid 语句的代码]]></title>
+    <link href="http://thehackercat.me/blog/2015/11/20/blog-with-liquid/"/>
+    <updated>2015-11-20T16:32:12+08:00</updated>
+    <id>http://thehackercat.me/blog/2015/11/20/blog-with-liquid</id>
+    <content type="html"><![CDATA[<h2>背景</h2>
+
+<p>由于之前写 <a href="http://thehackercat.me/blog/2015/11/16/django-learning2/">Django &ndash; Templates</a> 篇时要用到包含 Liquid 语法的示例代码，而 Octopress (Jekyll) 在后端使用 Liquid 来处理生成 Web Pages ，对于文章内部插入的原本用来作示例的 Liquid 代码会被解析成 Web Pages 生成语句而不是原本的内容。故苦恼了我一会儿 Q.Q</p>
+
+<p><del>不过这都不是事儿</del></p>
+
+<h2>解决方法</h2>
+
+<p>比如，我之前写的</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>{% if variable %} 
+</span><span class='line'>{% else %} 
+</span><span class='line'>{% endif %}
+</span><span class='line'></span></code></pre></td></tr></table></div></figure>
+
+
+<p>就会因为包含了 <code>{% ... %}</code>的 Liquid 语句而导致编译出错无法生成 blog 。</p>
+
+<p>解决方法是：</p>
+
+<p>在每一块包含 Liquid 语句的代码快前后用 <code>{% raw %} 和 {% endraw %}</code>包括起来。</p>
+
+<p>这样就能确保示例代码不会被错误的解析成 Jekyll Web Pages 生成语句。</p>
+
+<p>但是如果我要显示<code>{% raw %} 和 {% endraw %}</code>怎么办呢 ？</p>
+
+<p>我试着使用使用如下方法：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{% raw %}
+</span><span class='line'>{% raw %}
+</span><span class='line'>{% endraw %}
+</span><span class='line'>{% endraw %}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>来显示一个<code>{% raw %} 和 {% endraw %}</code>标签，结果编译出错了。原因是， Liquid 的 raw/endraw 标签在匹配时要按照就近原则。</p>
+
+<p>后来我在 <a href="http://stackoverflow.com/questions/3426182/how-to-escape-liquid-template-tags">Stack Overflow</a> 找到了一个回答：</p>
+
+<p>使用<code>{{ "{% raw " }}%}</code>就可以得到<code>{% raw %}</code>，这种方法是正确的。</p>
+
+<p><img src="http://ww1.sinaimg.cn/large/6aa09e8fjw1evgxf183vrj20zk12sqa3.jpg" alt="awesomesauce" /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[ Django 学习笔记2-- Templates ]]></title>
@@ -151,11 +210,11 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>这行代码。而之前<code>{% block footer %} {% endblock %}</code>框中的代码将会被 overwrite ，也就是说<strong>对于重载模块，子模板可以重载这些部分，如果子模板不重载这些部分，则会按照默认的内容显示</strong>。
-4. <code>{% load staticfiles %}</code>用来加载静态资源，比如加载 CSS 、 JS 等静态文件时会用到。
-5. <code>{# #}</code> 用于注释。</p>
+<p>这行代码。而之前<code>{% block footer %} {% endblock %}</code>框中的代码将会被 overwrite ，也就是说<strong>对于重载模块，子模板可以重载这些部分，如果子模板不重载这些部分，则会按照默认的内容显示</strong>。</p>
 
-<h2>如何在 Octopress 中生成包含 liquid 语句的代码</h2>
+<p>4.<code>{% load staticfiles %}</code>用来加载静态资源，比如加载 CSS 、 JS 等静态文件时会用到。</p>
+
+<p>5.<code>{# #}</code> 用于注释。</p>
 ]]></content>
   </entry>
   

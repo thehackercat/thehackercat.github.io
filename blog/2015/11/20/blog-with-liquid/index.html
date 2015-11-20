@@ -5,11 +5,11 @@
 	<script data-cfasync="false" type="text/javascript" src="//use.typekit.net/axj3cfp.js"></script>
 	<script data-cfasync="false" type="text/javascript">try{Typekit.load();}catch(e){}</script>
 	<meta charset="utf-8">
-	<title>分类：octopress  | TheHackerCat's blog</title>
+	<title>在 Octopress 中生成包含 liquid 语句的代码  | TheHackerCat's blog</title>
 
 <meta name="author" content="TheHackerCat"> 
 
-<meta name="description" content="Category: octopress"> <meta name="keywords" content="">
+<meta name="description" content="背景 由于之前写 Django &ndash; Templates 篇时要用到包含 Liquid 语法的示例代码，而 Octopress (Jekyll) 在后端使用 Liquid 来处理生成 Web Pages ，对于文章内部插入的原本用来作示例的 Liquid 代码会被解析成 Web &hellip;"> <meta name="keywords" content="">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -96,19 +96,77 @@ $(document).ready(
 
 </header>
 
-	<div id="content" class="inner">
-	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">在 Octopress 中生成包含 Liquid 语句的代码</h2>
+	<div class="entry-content"><h2>背景</h2>
+
+<p>由于之前写 <a href="http://thehackercat.me/blog/2015/11/16/django-learning2/">Django &ndash; Templates</a> 篇时要用到包含 Liquid 语法的示例代码，而 Octopress (Jekyll) 在后端使用 Liquid 来处理生成 Web Pages ，对于文章内部插入的原本用来作示例的 Liquid 代码会被解析成 Web Pages 生成语句而不是原本的内容。故苦恼了我一会儿 Q.Q</p>
+
+<p><del>不过这都不是事儿</del></p>
+
+<h2>解决方法</h2>
+
+<p>比如，我之前写的</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>{% if variable %} 
+</span><span class='line'>{% else %} 
+</span><span class='line'>{% endif %}
+</span><span class='line'></span></code></pre></td></tr></table></div></figure>
 
 
-	
-	
-	<section class="archives"><h1 class="year">2015</h1>
+<p>就会因为包含了 <code>{% ... %}</code>的 Liquid 语句而导致编译出错无法生成 blog 。</p>
 
-<article>
-	<h2 class="title"><a href="/blog/2015/11/20/blog-with-liquid/">在 Octopress 中生成包含 liquid 语句的代码</a></h2>
-	<div class="meta">
-		<div class="date">Nov 20</div>
-		
+<p>解决方法是：</p>
+
+<p>在每一块包含 Liquid 语句的代码快前后用 <code>{% raw %} 和 {% endraw %}</code>包括起来。</p>
+
+<p>这样就能确保示例代码不会被错误的解析成 Jekyll Web Pages 生成语句。</p>
+
+<p>但是如果我要显示<code>{% raw %} 和 {% endraw %}</code>怎么办呢 ？</p>
+
+<p>我试着使用使用如下方法：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{% raw %}
+</span><span class='line'>{% raw %}
+</span><span class='line'>{% endraw %}
+</span><span class='line'>{% endraw %}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>来显示一个<code>{% raw %} 和 {% endraw %}</code>标签，结果编译出错了。原因是， Liquid 的 raw/endraw 标签在匹配时要按照就近原则。</p>
+
+<p>后来我在 <a href="http://stackoverflow.com/questions/3426182/how-to-escape-liquid-template-tags">Stack Overflow</a> 找到了一个回答：</p>
+
+<p>使用<code>{{ "{% raw " }}%}</code>就可以得到<code>{% raw %}</code>，这种方法是正确的。</p>
+
+<p><img src="http://ww1.sinaimg.cn/large/6aa09e8fjw1evgxf183vrj20zk12sqa3.jpg" alt="awesomesauce" /></p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-11-20T16:32:12+08:00" pubdate data-updated="true">Nov 20, 2015</time></div>
+	
 
 <div class="tags">
 
@@ -117,30 +175,28 @@ $(document).ready(
 </div>
 
 
-	    
-	</div>
-</article>
-
 	
+</div></article>
 
-
-<article>
-	<h2 class="title"><a href="/blog/2015/11/09/fix-the-datetime-bug/">使用Octopress搭建静态博客</a></h2>
-	<div class="meta">
-		<div class="date">Nov  9</div>
-		
-
-<div class="tags">
-
-	<a class='category' href='/blog/categories/octopress/'>octopress</a>
-
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+<!---	<a class="addthis_counter addthis_pill_style"></a> --->
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
 </div>
 
 
-	    
-	</div>
-</article>
 
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
 </div>
 	<footer id="footer" class="inner"><a href="http://twitter.com/lexuscyborg103">Twitter</a>
  • 
@@ -170,7 +226,10 @@ Powered by Oliver Queen.
       var disqus_shortname = 'thehackercat';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://thehackercat.me/blog/2015/11/20/blog-with-liquid/';
+        var disqus_url = 'http://thehackercat.me/blog/2015/11/20/blog-with-liquid/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
