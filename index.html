@@ -9,7 +9,7 @@
 
 <meta name="author" content="TheHackerCat"> 
 
-<meta name="description" content="背景 由于之前写 Django &ndash; Templates 篇时要用到包含 Liquid 语法的示例代码，而 Octopress (Jekyll) 在后端使用 Liquid 来处理生成 Web Pages ，对于文章内部插入的原本用来作示例的 Liquid 代码会被解析成 Web &hellip;"> <meta name="keywords" content="">
+<meta name="description" content="MTV vs MVC 正如在之前这篇文章所提到的， 把数据存取逻辑、业务逻辑和表现逻辑组合在一起的概念有时被称为软件架构的 Model-View-Controller ( MVC )模式。 在这个模式中， Model 代表数据存取层，View 代表的是系统中选择显示什么和怎么显示的部分， &hellip;"> <meta name="keywords" content="">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -97,6 +97,58 @@ $(document).ready(
 </header>
 
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2015/11/21/django-learning3/">
+		
+			Django 学习笔记3-- Models</a>
+	</h2>
+	<div class="entry-content">
+		<h2>MTV vs MVC</h2>
+
+<p>正如在之前<a href="http://thehackercat.me/blog/2015/11/14/django-learning1/">这篇文章</a>所提到的， 把数据存取逻辑、业务逻辑和表现逻辑组合在一起的概念有时被称为软件架构的 Model-View-Controller ( MVC )模式。 在这个模式中， Model 代表数据存取层，View 代表的是系统中选择显示什么和怎么显示的部分，Controller 指的是系统中根据用户输入并视需要访问模型，以决定使用哪个视图的那部分。</p>
+
+<p>而 Django 使用的更多的则是模型( Model )、模板( Template )和视图( Views )的软件设计模式，称为 MTV 模式。我在 Stack Overflow 的<a href="http://stackoverflow.com/questions/6621653/django-vs-model-view-controller">这个回答</a>里找到了对于 MTV vs MVC 两种设计模式间的微妙的差别。</p>
+
+<p>其中提到，不能简单的把 Django 视图认为是 MVC 控制器，把 Django 模板认为是 MVC 视图。</p>
+
+<p>两者之间的差别在于，在 Django 中，视图( Views )不处理用户输入，而是用来选择要展示的哪些数据，而不是要如何展示数据。而 Django 模板 仅仅决定如何展现Django视图指定的数据。</p>
+
+<p>或者说, Django 将 MVC 中的视图进一步分解为 Django 视图 和 Django 模板两个部分，分别决定 “展现哪些数据” 和 “如何展现”，使得 Django 的模板可以根据需要随时替换，而不仅仅限制于内置的模板。至于 MVC 控制器部分，由 Django 框架的 URLconf 来实现。</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-11-21T13:17:57+08:00" pubdate data-updated="true">Nov 21, 2015</time></div>
+	
+
+<div class="tags">
+
+	<a class='category' href='/blog/categories/django/'>django</a>
+
+</div>
+
+
+	
+</div></article>
 
 
     <article class="post">

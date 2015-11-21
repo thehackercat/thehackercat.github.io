@@ -5,11 +5,11 @@
 	<script data-cfasync="false" type="text/javascript" src="//use.typekit.net/axj3cfp.js"></script>
 	<script data-cfasync="false" type="text/javascript">try{Typekit.load();}catch(e){}</script>
 	<meta charset="utf-8">
-	<title>Blog Archives  | TheHackerCat's blog</title>
+	<title> Django 学习笔记3-- Models   | TheHackerCat's blog</title>
 
 <meta name="author" content="TheHackerCat"> 
 
-<meta name="description" content="2015 Django 学习笔记3-- Models Nov 21 django 在 Octopress 中生成包含 liquid 语句的代码 Nov 20 octopress Django 学习笔记2-- Templates Nov 16 django Django 学习笔记1-- &hellip;"> <meta name="keywords" content="">
+<meta name="description" content="MTV vs MVC 正如在之前这篇文章所提到的， 把数据存取逻辑、业务逻辑和表现逻辑组合在一起的概念有时被称为软件架构的 Model-View-Controller ( MVC )模式。 在这个模式中， Model 代表数据存取层，View 代表的是系统中选择显示什么和怎么显示的部分， &hellip;"> <meta name="keywords" content="">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -96,19 +96,37 @@ $(document).ready(
 
 </header>
 
-	<div id="content" class="inner">
-	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Django 学习笔记3-- Models</h2>
+	<div class="entry-content"><h2>MTV vs MVC</h2>
+
+<p>正如在之前<a href="http://thehackercat.me/blog/2015/11/14/django-learning1/">这篇文章</a>所提到的， 把数据存取逻辑、业务逻辑和表现逻辑组合在一起的概念有时被称为软件架构的 Model-View-Controller ( MVC )模式。 在这个模式中， Model 代表数据存取层，View 代表的是系统中选择显示什么和怎么显示的部分，Controller 指的是系统中根据用户输入并视需要访问模型，以决定使用哪个视图的那部分。</p>
+
+<p>而 Django 使用的更多的则是模型( Model )、模板( Template )和视图( Views )的软件设计模式，称为 MTV 模式。我在 Stack Overflow 的<a href="http://stackoverflow.com/questions/6621653/django-vs-model-view-controller">这个回答</a>里找到了对于 MTV vs MVC 两种设计模式间的微妙的差别。</p>
+
+<p>其中提到，不能简单的把 Django 视图认为是 MVC 控制器，把 Django 模板认为是 MVC 视图。</p>
+
+<p>两者之间的差别在于，在 Django 中，视图( Views )不处理用户输入，而是用来选择要展示的哪些数据，而不是要如何展示数据。而 Django 模板 仅仅决定如何展现Django视图指定的数据。</p>
+
+<p>或者说, Django 将 MVC 中的视图进一步分解为 Django 视图 和 Django 模板两个部分，分别决定 “展现哪些数据” 和 “如何展现”，使得 Django 的模板可以根据需要随时替换，而不仅仅限制于内置的模板。至于 MVC 控制器部分，由 Django 框架的 URLconf 来实现。</p>
+</div>
 
 
-	
-	
-	<section class="archives"><h1 class="year">2015</h1>
+<div class="meta">
+	<div class="date">
 
-<article>
-	<h2 class="title"><a href="/blog/2015/11/21/django-learning3/"> Django 学习笔记3-- Models </a></h2>
-	<div class="meta">
-		<div class="date">Nov 21</div>
-		
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-11-21T13:17:57+08:00" pubdate data-updated="true">Nov 21, 2015</time></div>
+	
 
 <div class="tags">
 
@@ -117,89 +135,28 @@ $(document).ready(
 </div>
 
 
-	    
-	</div>
-</article>
-
 	
+</div></article>
 
-
-<article>
-	<h2 class="title"><a href="/blog/2015/11/20/blog-with-liquid/">在 Octopress 中生成包含 liquid 语句的代码</a></h2>
-	<div class="meta">
-		<div class="date">Nov 20</div>
-		
-
-<div class="tags">
-
-	<a class='category' href='/blog/categories/octopress/'>octopress</a>
-
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+<!---	<a class="addthis_counter addthis_pill_style"></a> --->
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
 </div>
 
 
-	    
-	</div>
-</article>
 
-	
-
-
-<article>
-	<h2 class="title"><a href="/blog/2015/11/16/django-learning2/"> Django 学习笔记2-- Templates </a></h2>
-	<div class="meta">
-		<div class="date">Nov 16</div>
-		
-
-<div class="tags">
-
-	<a class='category' href='/blog/categories/django/'>django</a>
-
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
-
-
-	    
-	</div>
-</article>
-
-	
-
-
-<article>
-	<h2 class="title"><a href="/blog/2015/11/14/django-learning1/"> Django 学习笔记1-- URLconf </a></h2>
-	<div class="meta">
-		<div class="date">Nov 14</div>
-		
-
-<div class="tags">
-
-	<a class='category' href='/blog/categories/django/'>django</a>
-
-</div>
-
-
-	    
-	</div>
-</article>
-
-	
-
-
-<article>
-	<h2 class="title"><a href="/blog/2015/11/09/fix-the-datetime-bug/">使用Octopress搭建静态博客</a></h2>
-	<div class="meta">
-		<div class="date">Nov  9</div>
-		
-
-<div class="tags">
-
-	<a class='category' href='/blog/categories/octopress/'>octopress</a>
-
-</div>
-
-
-	    
-	</div>
-</article>
+</section>
 </div>
 	<footer id="footer" class="inner"><a href="http://twitter.com/lexuscyborg103">Twitter</a>
  • 
@@ -229,7 +186,10 @@ Powered by Oliver Queen.
       var disqus_shortname = 'thehackercat';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://thehackercat.me/blog/2015/11/21/django-learning3/';
+        var disqus_url = 'http://thehackercat.me/blog/2015/11/21/django-learning3/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
