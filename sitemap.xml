@@ -21,6 +21,10 @@
     <lastmod>2015-11-09T11:25:00+08:00</lastmod>
   </url>
   <url>
+    <loc>http://thehackercat.me/blog/2015/04/02/little-prince-and-bear/</loc>
+    <lastmod>2015-04-02T01:40:54+08:00</lastmod>
+  </url>
+  <url>
     <loc>http://thehackercat.me/blog/</loc>
   </url>
   <url>
@@ -36,9 +40,15 @@
     <loc>http://thehackercat.me/about/</loc>
   </url>
   <url>
+    <loc>http://thehackercat.me/blog/categories/luan-shuo/</loc>
+  </url>
+  <url>
     <loc>http://thehackercat.me/blog/categories/octopress/</loc>
   </url>
   <url>
     <loc>http://thehackercat.me/blog/categories/django/</loc>
+  </url>
+  <url>
+    <loc>http://thehackercat.me/posts/2/</loc>
   </url>
 </urlset>
