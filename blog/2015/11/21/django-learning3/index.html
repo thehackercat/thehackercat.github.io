@@ -109,6 +109,16 @@ $(document).ready(
 <p>两者之间的差别在于，在 Django 中，视图( Views )不处理用户输入，而是用来选择要展示的哪些数据，而不是要如何展示数据。而 Django 模板 仅仅决定如何展现Django视图指定的数据。</p>
 
 <p>或者说, Django 将 MVC 中的视图进一步分解为 Django 视图 和 Django 模板两个部分，分别决定 “展现哪些数据” 和 “如何展现”，使得 Django 的模板可以根据需要随时替换，而不仅仅限制于内置的模板。至于 MVC 控制器部分，由 Django 框架的 URLconf 来实现。</p>
+
+<h2>模型练手</h2>
+
+<p>为了深入了解 Django Models 对数据的操作，我写了一个简单的博客模型作为练手。</p>
+
+<p>在新建模型时遇到了一个 App migrations 问题如下：</p>
+
+<p><img src="http://thehackercat-hackercat.stor.sinaapp.com/model%20error%201.png" alt="Model CommandError" /></p>
+
+<p>后来发现是由于 Django 版本问题，在最近版本把 migrations 移出了所创建的 App 的根目录，只需要执行<code>python manage.py makemigration</code>接着再执行<code>python manage.py migrate</code>即可解决。</p>
 </div>
 
 
