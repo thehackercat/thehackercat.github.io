@@ -4,7 +4,7 @@
   <title><![CDATA[分类：django | TheHackerCat's blog]]></title>
   <link href="http://thehackercat.me/blog/categories/django/atom.xml" rel="self"/>
   <link href="http://thehackercat.me/"/>
-  <updated>2015-12-07T15:24:54+08:00</updated>
+  <updated>2015-12-08T15:45:59+08:00</updated>
   <id>http://thehackercat.me/</id>
   <author>
     <name><![CDATA[TheHackerCat]]></name>
@@ -12,6 +12,102 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Django 高级 views 和 URLconf 配置]]></title>
+    <link href="http://thehackercat.me/blog/2015/12/08/django-learning-4/"/>
+    <updated>2015-12-08T15:08:35+08:00</updated>
+    <id>http://thehackercat.me/blog/2015/12/08/django-learning-4</id>
+    <content type="html"><![CDATA[<p>由于官网教程讲得迷迷糊糊的，所以我提炼了下代码，发现便于理解很多。</p>
+
+<h2>URLconf 技巧</h2>
+
+<pre><code class="python urls.py"># 在模块开始导入关联的视图函数，直接传递函数对象
+from django.conf.urls import include, url
+from django.contrib import admin
+from mysite.views import hello, current_datetime, hours_ahead
+
+urlpatterns = [
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^hello/$', hello),
+    url(r'^time/$', current_datetime),
+    url(r'^time/plus/(\d{1,2})/$', hours_ahead),
+]
+</code></pre>
+
+<pre><code class="python urls.py"># 在模块开始导入 views 模块，传递 views.视图函数
+from django.conf.urls import include, url
+from django.contrib import admin
+from mysite import views
+
+urlpatterns = [
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^hello/$', views.hello),
+    url(r'^time/$', views.current_datetime),
+    url(r'^time/plus/(\d{1,2})/$', views.hours_ahead),
+]
+</code></pre>
+
+<pre><code class="python urls.py"># 传入一个包含模块名+函数名的对象
+from django.conf.urls import include, url
+from django.contrib import admin
+
+urlpatterns = [
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^hello/$', 'mysite.views.hello'),
+    url(r'^time/$', 'mysite.views.current_datetime'),
+    url(r'^time/plus/(\d{1,2})/$', 'mysite.views.hours_ahead'),
+]
+</code></pre>
+
+<pre><code class="python urls.py"># 开启 URLconf 调试模式
+from django.conf.urls import include, url
+from django.contrib import admin
+from mysite import views
+
+urlpatterns = [
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^hello/$', views.hello),
+    url(r'^time/$', views.current_datetime),
+    url(r'^time/plus/(\d{1,2})/$', views.hours_ahead),
+]
+
+if settings.DEBUG:
+    urlpatterns += url(r'^debuginfo/$', views.debug),
+    )
+</code></pre>
+
+<h2>命名组</h2>
+
+<p>我觉得命名组的模式增加了代码冗余度，且语义化也不好。对于我这种懒人完全不需要 ：D <del>(其实就是我懒的借口)</del></p>
+
+<p>而它的目的在于，将变量以<strong>位置参数</strong>的方式传递给视图函数变为以<strong>关键字参数</strong>的方式传递。</p>
+
+<pre><code class="python urls.py"># 无名组，以位置参数传递变量
+from django.conf.urls import include, url
+from django.contrib import admin
+from mysite import views
+
+urlpatterns = [
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^articles/(\d{4})/$'， view.year_archive),
+    url(r'^articles/(\d{4})/(\d{2})/$', views.month_archive),
+]
+</code></pre>
+
+<pre><code class="python urls.py"># 命名组，以关键字参数传递变量
+from django.conf.urls import include, url
+from django.contrib import admin
+from mysite import views
+
+urlpatterns = [
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^articles/(?P&lt;year&gt;\d{4})/$'， view.year_archive),
+    url(r'^articles/(?P&lt;year&gt;\d{4})/(?&lt;month&gt;\d{2})/$', views.month_archive),
+]
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[深入理解 Python 装饰器]]></title>

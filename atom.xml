@@ -4,7 +4,7 @@
   <title><![CDATA[TheHackerCat's blog]]></title>
   <link href="http://thehackercat.me/atom.xml" rel="self"/>
   <link href="http://thehackercat.me/"/>
-  <updated>2015-12-07T15:24:54+08:00</updated>
+  <updated>2015-12-08T15:45:59+08:00</updated>
   <id>http://thehackercat.me/</id>
   <author>
     <name><![CDATA[TheHackerCat]]></name>
@@ -12,6 +12,185 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Django 高级 views 和 URLconf 配置]]></title>
+    <link href="http://thehackercat.me/blog/2015/12/08/django-learning-4/"/>
+    <updated>2015-12-08T15:08:35+08:00</updated>
+    <id>http://thehackercat.me/blog/2015/12/08/django-learning-4</id>
+    <content type="html"><![CDATA[<p>由于官网教程讲得迷迷糊糊的，所以我提炼了下代码，发现便于理解很多。</p>
+
+<h2>URLconf 技巧</h2>
+
+<figure class='code'><figcaption><span>urls.py</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># 在模块开始导入关联的视图函数，直接传递函数对象</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">include</span><span class="p">,</span> <span class="n">url</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">mysite.views</span> <span class="kn">import</span> <span class="n">hello</span><span class="p">,</span> <span class="n">current_datetime</span><span class="p">,</span> <span class="n">hours_ahead</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^admin/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">)),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^hello/$&#39;</span><span class="p">,</span> <span class="n">hello</span><span class="p">),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^time/$&#39;</span><span class="p">,</span> <span class="n">current_datetime</span><span class="p">),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^time/plus/(\d{1,2})/$&#39;</span><span class="p">,</span> <span class="n">hours_ahead</span><span class="p">),</span>
+</span><span class='line'><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>urls.py</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># 在模块开始导入 views 模块，传递 views.视图函数</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">include</span><span class="p">,</span> <span class="n">url</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">mysite</span> <span class="kn">import</span> <span class="n">views</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^admin/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">)),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^hello/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">hello</span><span class="p">),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^time/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">current_datetime</span><span class="p">),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^time/plus/(\d{1,2})/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">hours_ahead</span><span class="p">),</span>
+</span><span class='line'><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>urls.py</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># 传入一个包含模块名+函数名的对象</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">include</span><span class="p">,</span> <span class="n">url</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^admin/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">)),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^hello/$&#39;</span><span class="p">,</span> <span class="s">&#39;mysite.views.hello&#39;</span><span class="p">),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^time/$&#39;</span><span class="p">,</span> <span class="s">&#39;mysite.views.current_datetime&#39;</span><span class="p">),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^time/plus/(\d{1,2})/$&#39;</span><span class="p">,</span> <span class="s">&#39;mysite.views.hours_ahead&#39;</span><span class="p">),</span>
+</span><span class='line'><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>urls.py</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># 开启 URLconf 调试模式</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">include</span><span class="p">,</span> <span class="n">url</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">mysite</span> <span class="kn">import</span> <span class="n">views</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^admin/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">)),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^hello/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">hello</span><span class="p">),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^time/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">current_datetime</span><span class="p">),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^time/plus/(\d{1,2})/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">hours_ahead</span><span class="p">),</span>
+</span><span class='line'><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">:</span>
+</span><span class='line'>  <span class="n">urlpatterns</span> <span class="o">+=</span> <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^debuginfo/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">debug</span><span class="p">),</span>
+</span><span class='line'>  <span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>命名组</h2>
+
+<p>我觉得命名组的模式增加了代码冗余度，且语义化也不好。对于我这种懒人完全不需要 ：D <del>(其实就是我懒的借口)</del></p>
+
+<p>而它的目的在于，将变量以<strong>位置参数</strong>的方式传递给视图函数变为以<strong>关键字参数</strong>的方式传递。</p>
+
+<figure class='code'><figcaption><span>urls.py</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># 无名组，以位置参数传递变量</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">include</span><span class="p">,</span> <span class="n">url</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">mysite</span> <span class="kn">import</span> <span class="n">views</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^admin/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">)),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^articles/(\d{4})/$&#39;</span><span class="err">，</span> <span class="n">view</span><span class="o">.</span><span class="n">year_archive</span><span class="p">),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^articles/(\d{4})/(\d{2})/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">month_archive</span><span class="p">),</span>
+</span><span class='line'><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>urls.py</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># 命名组，以关键字参数传递变量</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">include</span><span class="p">,</span> <span class="n">url</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">mysite</span> <span class="kn">import</span> <span class="n">views</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^admin/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">)),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^articles/(?P&lt;year&gt;\d{4})/$&#39;</span><span class="err">，</span> <span class="n">view</span><span class="o">.</span><span class="n">year_archive</span><span class="p">),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^articles/(?P&lt;year&gt;\d{4})/(?&lt;month&gt;\d{2})/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">month_archive</span><span class="p">),</span>
+</span><span class='line'><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[深入理解 Python 装饰器]]></title>

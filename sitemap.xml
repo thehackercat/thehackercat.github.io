@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://thehackercat.me/blog/2015/12/08/django-learning-4/</loc>
+    <lastmod>2015-12-08T15:08:35+08:00</lastmod>
+  </url>
+  <url>
     <loc>http://thehackercat.me/blog/2015/12/07/python-decorator-learning/</loc>
     <lastmod>2015-12-07T14:12:24+08:00</lastmod>
   </url>
