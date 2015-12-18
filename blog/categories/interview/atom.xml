@@ -4,7 +4,7 @@
   <title><![CDATA[分类：interview | TheHackerCat's blog]]></title>
   <link href="http://thehackercat.me/blog/categories/interview/atom.xml" rel="self"/>
   <link href="http://thehackercat.me/"/>
-  <updated>2015-12-18T14:11:09+08:00</updated>
+  <updated>2015-12-18T14:15:20+08:00</updated>
   <id>http://thehackercat.me/</id>
   <author>
     <name><![CDATA[TheHackerCat]]></name>
@@ -24,11 +24,17 @@
 
 <h2>Python 的 List 能不能作为字典的 key 传入？</h2>
 
-<p>我回答的是不能，因为字典的 key 值必须是不变的，而 List 的值是可变的。
-之后我上网查了下，更标准的说法是，Python Dict 的 key 值是 hashable 的，即
-- 这个 key 值在其生命周期内是不变的。
-- 并且可以和其他对象进行比较。
-以下是官方对于 hashable 给出的解释：</p>
+<p>我回答的是不能，因为字典的 key 值必须是不变的，而 List 的值是可变的。</p>
+
+<p>之后我上网查了下，更标准的说法是，Python Dict 的 key 值是 hashable 的，即</p>
+
+<ul>
+<li>这个 key 值在其生命周期内是不变的。</li>
+<li>并且可以和其他对象进行比较。</li>
+</ul>
+
+
+<p>以下是官方对于 hashable 给出的解释：</p>
 
 <blockquote><p>An object is hashable if it has a hash value which never changes during its lifetime (it needs a hash() method), and can be compared to other objects (it needs an eq() or cmp() method). Hashable objects which compare equal must have the same hash value.</p>
 
@@ -40,13 +46,18 @@
 
 <h2>Python 装饰器是什么，有什么看法？</h2>
 
-<p>正好之前我写了一篇深入理解 Python 装饰器的 <a href="http://thehackercat.me/blog/2015/12/07/python-decorator-learning/">blog</a>
-我就向他解释了下，装饰器是在不修改原先代码块的情况下，为其加上一些装饰。</p>
+<p>正好之前我写了一篇深入理解 Python 装饰器的 <a href="http://thehackercat.me/blog/2015/12/07/python-decorator-learning/">blog</a></p>
 
-<p>然后我扯了一些装饰器所使用的 Python 语言的几个特性
-- 闭包
-- 把函数作为参数传递
-- 装饰器的迭代</p>
+<p>我就向他解释了下，装饰器是在不修改原先代码块的情况下，为其加上一些装饰。</p>
+
+<p>然后我扯了一些装饰器所使用的 Python 语言的几个特性</p>
+
+<ul>
+<li>闭包</li>
+<li>把函数作为参数传递</li>
+<li>装饰器的迭代</li>
+</ul>
+
 
 <h2>Python 的 yield() 函数的看法？</h2>
 
