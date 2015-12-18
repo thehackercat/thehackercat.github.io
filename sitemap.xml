@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://thehackercat.me/blog/2015/12/18/dolphin-interview/</loc>
+    <lastmod>2015-12-18T12:02:37+08:00</lastmod>
+  </url>
+  <url>
     <loc>http://thehackercat.me/blog/2015/12/08/django-learning-4/</loc>
     <lastmod>2015-12-08T15:08:35+08:00</lastmod>
   </url>
@@ -57,6 +61,6 @@
     <loc>http://thehackercat.me/blog/categories/django/</loc>
   </url>
   <url>
-    <loc>http://thehackercat.me/2/</loc>
+    <loc>http://thehackercat.me/blog/categories/interview/</loc>
   </url>
 </urlset>
