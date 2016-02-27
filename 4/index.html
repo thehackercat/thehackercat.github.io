@@ -5,11 +5,11 @@
 	<script data-cfasync="false" type="text/javascript" src="//use.typekit.net/axj3cfp.js"></script>
 	<script data-cfasync="false" type="text/javascript">try{Typekit.load();}catch(e){}</script>
 	<meta charset="utf-8">
-	<title>小王子与春天的熊  | TheHackerCat's blog</title>
+	<title>Think like a hacker  | TheHackerCat's blog</title>
 
 <meta name="author" content="TheHackerCat"> 
 
-<meta name="description" content="小王子的星球上忽然绽放了一朵娇艳的玫瑰花。 在我没长牙前，我就知道，草是绿的，花是红的，眼泪是咸的，口水是黏的，漂亮阿姨上厕所是不能偷看的。 在我长牙约莫拾几朵玫瑰花之后，我开始明白，玫瑰是不能摘的，春天是追不到的。 只能追，不能到！ 成都的春天鲜艳得很。 仿佛向整个天空泼上绿色的漆。 &hellip;"> <meta name="keywords" content="">
+<meta name="description" content="最近把个人博客搭好了，用了Octopress,一个基于 Jekyll 的集成开发工具。 原来 CSDN 的那个『骇客猫』弃坑了。 安装和配置. Octopress 的安装配置比较简单，是需要按照官网或者网上一些教程一步步走即可。 由于我在2015年10月1日更新了 OS X EI Capitan &hellip;"> <meta name="keywords" content="">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -96,9 +96,143 @@ $(document).ready(
 
 </header>
 
-	<div id="content" class="inner"><article class="post">
-	<h2 class="title">小王子与春天的熊</h2>
-	<div class="entry-content"><p><img src="http://jokerwang-blogpic.stor.sinaapp.com/original/f777064f36fd2b901fadbed0d3e9efab.jpg" alt="Litte prince" /></p>
+	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2015/11/09/fix-the-datetime-bug/">
+		
+			使用Octopress搭建静态博客</a>
+	</h2>
+	<div class="entry-content">
+		<p><img src="http://farm4.staticflickr.com/3749/9616934444_2b0616cc59_b.jpg" alt="Spiderman" /></p>
+
+<p>最近把个人博客搭好了，用了<a href="https://github.com/octopress/octopress">Octopress</a>,一个基于 Jekyll 的集成开发工具。</p>
+
+<p>原来 CSDN 的那个『骇客猫』弃坑了。</p>
+
+<h2>安装和配置.</h2>
+
+<p>Octopress 的安装配置比较简单，是需要按照官网或者网上一些<a href="http://shengmingzhiqing.com/blog/setup-octopress-with-github-pages.html/">教程</a>一步步走即可。</p>
+
+<p>由于我在2015年10月1日更新了 OS X EI Capitan，新系统在权限设置上增加了 <a href="http://www.macworld.com/article/2948140/os-x/private-i-el-capitans-system-integrity-protection-will-shift-utilities-functions.html">System Integrity Protection</a> (SIP) 来提高系统安全性并且在 System Library 的路径上作了修改，导致了一些安装 Jekyll 时出现的异常，罗列如下：</p>
+
+<ol>
+<li><p>如果你使用命令行 <code>$ gem install jekyll</code> 安装 Jekyll 时 遇到了如下问题：</p>
+
+<pre><code> ERROR:  While executing gem ... (Errno::EPERM) 
+ Operation not permitted - /usr/bin/jekyll
+</code></pre>
+
+<p>辣么尝试使用 <code>$ sudo gem install -n /usr/local/bin/ jekyll</code> 从而有效地避开 EI Captian 中 rootless 用户的权限问题。
+或者有更彻底的办法，在终端输入</p>
+
+<pre><code>  $ export PATH=/usr/local/bin:$PATH
+</code></pre>
+
+<p>这样会将原来 /usr/bin 的路径更改为 /usr/local/bin ，然后再进行安装，一劳永逸，但我不建议这么做。</p></li>
+<li><p>如果你在进行上述操作时遇见了如下问题：</p>
+
+<pre><code> ERROR: Error installing jekyll:
+ ERROR: Failed to build gem native extension.  
+</code></pre>
+
+<p>辣么你应该没有安装 OS X developer tools ，安装后才能编译一些 ruby 的原生的拓展插件。
+在命令行中输入</p>
+
+<pre><code>  $ xcode-select --install
+</code></pre>
+
+<p>就口以安装了。</p></li>
+<li><p>如果你遇到了任何 Permission denied 的问题：</p>
+
+<pre><code> ERROR:  While executing gem ... (Errno::EACCES)
+ Permission denied
+</code></pre>
+
+<p>辣么在命令行之前加上 <code>$ sudo</code> 。</p></li>
+</ol>
+
+
+<h2>个性化修改</h2>
+
+<p>对于我的博客的个性化修改我主要做了以下三个：</p>
+
+<ul>
+<li>第三方主题：Octopress有很多<a href="https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes">第三方主题</a>安装也很便捷。</li>
+<li>插件安装：可以在 <code>/plugins</code> 目录下安装一些第三方插件，诸如 Disqus 评论系统、 Twitter 的时间线等。</li>
+<li>样式修改：我在 <code>/sass/custom/_styles.scss</code> 中修改了字体、 blog 的行间距以及一些边边角角的地方。</li>
+</ul>
+
+
+<p>我使用了<strong>第三方主题</strong> cleanpress 她极简的风格很吸引我，但是这个主题有蛮多 bug 的。</p>
+
+<p>比如，在首页会遇见一个博客的 post 时间无法显示导致日历图标和目录图标重合的问题，如下所示：</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/190438/8529829/37c7bc80-23d2-11e5-896b-61a6cd0fc590.png" alt="Date_format_bug" /></p>
+
+<p>经过一上午的 debug ，我发现了在 <code>/source/_includes/post/date.html</code> 第11行
+<code>date_formatted</code> 是没有声明 formatted 的格式的从而导致了无法显示。
+故我将其替换成了 <code>date | date: "%b %e, %Y"</code> 然后就可以显示出 format 后的时间了。</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/10649416/11036546/3078799a-8734-11e5-80c6-8460962bd945.png" alt="Date_format_bug_fixed" /></p>
+
+<p>还有在发布超过20字的标题的博客时，首页的相应博客处会出现样式错误， date_line 会与标题重叠在一起。
+这两个 bug 我都已修复并提交了，在<a href="https://github.com/macjasp/cleanpress/pull/23">这里</a>可以查看并修改。</p>
+
+<p>我使用了<strong>第三方插件</strong> <a href="https://disqus.com/">Disqus</a> 非常棒的评论系统，以及 <a href="https://dev.twitter.com/web/embedded-timelines">Twitter Timeline</a> 也是非常棒的时光机插件。根据官网的教程很容易安装并使用。</p>
+
+<p>接着我还修改了<strong>样式</strong>，其中把全局字体改成了谷歌和 Adobe 联合发布的 <strong>思源黑体</strong> ，漂亮得不像实力派。修改过程主要参考了<a href="http://www.uisdc.com/source-han-sans-webfont">这篇文章</a>。其中每个不同的 Adobe 账户需要插入的是不同的 Typekit 代码( Adobe 会帮你自动生成代码)。但需要注意的是 Adobe Typekit 虽然不是免费服务，但也有免费方案可以选择，注册后有每月 25,000 次的浏览次数额度，对于一般个人 blog 或小型网站来说其实还算充裕（当然你也可以考虑付费升级，价格并不高 ：P ）。</p>
+
+<h2>为什么是蜘蛛侠 ？</h2>
+
+<p>嗷，其实是这样的，熟悉我的人就知道，我个人是漫威巨粉，而先前我看到 cleanpress 的 demo 页是酱的图片我很喜欢，并且想起来<a href="http://marvel.com/news/movies/24062/sony_pictures_entertainment_brings_marvel_studios_into_the_amazing_world_of_spider-man">蜘蛛侠要回归漫威了</a>, <del>再看绿箭我就节食5分钟！</del> 这就像苯宝宝又要回归已经弃坑的绿箭侠一样鸡冻。</p>
+
+<p><img src="http://1.im.guokr.com/DQq0wz6RNDAcEszKLQI4xJXatRcJXp-327H-__RyrwToAQAAlQEAAEpQ.jpg" alt="苯宝宝只想安静地装醇" /></p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-11-09T11:25:00+08:00" pubdate data-updated="true">Nov  9, 2015</time></div>
+	
+
+<div class="tags">
+
+	<a class='category' href='/blog/categories/octopress/'>octopress</a>
+
+</div>
+
+
+	
+</div></article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2015/04/02/little-prince-and-bear/">
+		
+			小王子与春天的熊</a>
+	</h2>
+	<div class="entry-content">
+		<p><img src="http://jokerwang-blogpic.stor.sinaapp.com/original/f777064f36fd2b901fadbed0d3e9efab.jpg" alt="Litte prince" /></p>
 
 <p>小王子的星球上忽然绽放了一朵娇艳的玫瑰花。</p>
 
@@ -235,7 +369,10 @@ $(document).ready(
 <p><strong>那么，</strong></p>
 
 <p><strong>请让我追逐你风中飘忽不定的脸。</strong></p>
-</div>
+
+		
+		
+	</div>
 
 
 <div class="meta">
@@ -264,26 +401,13 @@ $(document).ready(
 	
 </div></article>
 
-	<div class="share">
-	<div class="addthis_toolbox addthis_default_style ">
-	
-	
-	<a class="addthis_button_tweet"></a>
-	
-	
-<!---	<a class="addthis_counter addthis_pill_style"></a> --->
-	</div>
-  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
-</div>
-
-
-
-<section id="comment">
-    <h2 class="title">Comments</h2>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-</section>
-</div>
+<nav id="pagenavi">
+    
+        <a href="3" class="prev">Prev</a>
+    
+    
+    <div class="center"><a href="/archives">Blog Archives</a></div>
+</nav></div>
 	<footer id="footer" class="inner"><a href="http://twitter.com/lexuscyborg103">Twitter</a>
  • 
 <a href="https://github.com/thehackercat">Github</a>
@@ -312,10 +436,7 @@ Powered by Oliver Queen.
       var disqus_shortname = 'thehackercat';
       
         
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://thehackercat.me/blog/2015/04/02/little-prince-and-bear/';
-        var disqus_url = 'http://thehackercat.me/blog/2015/04/02/little-prince-and-bear/';
-        var disqus_script = 'embed.js';
+        var disqus_script = 'count.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

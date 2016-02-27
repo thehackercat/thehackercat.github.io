@@ -5,18 +5,11 @@
 	<script data-cfasync="false" type="text/javascript" src="//use.typekit.net/axj3cfp.js"></script>
 	<script data-cfasync="false" type="text/javascript">try{Typekit.load();}catch(e){}</script>
 	<meta charset="utf-8">
-	<title> Django 学习笔记2-- Templates   | TheHackerCat's blog</title>
+	<title>Think like a hacker  | TheHackerCat's blog</title>
 
 <meta name="author" content="TheHackerCat"> 
 
-<meta name="description" content="虽然 Django 中 Html 可以直接硬编码到 Python 中，但是这种行为并不利于前端开发人员进行维护。所以 Django 有了流模板 ( Liquid Templates )。 流模板基础 举个例子，下面这个模板大致含括了 Django 模板的几个特性。 1
-2
-3
-4
-5
-6
-7
-8 &hellip;"> <meta name="keywords" content="">
+<meta name="description" content="背景 由于之前写 Django &ndash; Templates 篇时要用到包含 Liquid 语法的示例代码，而 Octopress (Jekyll) 在后端使用 Liquid 来处理生成 Web Pages ，对于文章内部插入的原本用来作示例的 Liquid 代码会被解析成 Web &hellip;"> <meta name="keywords" content="">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -103,9 +96,110 @@ $(document).ready(
 
 </header>
 
-	<div id="content" class="inner"><article class="post">
-	<h2 class="title">Django 学习笔记2-- Templates</h2>
-	<div class="entry-content"><p>虽然 Django 中 Html 可以直接硬编码到 Python 中，但是这种行为并不利于前端开发人员进行维护。所以 Django 有了<a href="http://liquidmarkup.org/">流模板</a> ( Liquid Templates )。</p>
+	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2015/11/20/blog-with-liquid/">
+		
+			在 Octopress 中生成包含 Liquid 语句的代码</a>
+	</h2>
+	<div class="entry-content">
+		<h2>背景</h2>
+
+<p>由于之前写 <a href="http://thehackercat.me/blog/2015/11/16/django-learning2/">Django &ndash; Templates</a> 篇时要用到包含 Liquid 语法的示例代码，而 Octopress (Jekyll) 在后端使用 Liquid 来处理生成 Web Pages ，对于文章内部插入的原本用来作示例的 Liquid 代码会被解析成 Web Pages 生成语句而不是原本的内容。故苦恼了我一会儿 Q.Q</p>
+
+<p><del>不过这都不是事儿</del></p>
+
+<h2>解决方法</h2>
+
+<p>比如，我之前写的</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>{% if variable %} 
+</span><span class='line'>{% else %} 
+</span><span class='line'>{% endif %}
+</span><span class='line'></span></code></pre></td></tr></table></div></figure>
+
+
+<p>就会因为包含了 <code>{% ... %}</code>的 Liquid 语句而导致编译出错无法生成 blog 。</p>
+
+<p>解决方法是：</p>
+
+<p>在每一块包含 Liquid 语句的代码快前后用 <code>{% raw %} 和 {% endraw %}</code>包括起来。</p>
+
+<p>这样就能确保示例代码不会被错误的解析成 Jekyll Web Pages 生成语句。</p>
+
+<p>但是如果我要显示<code>{% raw %} 和 {% endraw %}</code>怎么办呢 ？</p>
+
+<p>我试着使用使用如下方法：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{% raw %}
+</span><span class='line'>{% raw %}
+</span><span class='line'>{% endraw %}
+</span><span class='line'>{% endraw %}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>来显示一个<code>{% raw %} 和 {% endraw %}</code>标签，结果编译出错了。原因是， Liquid 的 raw/endraw 标签在匹配时要按照就近原则。</p>
+
+<p>后来我在 <a href="http://stackoverflow.com/questions/3426182/how-to-escape-liquid-template-tags">Stack Overflow</a> 找到了一个回答：</p>
+
+<p>使用<code>{{ "{% raw " }}%}</code>就可以得到<code>{% raw %}</code>，这种方法是正确的。</p>
+
+<p><img src="http://ww1.sinaimg.cn/large/6aa09e8fjw1evgxf183vrj20zk12sqa3.jpg" alt="awesomesauce" /></p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-11-20T16:32:12+08:00" pubdate data-updated="true">Nov 20, 2015</time></div>
+	
+
+<div class="tags">
+
+	<a class='category' href='/blog/categories/octopress/'>octopress</a>
+
+</div>
+
+
+	
+</div></article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2015/11/16/django-learning2/">
+		
+			Django 学习笔记2-- Templates</a>
+	</h2>
+	<div class="entry-content">
+		<p>虽然 Django 中 Html 可以直接硬编码到 Python 中，但是这种行为并不利于前端开发人员进行维护。所以 Django 有了<a href="http://liquidmarkup.org/">流模板</a> ( Liquid Templates )。</p>
 
 <h2>流模板基础</h2>
 
@@ -243,7 +337,10 @@ $(document).ready(
 <p>4.<code>{% load staticfiles %}</code>用来加载静态资源，比如加载 CSS 、 JS 等静态文件时会用到。</p>
 
 <p>5.<code>{# #}</code> 用于注释。</p>
-</div>
+
+		
+		
+	</div>
 
 
 <div class="meta">
@@ -272,26 +369,150 @@ $(document).ready(
 	
 </div></article>
 
-	<div class="share">
-	<div class="addthis_toolbox addthis_default_style ">
-	
-	
-	<a class="addthis_button_tweet"></a>
-	
-	
-<!---	<a class="addthis_counter addthis_pill_style"></a> --->
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2015/11/14/django-learning1/">
+		
+			Django 学习笔记1-- URLconf</a>
+	</h2>
+	<div class="entry-content">
+		<p><img src="https://scontent-nrt1-1.xx.fbcdn.net/hphotos-xfp1/t31.0-8/12186716_1082564598443763_5619412981167558277_o.jpg" alt="PRAY FOR PARIS " /></p>
+
+<p>今天好像巴黎有点乱，希望明天太阳还会照常升起。</p>
+
+<h2>简介</h2>
+
+<p>Django 是一个由 Python 编写、开源并采用经典的 <a href="https://msdn.microsoft.com/en-us/library/ff649643.aspx">MVC</a> 设计模式的 Web Full Stack 应用框架。</p>
+
+<p>在 Django 中，控制器接受用户输入的部分由框架自行处理，所以 Django 里关注更多在模型( Model )、模板( Template )和视图( Views )，称为 MTV 模式。他们各自的职责如下：</p>
+
+<ul>
+<li>模型( Model )，数据存取层：处理与数据相关的所有事务，即如何存取、如何验证有效性、包含哪些行为以及数据之间的关系等。</li>
+<li>模板( Template )，表现层：处理与表现相关的决定，即如何在页面或其他类型文档中进行显示。</li>
+<li>视图( View )，业务逻辑层：存取模型及调取恰当模板的相关逻辑。模型与模板之间的桥梁。</li>
+</ul>
+
+
+<p>而 Django 的编译方式比较特别，他的 MVC 控制器部分由 URLconf 来实现。</p>
+
+<h2>URLconf</h2>
+
+<p>当我在 Django 中编写完视图要想将其路由要页面上时，我发现了 Django 的 URLconf 路由机制，他实现了为相应的视图函数路由到相应界面的映射功能，也就是说，当用户访问了 <code>http://127.0.0.1:8000/hello/</code> 时， Django 调用了视图 views.py 中的 hello () 函数。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">include</span><span class="p">,</span> <span class="n">url</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">mysite.views</span> <span class="kn">import</span> <span class="n">hello</span><span class="p">,</span><span class="n">current_datetime</span><span class="p">,</span><span class="n">hours_ahead</span><span class="p">,</span><span class="n">letter</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'><span class="n">url</span><span class="p">(</span><span class="s">r&#39;^hello/$&#39;</span><span class="p">,</span> <span class="n">hello</span><span class="p">),</span>
+</span><span class='line'><span class="n">url</span><span class="p">(</span><span class="s">r&#39;^time/$&#39;</span><span class="p">,</span> <span class="n">current_datetime</span><span class="p">),</span>
+</span><span class='line'><span class="n">url</span><span class="p">(</span><span class="s">r&#39;^time/plus/(\d{1,2})/ $&#39;</span><span class="p">,</span><span class="n">hours_ahead</span><span class="p">),</span>
+</span><span class='line'><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>可以看出， URLconf 的路由是通过正则表达式来匹配一个完整的 hello 的 URL ，这样的话就可以保证 诸如 /hello/foo/ 等 URL 不会被匹配到。
+为了更深入了解 URLconf 路由的机制，我找到了类似的 <a href="https://github.com/tornadoweb/tornado">tornado</a> 框架来对比。</p>
+
+<p>注意到在其中 web.py 文件中的第2964行开始的如下代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">application</span> <span class="o">=</span> <span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">Application</span><span class="p">([</span>
+</span><span class='line'>  <span class="p">(</span><span class="s">r&quot;/&quot;</span><span class="p">,</span> <span class="n">MainHandler</span><span class="p">),</span>
+</span><span class='line'><span class="p">])</span>
+</span><span class='line'><span class="n">http_server</span> <span class="o">=</span> <span class="n">tornado</span><span class="o">.</span><span class="n">httpserver</span><span class="o">.</span><span class="n">HTTPServer</span><span class="p">(</span><span class="n">application</span><span class="p">)</span>
+</span><span class='line'><span class="n">http_server</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
+</span><span class='line'><span class="n">tornado</span><span class="o">.</span><span class="n">ioloop</span><span class="o">.</span><span class="n">IOLoop</span><span class="o">.</span><span class="n">current</span><span class="p">(</span> <span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">(</span> <span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>可以看出 torando 现把一个路由表作为一个参数，传给 Application 类的构造函数，接着创建了一个实例，然后再把这个实例传递给 http_server 。那么当客户端发起<code>get /</code>请求的时候, http server 接收到这个请求，在路由表中匹配 url pattern ，最后交给 MainHandler 去处理。</p>
+
+<p>这个机制跟 Django 的 URLconf 是类似的，都是通过在 pattern 中匹配好对应的 url 接着传给处理器来负责从路由表中检索并路由。</p>
+
+<p>这种方法<strong>松耦合</strong>了 http server 层和 web application 层，从而让开发者可以专注于 web 应用的逻辑层，很好！  ：D</p>
+
+<h2>Django 如何处理请求</h2>
+
+<p>所以了解过了 Django 的 URLconf 机制后，我开始思考他是如何处理请求的。</p>
+
+<p>我开启服务器后在地址栏中输入 <code>http://127.0.0.1:8000/time/plus/20/</code></p>
+
+<p><img src="http://thehackercat-hackercat.stor.sinaapp.com/urlconf1.png" alt="timeplus20" /></p>
+
+<p>然后花现处理路线如下：</p>
+
+<ol>
+<li><p>进来的请求转入 /time/plus/20/ .</p></li>
+<li><p>Django 通过在 ROOT_URLCONF 配置来决定根 URLconf .</p></li>
+<li><p>Django 在 URLconf 中的所有 URL 模式中，查找第一个匹配 /time/plus/20/ 的条目。</p></li>
+<li><p>如果找到匹配，将调用相应的视图函数</p></li>
+<li><p>如果没找到匹配，则返回相应的 Http 状态码 (如图)</p></li>
+<li><p>视图函数返回一个HttpResponse</p></li>
+<li><p>Django 转换 HttpResponse 为一个适合的 HTTP response ，以 Web page 显示出来</p></li>
+</ol>
+
+
+<p><img src="http://thehackercat-hackercat.stor.sinaapp.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-11-14%20%E4%B8%8B%E5%8D%889.27.45.png" alt="http_request" /></p>
+
+		
+		
 	</div>
-  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
-</div>
+
+
+<div class="meta">
+	<div class="date">
 
 
 
-<section id="comment">
-    <h2 class="title">Comments</h2>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+  
+
+
+<time datetime="2015-11-14T20:12:37+08:00" pubdate data-updated="true">Nov 14, 2015</time></div>
+	
+
+<div class="tags">
+
+	<a class='category' href='/blog/categories/django/'>django</a>
+
 </div>
-</section>
-</div>
+
+
+	
+</div></article>
+
+<nav id="pagenavi">
+    
+        <a href="2" class="prev">Prev</a>
+    
+    
+        <a href="4" class="next">Next</a>
+    
+    <div class="center"><a href="/archives">Blog Archives</a></div>
+</nav></div>
 	<footer id="footer" class="inner"><a href="http://twitter.com/lexuscyborg103">Twitter</a>
  • 
 <a href="https://github.com/thehackercat">Github</a>
@@ -320,10 +541,7 @@ Powered by Oliver Queen.
       var disqus_shortname = 'thehackercat';
       
         
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://thehackercat.me/blog/2015/11/16/django-learning2/';
-        var disqus_url = 'http://thehackercat.me/blog/2015/11/16/django-learning2/';
-        var disqus_script = 'embed.js';
+        var disqus_script = 'count.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

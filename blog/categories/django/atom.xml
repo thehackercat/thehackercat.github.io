@@ -4,7 +4,7 @@
   <title><![CDATA[分类：django | TheHackerCat's blog]]></title>
   <link href="http://thehackercat.me/blog/categories/django/atom.xml" rel="self"/>
   <link href="http://thehackercat.me/"/>
-  <updated>2015-12-23T23:11:11+08:00</updated>
+  <updated>2016-02-27T22:14:53+08:00</updated>
   <id>http://thehackercat.me/</id>
   <author>
     <name><![CDATA[TheHackerCat]]></name>
@@ -12,6 +12,344 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[在 Ubuntu 下搭建 uWSGI + nginx + Django]]></title>
+    <link href="http://thehackercat.me/blog/2016/02/27/nginx-uwsgi-django/"/>
+    <updated>2016-02-27T21:04:07+08:00</updated>
+    <id>http://thehackercat.me/blog/2016/02/27/nginx-uwsgi-django</id>
+    <content type="html"><![CDATA[<h3>背景 :</h3>
+
+<p>公司要求用 Django 做些项目，之前按网上教程搭环境的时候就遇到很多问题，感觉有些教程都是有误的，今天用 uWSGI 开多线程的时候服务器报了 HTTP 500 的错( Internal Server Error )，然后就一直连不上去了。所以按<a href="http://uwsgi-docs.readthedocs.org/en/latest/tutorials/Django_and_nginx.html">官网的教程</a>重新配置一遍，把出现的问题记录下来。</p>
+
+<h3>准备工作</h3>
+
+<h4>概况</h4>
+
+<p>一个 Web 服务器能加载 ( Html , images , CSS 等静态文件)，但是它不能直接跑 Django 应用 (对于动态的请求无法处理) ，它需要某些工具来支持 Django 应用的运行，从而使 服务器能够接受客户端的请求，处理，并返回请求。s</p>
+
+<p>这时，我们就需要一个服务器网关接口 &ndash; WSGI ! WSGI 是一种Web服务器网关接口。它是一个 Web 服务器（如 nginx）与应用服务器（如 uWSGI 服务器）通信的一种规范</p>
+
+<p>而 uWSGI 是一个Web服务器，它实现了 WSGI 协议、 uwsgi 、 http 等协议。</p>
+
+<p>nginx 中 <code>HttpUwsgiModule</code> 的作用是与 uWSGI 服务器进行数据交换。</p>
+
+<p>所以这套配置的实现原理是将 nginx 作为服务器最前端，它将接收 Web 的所有请求，统一管理请求。nginx 把所有静态请求自己来处理（这是 Nginx 的强项）。然后，Nginx 将所有非静态请求通过 uwsgi 传递给 Django ，由 Django 来进行处理，从而完成一次 Web 请求。</p>
+
+<p>配置 uWSGI + nginx + Django 即实现以下4个链接，在下文，我们会一步步进行链接。</p>
+
+<pre><code>the web client &lt;-&gt; the web server &lt;-&gt; the socket &lt;-&gt; uwsgi &lt;-&gt; Django
+</code></pre>
+
+<h4>Python</h4>
+
+<p>Ubuntu 14.04 自带了 Python2.7.6</p>
+
+<p>你也可以通过</p>
+
+<pre><code>sudo apt-get install python2.7 python2.7-dev
+</code></pre>
+
+<p>来安装最新版本的 Python2.7.11</p>
+
+<h4>Python-pip</h4>
+
+<p>pip 是 Python 的包管理工具，建议 Python 的包都用  pip 进行管理。</p>
+
+<p>通过以下命令安装  pip  :</p>
+
+<pre><code>sudo apt-get install python-pip
+</code></pre>
+
+<h4>Django</h4>
+
+<p>通过以下命令安装 Django 并创建一个新的项目，然后进入到项目根目录 :</p>
+
+<pre><code>sudo pip install Django
+django-admin.py startproject mysite
+cd mysite
+</code></pre>
+
+<h4>关于域名和端口</h4>
+
+<p>在这篇 blog 中，我们把调试域名定为 127.0.0.1，你可以用自己的域名或本机 ip 地址来替代它。</p>
+
+<p>并且，我们用 8000 端口作为 web 调试地址端口，这个端口与大部分 web 服务器的端口不重叠，当然你也可以自行修改调试地址的端口。</p>
+
+<h3>安装配置 uWSGI</h3>
+
+<h4>安装</h4>
+
+<pre><code>sudo pip install uwsgi
+</code></pre>
+
+<p>用 <code>pip</code> 安装 uwsgi 最为方便，因为如果你用 <code>apt-get install</code> 来安装 uwsgi 的话，你需要在 Python 搜索路径中添加入 uwsgi 模块。</p>
+
+<h4>测试 uwsgi</h4>
+
+<p>在刚刚的 mysite 目录下新建一个 Python 文件 <code>test.py</code> :</p>
+
+<pre><code class="python"># test.py
+def application(env, start_response):
+    start_response('200 OK', [('Content-Type','text/html')])    return [b"Hello World"] # python3
+    #return ["Hello World"] # python2
+</code></pre>
+
+<p>接着运行 uWSGI 命令:</p>
+
+<pre><code>uwsgi --http :8000 --wsgi-file test.py
+</code></pre>
+
+<p>注意：在 <code>http</code> 与 <code>:8000</code> 之间有一个空格！</p>
+
+<p>参数含义：</p>
+
+<ul>
+<li><code>http :8000</code>：使用 http 协议，8000端口</li>
+<li><code>wsgi-file test.py</code> : 加载指定文件 test.py</li>
+</ul>
+
+
+<p>接着在浏览器中输入以下 url :</p>
+
+<pre><code>http://127.0.0.1:8000
+</code></pre>
+
+<p>如果出现了 &lsquo;Hello World!&rsquo; 那说明 uWSGI 安装成功，以下链接是成功的 :</p>
+
+<pre><code>the web client &lt;-&gt; uWSGI &lt;-&gt; Django
+</code></pre>
+
+<h4>测试 Django 项目</h4>
+
+<p>现在我们用 uWSGI 来跑 Django 网站试试。</p>
+
+<p>首先进入 Django 项目根目录，即之前的 /mysite/ 运行</p>
+
+<pre><code>python manage.py runserver 127.0.0.1:8888
+</code></pre>
+
+<p>在浏览器中访问该 url ，如果出现如下界面则说明你的 mysite 项目是可运行的 :</p>
+
+<p><img src="http://thehackercat-hackercat.stor.sinaapp.com/django_test1.png" alt="django_test" /></p>
+
+<p>接着运行 uWSGI :</p>
+
+<pre><code>uwsgi --http :8000 --module mysite.wsgi
+</code></pre>
+
+<ul>
+<li><code>module mysite.wsgi</code> : 读取特定的 wsgi 模块</li>
+</ul>
+
+
+<p>如果出现同样的界面，说明你的 uWSGI 已经可以搭载你的 Django 应用惹，所以以下的链接是成功的 :</p>
+
+<pre><code>the web client &lt;-&gt; uWSGI &lt;-&gt; Django
+</code></pre>
+
+<h3>安装配置 nginx</h3>
+
+<h4>安装 nginx</h4>
+
+<pre><code>sudo apt-get install nginx
+sudo /etc/init.d/nginx start    # 开启 nginx 服务
+</code></pre>
+
+<p>现在到浏览器中输入 <code>http://127.0.0.1</code> ，如果你看到以下信息 : “Welcome to nginx!”那么说明 nginx 服务器运行成功，以下链接成功 :</p>
+
+<pre><code>the web client &lt;-&gt; the web server
+</code></pre>
+
+<h4>配置 nginx</h4>
+
+<p>首先，你需要一个 uwsgi_params 文件。</p>
+
+<ul>
+<li>将 uwsgi_params 文件拷贝到项目文件夹下(即 /mysite/ )。uwsgi_params文件在/etc/nginx/目录下，也可以从这个<a href="https://github.com/nginx/nginx/blob/master/conf/uwsgi_params">页面下载</a></li>
+<li>在项目文件夹下创建文件 mysite_nginx.conf ,填入并修改下面内容：</li>
+</ul>
+
+
+<pre><code># mysite_nginx.conf
+
+# the upstream component nginx needs to connect to
+upstream django {
+    # server unix:///path/to/your/mysite/mysite.sock; # for a file socket
+    server 127.0.0.1:8001; # for a web port socket (we'll use this first)
+}
+
+# configuration of the server
+server {
+    # the port your site will be served on
+    listen      8000;
+    # the domain name it will serve for
+    server_name 127.0.0.1; # substitute your machine's IP address or FQDN
+    charset     utf-8;
+
+    # max upload size
+    client_max_body_size 75M;   # adjust to taste
+
+    # Django media
+    location /media  {
+        alias /path/to/your/mysite/media;  # your Django project's media files - amend as required
+    }
+
+    location /static {
+        alias /path/to/your/mysite/static; # your Django project's static files - amend as required
+    }
+
+    # Finally, send all non-media requests to the Django server.
+    location / {
+        uwsgi_pass  django;
+        include     /path/to/your/mysite/uwsgi_params; # the uwsgi_params file you installed
+    }
+}
+</code></pre>
+
+<p>在终端中进入之前的 /mysite/ 项目文件夹，输入 ``pwd``` ，复制下该路径，将 mysite_nginx.conf 中的 /path/to/your/mysite 全部替换掉。</p>
+
+<p>在/etc/nginx/sites-enabled目录下创建本文件的连接，使nginx能够使用它 :</p>
+
+<pre><code>sudo ln -s ~/path/to/your/mysite/mysite_nginx.conf /etc/nginx/sites-enabled/
+</code></pre>
+
+<p>注意：记得检查 /etc/nginx/sites-enabled/ 下的软链接是否成功，因为之前我就遇到了路径出错的问题。</p>
+
+<h4>部署静态文件</h4>
+
+<p>在运行 nginx 前，你还需要把 Django 的所有静态文件全部整理到之前的 static 文件夹里，在 /mysite/mysite/settings.py 中添加以下内容 :</p>
+
+<pre><code>STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+</code></pre>
+
+<p>接着运行</p>
+
+<pre><code>python manage.py collectstatic
+</code></pre>
+
+<p>现在你发现 Django 所有的静态文件都被整理到了 /mysite/static/ 文件夹里了。</p>
+
+<h4>测试 nginx</h4>
+
+<p>首先重启 ngxin 服务 :</p>
+
+<pre><code>sudo /etc/init.d/nginx restart
+</code></pre>
+
+<p>在 /mysite/mysite/media/ 文件夹中添加一个 <code>media.png</code> 文件。</p>
+
+<p>在浏览器中打开 :<code>http://127.0.0.1:8000/media/media.png</code></p>
+
+<p>如果显示出了图片，说明 nginx 服务已经正确运行惹。</p>
+
+<p>注意在从浏览器中请求图片信息时，在 uwsgi 里是没有输出信息的，而请求一个其他的动态网页时，则会输出类似 <code>[pid: 1952|app: 0|req: 3/3] 127.0.0.1 () {36 vars in 599 bytes} [Wed Mar 18 08:43:27 2015] GET /time/ =&gt; generated 63 bytes in 1 msecs (HTTP/1.1 200) 2 headers in 88 bytes (1 switches on core 0)</code> 这样的信息。</p>
+
+<p>也就是缩，当你在浏览器中请求 media.png 时， nginx 会检查这个地址 /media/ ，接着它会在 mysite_nginx.conf 文件中看到这段代码:</p>
+
+<pre><code>location /media  {
+        alias /home/thehackercat/Dev/mysite/mysite/media;  # your Django project's media files - amend as required
+</code></pre>
+
+<p>它会直接从这个路径下去寻找图片，找到了就显示粗来，没找着就报 404 错误。</p>
+
+<h4>nginx and uWSGI and test.py</h4>
+
+<p>现在进入 /mysite/ 文件夹 输入以下命令 ：</p>
+
+<pre><code>uwsgi --socket :8001 --wsgi-file test.py
+</code></pre>
+
+<p>在浏览器中访问 <code>http://127.0.0.1:8000</code> 如果出现 &lsquo;Hello World!&rsquo; 则说明以下链接是成功的 :</p>
+
+<pre><code>the web client &lt;-&gt; the web server &lt;-&gt; the socket &lt;-&gt; uWSGI &lt;-&gt; Python
+</code></pre>
+
+<h3>用 UNIX socket 取代 TCP port</h3>
+
+<p>在 mysite/ 文件夹下创建一个新文件 mysite.sock （空文本文档即可）。</p>
+
+<p>然后对 <code>mysite_nginx.conf</code> 做以下修改 :</p>
+
+<pre><code>server unix:///path/to/your/mysite/mysite.sock; # for a file socket
+# server 127.0.0.1:8001; # for a web port socket (we'll use this first)
+</code></pre>
+
+<p>运行 :</p>
+
+<pre><code>sudo /etc/init.d/nginx restart
+uwsgi --socket mysite.sock --wsgi-file test.py
+</code></pre>
+
+<p>打开 <code>http://127.0.0.1:8000</code> 结果报错了，出现了这个错误</p>
+
+<pre><code>[crit] 4133#0: *1 connect() to unix:/home/thehackercat/Dev/mysite/mysite.sock failed (13: Permission denied) while connecting to upstream, client: 127.0.0.1, server: 127.0.0.1, request: "GET / HTTP/1.1", upstream: "uwsgi://unix:/home/thehackercat/Dev/mysite/mysite.sock:", host: "127.0.0.1:8000"
+</code></pre>
+
+<p>发现原来是权限的问题，于是在命令中加入这一段 :</p>
+
+<pre><code>uwsgi --socket mysite.sock --wsgi-file test.py --chmod-socket=666 
+</code></pre>
+
+<p>然后就成功了！</p>
+
+<h4>用 uswgi 和 nginx 跑 Django 应用</h4>
+
+<p>如果上面一切都运行正常，则输入下面命令可以跑 Django 应用 :</p>
+
+<pre><code>uwsgi --socket mysite.sock --module mysite.wsgi --chmod-socket=666
+</code></pre>
+
+<h3>配置 uWSGI 便捷开启服务器</h3>
+
+<p>如果每次都按上述命令来跑 Django 应用实在麻烦，所以使用 .ini 文件来简化工作，便捷开启服务器，方法如下 :</p>
+
+<p>在 /mysite/ 文件夹下创建文件 mysite_uwsgi.ini ，并填写修改下面内容 :</p>
+
+<pre><code>mysite_uwsgi.ini file
+[uwsgi]
+
+# Django-related settings
+# the base directory (full path)
+chdir = /home/thehackercat/Dev/mysite
+# Django's wsgi file
+module = mysite.wsgi
+# the virtualenv (full path) 如果你没有装 virtualenv 就把下面这行用注释掉
+home = /usr/bin/virtualenv
+
+# process-related settings
+# master
+master = true
+# maximum number of worker processes
+processes = 10
+# the socket (use the full path to be safe
+socket = /home/thehackercat/Dev/mysite/mysite.sock
+# ... with appropriate permissions - may be needed
+chmod-socket = 666
+# clear environment on exit
+vacuum = true
+</code></pre>
+
+<p>现在，只要运行以下命令，就可以跑 Django 应用了 :</p>
+
+<pre><code>uwsgi --ini mysite_uwsgi.ini
+</code></pre>
+
+<p>到这里，如果你在浏览器中访问<code>http://127.0.0.1:8000</code> 可以看到正常的 Django 页面，则说明 uWSGI + nginx + Django 配置成功！</p>
+
+<h4>参考文档</h4>
+
+<ol>
+<li><a href="http://www.jianshu.com/p/32dbe2537b78">nginx与Django不可不说的秘密</a></li>
+<li><a href="http://uwsgi-docs.readthedocs.org/en/latest/tutorials/Django_and_nginx.html">Setting up Django and your web server with uWSGI and nginx</a></li>
+</ol>
+
+
+<p>有些同学一定会被网上各种教程的 Django 目录结构搞得头大，其实这个目录是可自定义的，下面是我的目录结构 :</p>
+
+<p><img src="http://thehackercat-hackercat.stor.sinaapp.com/django_test4.png" alt="django_menu" /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Django 高级 views 和 URLconf 配置]]></title>
@@ -722,88 +1060,6 @@ c = Context({'person_name':'LexusLee',
 <p>4.<code>{% load staticfiles %}</code>用来加载静态资源，比如加载 CSS 、 JS 等静态文件时会用到。</p>
 
 <p>5.<code>{# #}</code> 用于注释。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[ Django 学习笔记1-- URLconf ]]></title>
-    <link href="http://thehackercat.me/blog/2015/11/14/django-learning1/"/>
-    <updated>2015-11-14T20:12:37+08:00</updated>
-    <id>http://thehackercat.me/blog/2015/11/14/django-learning1</id>
-    <content type="html"><![CDATA[<p><img src="https://scontent-nrt1-1.xx.fbcdn.net/hphotos-xfp1/t31.0-8/12186716_1082564598443763_5619412981167558277_o.jpg" alt="PRAY FOR PARIS " /></p>
-
-<p>今天好像巴黎有点乱，希望明天太阳还会照常升起。</p>
-
-<h2>简介</h2>
-
-<p>Django 是一个由 Python 编写、开源并采用经典的 <a href="https://msdn.microsoft.com/en-us/library/ff649643.aspx">MVC</a> 设计模式的 Web Full Stack 应用框架。</p>
-
-<p>在 Django 中，控制器接受用户输入的部分由框架自行处理，所以 Django 里关注更多在模型( Model )、模板( Template )和视图( Views )，称为 MTV 模式。他们各自的职责如下：</p>
-
-<ul>
-<li>模型( Model )，数据存取层：处理与数据相关的所有事务，即如何存取、如何验证有效性、包含哪些行为以及数据之间的关系等。</li>
-<li>模板( Template )，表现层：处理与表现相关的决定，即如何在页面或其他类型文档中进行显示。</li>
-<li>视图( View )，业务逻辑层：存取模型及调取恰当模板的相关逻辑。模型与模板之间的桥梁。</li>
-</ul>
-
-
-<p>而 Django 的编译方式比较特别，他的 MVC 控制器部分由 URLconf 来实现。</p>
-
-<h2>URLconf</h2>
-
-<p>当我在 Django 中编写完视图要想将其路由要页面上时，我发现了 Django 的 URLconf 路由机制，他实现了为相应的视图函数路由到相应界面的映射功能，也就是说，当用户访问了 <code>http://127.0.0.1:8000/hello/</code> 时， Django 调用了视图 views.py 中的 hello () 函数。</p>
-
-<pre><code class="python ">from django.conf.urls import include, url
-from mysite.views import hello,current_datetime,hours_ahead,letter
-
-urlpatterns = [
-url(r'^hello/$', hello),
-url(r'^time/$', current_datetime),
-url(r'^time/plus/(\d{1,2})/ $',hours_ahead),
-]
-</code></pre>
-
-<p>可以看出， URLconf 的路由是通过正则表达式来匹配一个完整的 hello 的 URL ，这样的话就可以保证 诸如 /hello/foo/ 等 URL 不会被匹配到。
-为了更深入了解 URLconf 路由的机制，我找到了类似的 <a href="https://github.com/tornadoweb/tornado">tornado</a> 框架来对比。</p>
-
-<p>注意到在其中 web.py 文件中的第2964行开始的如下代码：</p>
-
-<pre><code class="python ">application = tornado.web.Application([
-    (r"/", MainHandler),
-])
-http_server = tornado.httpserver.HTTPServer(application)
-http_server.listen(options.port)
-tornado.ioloop.IOLoop.current( ).start( )
-</code></pre>
-
-<p>可以看出 torando 现把一个路由表作为一个参数，传给 Application 类的构造函数，接着创建了一个实例，然后再把这个实例传递给 http_server 。那么当客户端发起<code>get /</code>请求的时候, http server 接收到这个请求，在路由表中匹配 url pattern ，最后交给 MainHandler 去处理。</p>
-
-<p>这个机制跟 Django 的 URLconf 是类似的，都是通过在 pattern 中匹配好对应的 url 接着传给处理器来负责从路由表中检索并路由。</p>
-
-<p>这种方法<strong>松耦合</strong>了 http server 层和 web application 层，从而让开发者可以专注于 web 应用的逻辑层，很好！  ：D</p>
-
-<h2>Django 如何处理请求</h2>
-
-<p>所以了解过了 Django 的 URLconf 机制后，我开始思考他是如何处理请求的。</p>
-
-<p>我开启服务器后在地址栏中输入 <code>http://127.0.0.1:8000/time/plus/20/</code></p>
-
-<p><img src="http://thehackercat-hackercat.stor.sinaapp.com/urlconf1.png" alt="timeplus20" /></p>
-
-<p>然后花现处理路线如下：</p>
-
-<ol>
-<li><p>进来的请求转入 /time/plus/20/ .</p></li>
-<li><p>Django 通过在 ROOT_URLCONF 配置来决定根 URLconf .</p></li>
-<li><p>Django 在 URLconf 中的所有 URL 模式中，查找第一个匹配 /time/plus/20/ 的条目。</p></li>
-<li><p>如果找到匹配，将调用相应的视图函数</p></li>
-<li><p>如果没找到匹配，则返回相应的 Http 状态码 (如图)</p></li>
-<li><p>视图函数返回一个HttpResponse</p></li>
-<li><p>Django 转换 HttpResponse 为一个适合的 HTTP response ，以 Web page 显示出来</p></li>
-</ol>
-
-
-<p><img src="http://thehackercat-hackercat.stor.sinaapp.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-11-14%20%E4%B8%8B%E5%8D%889.27.45.png" alt="http_request" /></p>
 ]]></content>
   </entry>
   

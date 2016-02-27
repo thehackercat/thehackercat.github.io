@@ -5,7 +5,7 @@
 	<script data-cfasync="false" type="text/javascript" src="//use.typekit.net/axj3cfp.js"></script>
 	<script data-cfasync="false" type="text/javascript">try{Typekit.load();}catch(e){}</script>
 	<meta charset="utf-8">
-	<title>Think like a hacker  | TheHackerCat's blog</title>
+	<title>在 Ubuntu 下搭建 uWSGI + nginx + Django  | TheHackerCat's blog</title>
 
 <meta name="author" content="TheHackerCat"> 
 
@@ -96,18 +96,9 @@ $(document).ready(
 
 </header>
 
-	<div id="content" class="inner">
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2016/02/27/nginx-uwsgi-django/">
-		
-			在 Ubuntu 下搭建 uWSGI + Nginx + Django</a>
-	</h2>
-	<div class="entry-content">
-		<h3>背景 :</h3>
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">在 Ubuntu 下搭建 uWSGI + Nginx + Django</h2>
+	<div class="entry-content"><h3>背景 :</h3>
 
 <p>公司要求用 Django 做些项目，之前按网上教程搭环境的时候就遇到很多问题，感觉有些教程都是有误的，今天用 uWSGI 开多线程的时候服务器报了 HTTP 500 的错( Internal Server Error )，然后就一直连不上去了。所以按<a href="http://uwsgi-docs.readthedocs.org/en/latest/tutorials/Django_and_nginx.html">官网的教程</a>重新配置一遍，把出现的问题记录下来。</p>
 
@@ -553,10 +544,7 @@ $(document).ready(
 <p>有些同学一定会被网上各种教程的 Django 目录结构搞得头大，其实这个目录是可自定义的，下面是我的目录结构 :</p>
 
 <p><img src="http://thehackercat-hackercat.stor.sinaapp.com/django_test4.png" alt="django_menu" /></p>
-
-		
-		
-	</div>
+</div>
 
 
 <div class="meta">
@@ -585,351 +573,26 @@ $(document).ready(
 	
 </div></article>
 
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2015/12/23/nsfocus-interview/">
-		
-			绿盟 Web 后端实习面试心得</a>
-	</h2>
-	<div class="entry-content">
-		<h2>背景</h2>
-
-<p>12月23号下午2：00参加了绿盟的 Web 后端开发实习生的面试。考官是个胖哥哥，也是科大的，人很温柔和蔼。先问了一些数据结构与算法的问题，接着问了计算机网络的一些基础问题，最后考察了下 Web 开发的一些知识。总得来说题目不难，但是自己也发挥不好，原来以为有了几次面经，但是在现场还是紧张得不行。 (真是给自己的心理素质跪了 ：P)</p>
-
-<h2>(数据结构与算法)图的遍历</h2>
-
-<p>我怕出错就写了5个结点的无向图，如下：
-<img src="http://thehackercat-hackercat.stor.sinaapp.com/tulun.jpg" alt="undirected graph" /></p>
-
-<p>然后写了广度优先遍历：</p>
-
-<p>1->2->3->4->5</p>
-
-<p>深度优先遍历：</p>
-
-<p>1->2->5->4->3</p>
-
-<h2>(数据结构与算法)写个排序算法求列表中倒数第二大的元素</h2>
-
-<p>我用 Python 写了个冒泡排序来处理：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># 冒泡排序</span>
-</span><span class='line'><span class="k">def</span> <span class="nf">bubbleSort</span><span class="p">(</span><span class="n">L</span><span class="p">):</span>
-</span><span class='line'>    <span class="k">for</span> <span class="n">passnum</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">L</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-</span><span class='line'>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">passnum</span><span class="p">):</span>
-</span><span class='line'>            <span class="k">if</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]:</span>
-</span><span class='line'>              <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span><span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">L</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>(数据结构与算法)去重的优化算法</h2>
-
-<p>接着不造为什么就谈到了之前在海豚面试的时候对算法时间复杂度进行优化的问题，然后考官问了我一个去除一个列表中重复元素的算法。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># 去重</span>
-</span><span class='line'><span class="k">def</span> <span class="nf">induplicate</span><span class="p">(</span><span class="n">L</span><span class="p">):</span>
-</span><span class='line'>  <span class="n">L1</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span class='line'>  <span class="k">return</span> <span class="p">[</span><span class="n">L2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">L</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">L2</span><span class="p">]</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这样通过增加空间复杂度来降低时间复杂度</p>
-
-<h2>Http 状态码</h2>
-
-<p>这个我当时说错了</p>
-
-<p>我说的是
-- 2 开头的是成功
-- 3 开头的是需要等待
-- 4 开头的通常是请求出错
-- 5 开头的是服务器问题</p>
-
-<p>后来回来查了下
-- 3 开头的标识重定向
-- 5 开头的表示服务不可用</p>
-
-<h2>TCP 3次握手连接和4次握手断开连接的过程</h2>
-
-<p>这个不能更经典了。</p>
-
-<p>就不详细列出了，可以参见这个<a href="http://blog.csdn.net/zhuying_linux/article/details/7449403">详解</a></p>
-
-<h2>设计一个产品参数配置页面布局</h2>
-
-<p>我本来打算多扯一些的，因为最近正好在看的<a href="http://book.douban.com/subject/3323633/">《写给大家看的设计书》</a>，但是词穷了，就画了个抽屉菜单的布局,但是感觉还有很多交互设计的地方我欠考虑。</p>
-
-<h2>Http 和 Https 的区别</h2>
-
-<p>这个我没答出来，我只知道 Https 是经过一定手段加密使得 Http 传输的数据包中一些明文数据变得"隐晦"，但是具体的实现方法不太清楚。</p>
-
-<p>后来我看了一篇 <a href="http://www.fenesky.com/blog/2014/07/19/how-https-works.html">Blog</a>，主要是用 SSL/TLS 来对数据包进行加密。</p>
-
-<p>这样经过 SSL/TLS 协议加密后，当客户端收到服务器的 Https 请求后，会查询本机所支持的加密算法，并通过该算法来解密 Https 请求。</p>
-
-<h2>总结</h2>
-
-<p>这次面试总的来说题目相对简单。</p>
-
-<p>面试官也教了我很多网安方面的知识，比如12306的签名协议和网关安全，虽然我是网络安全方面的小白，但是我觉得 Web 安全很炫酷。</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-12-23T21:37:16+08:00" pubdate data-updated="true">Dec 23, 2015</time></div>
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
 	
-
-<div class="tags">
-
-	<a class='category' href='/blog/categories/interview/'>interview</a>
-
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+<!---	<a class="addthis_counter addthis_pill_style"></a> --->
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
 </div>
 
 
-	
-</div></article>
 
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2015/12/18/dolphin-interview/">
-		
-			海豚浏览器 Python 实习面试心得</a>
-	</h2>
-	<div class="entry-content">
-		<h2>背景</h2>
-
-<p>12月11号下午4：30参加了海豚浏览器的 Python 后台开发实习生的电面，考官一开始先问了我一些 Python 基础的问题，接着问了些计网的经典面试题，最后考了2道算法题，然后开始扯皮一些之前做过的项目中的问题等，最后总结心得如下：</p>
-
-<h2>Python 的 List 能不能作为字典的 key 传入？</h2>
-
-<p>我回答的是不能，因为字典的 key 值必须是不变的，而 List 的值是可变的。</p>
-
-<p>之后我上网查了下，更标准的说法是，Python Dict 的 key 值是 hashable 的，即</p>
-
-<ul>
-<li>这个 key 值在其生命周期内是不变的。</li>
-<li>并且可以和其他对象进行比较。</li>
-</ul>
-
-
-<p>以下是官方对于 hashable 给出的解释：</p>
-
-<blockquote><p>An object is hashable if it has a hash value which never changes during its lifetime (it needs a hash() method), and can be compared to other objects (it needs an eq() or cmp() method). Hashable objects which compare equal must have the same hash value.</p>
-
-<p>Hashability makes an object usable as a dictionary key and a set member, because these data structures use the hash value internally.</p>
-
-<p>All of Python’s immutable built-in objects are hashable, while no mutable containers (such as lists or dictionaries) are. Objects which are instances of user-defined classes are hashable by default; they all compare unequal (except with themselves), and their hash value is their id().</p></blockquote>
-
-<p>所以得出，Python 中所有不变的内奸对象都是 hashable 的，所有可变的容器(比如，list or dict)都不是 hashable 的，故不能作为字典的 key。</p>
-
-<h2>Python 装饰器是什么，有什么看法？</h2>
-
-<p>正好之前我写了一篇深入理解 Python 装饰器的 <a href="http://thehackercat.me/blog/2015/12/07/python-decorator-learning/">blog</a></p>
-
-<p>我就向他解释了下，装饰器是在不修改原先代码块的情况下，为其加上一些装饰。</p>
-
-<p>然后我扯了一些装饰器所使用的 Python 语言的几个特性</p>
-
-<ul>
-<li>闭包</li>
-<li>把函数作为参数传递</li>
-<li>装饰器的迭代</li>
-</ul>
-
-
-<h2>Python 的 yield() 函数的看法？</h2>
-
-<p>我想起来之前有看过一篇 <a href="http://pyzh.readthedocs.org/en/latest/the-python-yield-keyword-explained.html">blog</a> 正好讲过。</p>
-
-<p>yield 函数是 Python 在进行迭代时，函数内部的代码并不立刻执行，而是返回一个 generator 对象，接着每次迭代时，再读取下一个元素。</p>
-
-<p>这样的好处在于，不需要一次性读取全部对象，二是实时地读取生成数据，减少了内存的开支。</p>
-
-<h2>解释下 Django 的 MVC 模式，其中那一部分充当的是 controller 的部分？</h2>
-
-<p>我解释了下，其实 Django 是一个 MTV 模式的框架, MTV 三个部分如下，
-- 模型( Model )，数据存取层：处理与数据相关的所有事务，即如何存取、如何验证有效性、包含哪些行为以及数据之间的关系等。
-- 模板( Template )，表现层：处理与表现相关的决定，即如何在页面或其他类型文档中进行显示。
-- 视图( View )，业务逻辑层：存取模型及调取恰当模板的相关逻辑。模型与模板之间的桥梁。</p>
-
-<p>而其中作为 controller 的部分是 Django 的 URLconf。</p>
-
-<p>它获取用户在地址栏中输入的 URL 并将其路由到 views 模块对应的各个函数，并调用他们。实现了相应的视图函数路由到相应界面的映射功能。</p>
-
-<h2>Django 中的缓存用过吗？看法是？</h2>
-
-<p>正好之前在写一个 Django 练手的图书馆项目中试过 Django 的缓存机制，所以就以那个例子介绍了下。</p>
-
-<p>Django 的缓存系统让开发者能够缓存某个视图的输出。这个缓存是无法在浏览器缓存中控制的，因为它并不包含在 http 头部内。</p>
-
-<p>我用的是 Django 缓存系统的 memcached。 memcached 作为一个后台进程运行，并分配一个指定的内存量，它所实现的功能是提供一个添加、检索和删除缓存中任意数据的快速接口，所有的数据是直接存储在内存中的，所以没有用到数据库或者文件系统，减少了额外开销。</p>
-
-<p>但是 memcached 有一个缺点是，它的缓存是完全存在内存中的，一旦服务器崩溃，辣么所有缓存的数据就丢失了。</p>
-
-<p>其他的缓存机制偶没有用过，所以就没有谈。</p>
-
-<h2>用户在浏览器中输入一个网址，到 Django 后台捕捉到请求其中的过程？</h2>
-
-<p>这个我当时貌似讲偏题了，我说的是</p>
-
-<p>用户输入一个网址后</p>
-
-<ol>
-<li>浏览器先检查缓存，如果有缓存，就从缓存中获得资源文件并加载，如果木有缓存，则执行下一步。</li>
-<li>进行 DNS 域名解析，将域名解析成 ip 地址。</li>
-<li>与 ip 地址对影的服务器进行 TCP 连接。</li>
-<li>接着经历 TCP 3次握手过程。</li>
-<li>一旦连接建立后，开始发送 Http 请求。</li>
-<li>服务器获得 Http 请求后，将该请求打包成 HttpRequest 对象。</li>
-<li>接着检查 Request 中是否需要 Django 中间件的方法，如果没有则执行下一步。</li>
-<li>判断 Request 中的各种信息，诸如 user_agent、GET/POST 等，并在 URLconf 中进行匹配路由到对应的 views 视图函数中。</li>
-<li>返回一个 Response 对象，并调用相应的 views 视图函数。</li>
-<li>最后返回一个 Http 相应，并加载页面。</li>
-</ol>
-
-
-<h2>(数据结构与算法)获得两个列表的交集</h2>
-
-<p>我第一次写的是</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">intset</span><span class="p">(</span><span class="n">L1</span><span class="p">,</span><span class="n">L2</span><span class="p">):</span>
-</span><span class='line'>  <span class="n">L</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span class='line'>  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">L1</span><span class="p">:</span>
-</span><span class='line'>      <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">L2</span><span class="p">:</span>
-</span><span class='line'>          <span class="n">L</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-</span><span class='line'>  <span class="k">return</span> <span class="n">L</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>接着考官问我，这个时间复杂度是多少，很明显是O(n<sup>2</sup>)，他又问我有没有更好的方法，</p>
-
-<p>于是我写了第二种方法</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">intset2</span><span class="p">(</span><span class="n">L1</span><span class="p">,</span><span class="n">L2</span><span class="p">):</span>
-</span><span class='line'>  <span class="n">L</span> <span class="o">=</span> <span class="p">[</span><span class="nb">set</span><span class="p">(</span><span class="n">L1</span><span class="p">)</span><span class="o">^</span><span class="nb">set</span><span class="p">(</span><span class="n">L2</span><span class="p">)]</span>
-</span><span class='line'>  <span class="k">return</span> <span class="n">L</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这样先把L1、L2列表中重复的元素删除了，接着再用异或符来取得他们的交集。</p>
-
-<h2>(数据结构与算法)一个人一次可以爬3级或5级的台阶，请问他爬到第m层时，有n种解法，求解</h2>
-
-<p>这个我当时没写出来，我第一眼感觉是递归的题，后来室友告诉我是线性规划的题。之后我在 leetcode 上也看到了相应的解法，真是太蠢了我！</p>
-
-<p>leetcode 解法如下：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
-</span><span class='line'>    <span class="c"># @param {integer} n</span>
-</span><span class='line'>    <span class="c"># @return {integer}</span>
-</span><span class='line'>    <span class="k">def</span> <span class="nf">climbStairs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
-</span><span class='line'>        <span class="k">if</span> <span class="n">n</span><span class="o">==</span><span class="mi">1</span> <span class="ow">or</span> <span class="n">n</span><span class="o">==</span><span class="mi">2</span><span class="p">:</span>
-</span><span class='line'>            <span class="k">return</span> <span class="n">n</span>
-</span><span class='line'>        <span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span><span class="n">c</span><span class="o">=</span><span class="mi">3</span>
-</span><span class='line'>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
-</span><span class='line'>            <span class="n">c</span><span class="o">=</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">;</span><span class="n">a</span><span class="o">=</span><span class="n">b</span><span class="p">;</span><span class="n">b</span><span class="o">=</span><span class="n">c</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">c</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>总结</h2>
-
-<p>以上就是我这次 Python 实习面试的大部分考题，面试完之后感觉自己基础还是不扎实，对于性能优化的理解还有缺陷，代码写得不够漂亮，算法方面很薄弱。故决定刷一下 Python 文档和 Leetcode。</p>
-
-<p>而且这次面试感觉要黄，因为都一星期了，HR 还是木有给我打电话 T.T</p>
-
-<p>不过，我有了其他的考虑了，心理也安定了许多。</p>
-
-<p>希望各自安好吧。</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-12-18T12:02:37+08:00" pubdate data-updated="true">Dec 18, 2015</time></div>
-	
-
-<div class="tags">
-
-	<a class='category' href='/blog/categories/interview/'>interview</a>
-
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
-
-
-	
-</div></article>
-
-<nav id="pagenavi">
-    
-    
-        <a href="2" class="next">Next</a>
-    
-    <div class="center"><a href="/archives">Blog Archives</a></div>
-</nav></div>
+</section>
+</div>
 	<footer id="footer" class="inner"><a href="http://twitter.com/lexuscyborg103">Twitter</a>
  • 
 <a href="https://github.com/thehackercat">Github</a>
@@ -958,7 +621,10 @@ Powered by Oliver Queen.
       var disqus_shortname = 'thehackercat';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://thehackercat.me/blog/2016/02/27/nginx-uwsgi-django/';
+        var disqus_url = 'http://thehackercat.me/blog/2016/02/27/nginx-uwsgi-django/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

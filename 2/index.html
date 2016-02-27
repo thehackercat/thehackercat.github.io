@@ -9,7 +9,20 @@
 
 <meta name="author" content="TheHackerCat"> 
 
-<meta name="description" content="背景 由于之前写 Django &ndash; Templates 篇时要用到包含 Liquid 语法的示例代码，而 Octopress (Jekyll) 在后端使用 Liquid 来处理生成 Web Pages ，对于文章内部插入的原本用来作示例的 Liquid 代码会被解析成 Web &hellip;"> <meta name="keywords" content="">
+<meta name="description" content="由于官网教程讲得迷迷糊糊的，所以我提炼了下代码，发现便于理解很多。 URLconf 技巧 urls.py1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+# 在模块开始导入关联的视图函数，直接传递函数对象
+from django.conf.urls import include, url
+from &hellip;"> <meta name="keywords" content="">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -102,62 +115,182 @@ $(document).ready(
     <article class="post">
 	<h2 class="title">
 		
-		<a href="/blog/2015/11/20/blog-with-liquid/">
+		<a href="/blog/2015/12/08/django-learning-4/">
 		
-			在 Octopress 中生成包含 Liquid 语句的代码</a>
+			Django 高级 Views 和 URLconf 配置</a>
 	</h2>
 	<div class="entry-content">
-		<h2>背景</h2>
+		<p>由于官网教程讲得迷迷糊糊的，所以我提炼了下代码，发现便于理解很多。</p>
 
-<p>由于之前写 <a href="http://thehackercat.me/blog/2015/11/16/django-learning2/">Django &ndash; Templates</a> 篇时要用到包含 Liquid 语法的示例代码，而 Octopress (Jekyll) 在后端使用 Liquid 来处理生成 Web Pages ，对于文章内部插入的原本用来作示例的 Liquid 代码会被解析成 Web Pages 生成语句而不是原本的内容。故苦恼了我一会儿 Q.Q</p>
+<h2>URLconf 技巧</h2>
 
-<p><del>不过这都不是事儿</del></p>
-
-<h2>解决方法</h2>
-
-<p>比如，我之前写的</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>urls.py</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>
-</span><span class='line'>{% if variable %} 
-</span><span class='line'>{% else %} 
-</span><span class='line'>{% endif %}
-</span><span class='line'></span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># 在模块开始导入关联的视图函数，直接传递函数对象</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">include</span><span class="p">,</span> <span class="n">url</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">mysite.views</span> <span class="kn">import</span> <span class="n">hello</span><span class="p">,</span> <span class="n">current_datetime</span><span class="p">,</span> <span class="n">hours_ahead</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^admin/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">)),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^hello/$&#39;</span><span class="p">,</span> <span class="n">hello</span><span class="p">),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^time/$&#39;</span><span class="p">,</span> <span class="n">current_datetime</span><span class="p">),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^time/plus/(\d{1,2})/$&#39;</span><span class="p">,</span> <span class="n">hours_ahead</span><span class="p">),</span>
+</span><span class='line'><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-<p>就会因为包含了 <code>{% ... %}</code>的 Liquid 语句而导致编译出错无法生成 blog 。</p>
 
-<p>解决方法是：</p>
 
-<p>在每一块包含 Liquid 语句的代码快前后用 <code>{% raw %} 和 {% endraw %}</code>包括起来。</p>
-
-<p>这样就能确保示例代码不会被错误的解析成 Jekyll Web Pages 生成语句。</p>
-
-<p>但是如果我要显示<code>{% raw %} 和 {% endraw %}</code>怎么办呢 ？</p>
-
-<p>我试着使用使用如下方法：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>urls.py</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>{% raw %}
-</span><span class='line'>{% raw %}
-</span><span class='line'>{% endraw %}
-</span><span class='line'>{% endraw %}</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># 在模块开始导入 views 模块，传递 views.视图函数</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">include</span><span class="p">,</span> <span class="n">url</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">mysite</span> <span class="kn">import</span> <span class="n">views</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^admin/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">)),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^hello/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">hello</span><span class="p">),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^time/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">current_datetime</span><span class="p">),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^time/plus/(\d{1,2})/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">hours_ahead</span><span class="p">),</span>
+</span><span class='line'><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-<p>来显示一个<code>{% raw %} 和 {% endraw %}</code>标签，结果编译出错了。原因是， Liquid 的 raw/endraw 标签在匹配时要按照就近原则。</p>
 
-<p>后来我在 <a href="http://stackoverflow.com/questions/3426182/how-to-escape-liquid-template-tags">Stack Overflow</a> 找到了一个回答：</p>
 
-<p>使用<code>{{ "{% raw " }}%}</code>就可以得到<code>{% raw %}</code>，这种方法是正确的。</p>
+<figure class='code'><figcaption><span>urls.py</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># 传入一个包含模块名+函数名的对象</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">include</span><span class="p">,</span> <span class="n">url</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^admin/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">)),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^hello/$&#39;</span><span class="p">,</span> <span class="s">&#39;mysite.views.hello&#39;</span><span class="p">),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^time/$&#39;</span><span class="p">,</span> <span class="s">&#39;mysite.views.current_datetime&#39;</span><span class="p">),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^time/plus/(\d{1,2})/$&#39;</span><span class="p">,</span> <span class="s">&#39;mysite.views.hours_ahead&#39;</span><span class="p">),</span>
+</span><span class='line'><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p><img src="http://ww1.sinaimg.cn/large/6aa09e8fjw1evgxf183vrj20zk12sqa3.jpg" alt="awesomesauce" /></p>
+
+
+
+<figure class='code'><figcaption><span>urls.py</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># 开启 URLconf 调试模式</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">include</span><span class="p">,</span> <span class="n">url</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">mysite</span> <span class="kn">import</span> <span class="n">views</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^admin/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">)),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^hello/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">hello</span><span class="p">),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^time/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">current_datetime</span><span class="p">),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^time/plus/(\d{1,2})/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">hours_ahead</span><span class="p">),</span>
+</span><span class='line'><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">:</span>
+</span><span class='line'>  <span class="n">urlpatterns</span> <span class="o">+=</span> <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^debuginfo/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">debug</span><span class="p">),</span>
+</span><span class='line'>  <span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>命名组</h2>
+
+<p>我觉得命名组的模式增加了代码冗余度，且语义化也不好。对于我这种懒人完全不需要 ：D <del>(其实就是我懒的借口)</del></p>
+
+<p>而它的目的在于，将变量以<strong>位置参数</strong>的方式传递给视图函数变为以<strong>关键字参数</strong>的方式传递。</p>
+
+<figure class='code'><figcaption><span>urls.py</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># 无名组，以位置参数传递变量</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">include</span><span class="p">,</span> <span class="n">url</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">mysite</span> <span class="kn">import</span> <span class="n">views</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^admin/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">)),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^articles/(\d{4})/$&#39;</span><span class="err">，</span> <span class="n">view</span><span class="o">.</span><span class="n">year_archive</span><span class="p">),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^articles/(\d{4})/(\d{2})/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">month_archive</span><span class="p">),</span>
+</span><span class='line'><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>urls.py</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># 命名组，以关键字参数传递变量</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">include</span><span class="p">,</span> <span class="n">url</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">mysite</span> <span class="kn">import</span> <span class="n">views</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^admin/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">)),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^articles/(?P&lt;year&gt;\d{4})/$&#39;</span><span class="err">，</span> <span class="n">view</span><span class="o">.</span><span class="n">year_archive</span><span class="p">),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^articles/(?P&lt;year&gt;\d{4})/(?&lt;month&gt;\d{2})/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">month_archive</span><span class="p">),</span>
+</span><span class='line'><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
 
 		
 		
@@ -177,12 +310,12 @@ $(document).ready(
   
 
 
-<time datetime="2015-11-20T16:32:12+08:00" pubdate data-updated="true">Nov 20, 2015</time></div>
+<time datetime="2015-12-08T15:08:35+08:00" pubdate data-updated="true">Dec  8, 2015</time></div>
 	
 
 <div class="tags">
 
-	<a class='category' href='/blog/categories/octopress/'>octopress</a>
+	<a class='category' href='/blog/categories/django/'>django</a>
 
 </div>
 
@@ -194,18 +327,425 @@ $(document).ready(
     <article class="post">
 	<h2 class="title">
 		
-		<a href="/blog/2015/11/16/django-learning2/">
+		<a href="/blog/2015/12/07/python-decorator-learning/">
 		
-			Django 学习笔记2-- Templates</a>
+			深入理解 Python 装饰器</a>
 	</h2>
 	<div class="entry-content">
-		<p>虽然 Django 中 Html 可以直接硬编码到 Python 中，但是这种行为并不利于前端开发人员进行维护。所以 Django 有了<a href="http://liquidmarkup.org/">流模板</a> ( Liquid Templates )。</p>
+		<p>最近在写 Python+Django 的时候发现，有时候封装 API 的时候经常会遗失一些重复的装饰信息，但是直接封装到方法里是比较差劲的写法，因为有多个模块可能同时需要这些装饰信息，所以我希望使用一种可以迭代的装饰器。于是我在 <a href="http://stackoverflow.com/questions/739654/how-can-i-make-a-chain-of-function-decorators-in-python/1594484#1594484">Stack Overflow</a> 上找到了相应的解答。下面以这篇解答为引写下我理解 Python decorator 的思路过程。</p>
 
-<h2>流模板基础</h2>
+<h2>装饰器是做什么用的？</h2>
 
-<p>举个例子，下面这个模板大致含括了 Django 模板的几个特性。</p>
+<p>装饰器实现对一个已有的模块做一些“修饰工作”，所谓修饰工作就是想给现有的模块加上一些小装饰（一些小功能，这些小功能可能好多模块都会用到），但又不让这个小装饰（小功能）侵入到原有的模块中的代码里去。</p>
+
+<h2>装饰器的定义</h2>
+
+<p>首先，你需要知道 <a href="http://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/00143449934543461c9d5dfeeb848f5b72bd012e1113d15000">Python 的闭包</a>，接着发现3点 Python 的特性在装饰器中运用：
+1. 函数可以赋值给一个变量。
+2. 函数可以定义在另一个函数内部。
+3. 函数名可以作为函数返回值。
+辣么，先来看一段代码:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">getTalk</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s">&quot;shout&quot;</span><span class="p">):</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c"># 定义函数</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">shout</span><span class="p">(</span><span class="n">word</span><span class="o">=</span><span class="s">&quot;yes&quot;</span><span class="p">):</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">word</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="o">+</span><span class="s">&quot;!&quot;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">whisper</span><span class="p">(</span><span class="n">word</span><span class="o">=</span><span class="s">&quot;yes&quot;</span><span class="p">)</span> <span class="p">:</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">word</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">+</span><span class="s">&quot;...&quot;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c"># 返回函数</span>
+</span><span class='line'>    <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="s">&quot;shout&quot;</span><span class="p">:</span>
+</span><span class='line'>        <span class="c"># 没有使用&quot;()&quot;, 并不是要调用函数，而是要返回函数对象</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">shout</span>
+</span><span class='line'>    <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">whisper</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># 如何使用？</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># 将函数返回值赋值给一个变量</span>
+</span><span class='line'><span class="n">talk</span> <span class="o">=</span> <span class="n">getTalk</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># 我们可以打印下这个函数对象</span>
+</span><span class='line'><span class="k">print</span> <span class="n">talk</span>
+</span><span class='line'><span class="c">#outputs : &lt;function shout at 0xb7ea817c&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># 这个对象是函数的返回值</span>
+</span><span class='line'><span class="k">print</span> <span class="n">talk</span><span class="p">()</span>
+</span><span class='line'><span class="c">#outputs : Yes!</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># 不仅如此，你还可以直接使用之</span>
+</span><span class='line'><span class="k">print</span> <span class="n">getTalk</span><span class="p">(</span><span class="s">&quot;whisper&quot;</span><span class="p">)()</span>
+</span><span class='line'><span class="c">#outputs : yes...</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>既然函数可以作为返回值，是不是函数也可以作为参数传递呢</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">doSomethingBefore</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">print</span> <span class="s">&quot;I do something before then I call the function you gave me&quot;</span>
+</span><span class='line'>    <span class="k">print</span> <span class="n">func</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">doSomethingBefore</span><span class="p">(</span><span class="n">scream</span><span class="p">)</span>
+</span><span class='line'><span class="c">#outputs:</span>
+</span><span class='line'><span class="c">#I do something before then I call the function you gave me</span>
+</span><span class='line'><span class="c">#Yes!</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>所以看过这两段代码，你一定明白了，装饰器的定义。</p>
+
+<p>装饰器就是封装器，可以让你在被装饰函数之前或之后执行代码，而不必修改函数本身代码。</p>
+
+<h2>怎么写封装器：</h2>
+
+<p>首先，我们来手写一个封装器：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">new_decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">():</span>
+</span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="s">&quot;before the function runs&quot;</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">func</span><span class="p">()</span>
+</span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="s">&quot;after the function runs&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">wrapper</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">along_func</span><span class="p">():</span>
+</span><span class='line'>    <span class="k">print</span><span class="p">(</span><span class="s">&quot;I am a alone function&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">decorated_along_func</span> <span class="o">=</span> <span class="n">new_decorator</span><span class="p">(</span><span class="n">along_func</span><span class="p">)</span>
+</span><span class='line'><span class="n">decorated_along_func</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">#outputs:</span>
+</span><span class='line'><span class="c">#before the function runs</span>
+</span><span class='line'><span class="c">#I am a alone function</span>
+</span><span class='line'><span class="c">#after the function runs</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这里每次调用 decorated_along_func 函数时，都会将 along_func 函数传入到装饰函数 new_decorator 中，完成封装。</p>
+
+<h2>怎么写装饰器：</h2>
+
+<p>那将上例代码稍微进行修改：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">new_decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">():</span>
+</span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="s">&quot;before the function runs&quot;</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">func</span><span class="p">()</span>
+</span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="s">&quot;after the function runs&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">wrapper</span>
+</span><span class='line'>
+</span><span class='line'><span class="nd">@new_decorator</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">along_func</span><span class="p">():</span>
+</span><span class='line'>    <span class="k">print</span><span class="p">(</span><span class="s">&quot;I am a alone function&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">along_func</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>就会发现会得到相同的结果，这就是装饰器！</p>
+
+<p>那么回到我最初的问题，装饰器能否迭代呢？</p>
+
+<p>可以！</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">decorator1</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">():</span>
+</span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="s">&quot;before the function runs&quot;</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">func</span><span class="p">()</span>
+</span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="s">&quot;after the function runs&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">wrapper</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">decorator2</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">():</span>
+</span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="s">&quot;before the decorator1 runs&quot;</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">func</span><span class="p">()</span>
+</span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="s">&quot;after the decorator1 runs&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">wrapper</span>
+</span><span class='line'>
+</span><span class='line'><span class="nd">@decorator2</span>
+</span><span class='line'><span class="nd">@decorator1</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">along_func</span><span class="p">():</span>
+</span><span class='line'>    <span class="k">print</span><span class="p">(</span><span class="s">&quot;I am a alone function&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">along_func</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">#outpus:</span>
+</span><span class='line'><span class="c">#before the decorator1 runs</span>
+</span><span class='line'><span class="c">#before the function runs</span>
+</span><span class='line'><span class="c">#I am a alone function</span>
+</span><span class='line'><span class="c">#after the function runs</span>
+</span><span class='line'><span class="c">#after the decorator1 runs</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+这种特性十分的便捷，但是必须注意装饰器的顺序。</p>
+
+<p>如果上例代码写成：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="nd">@decorator1</span>
+</span><span class='line'><span class="nd">@decorator2</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">along_func</span><span class="p">():</span>
+</span><span class='line'>    <span class="k">print</span><span class="p">(</span><span class="s">&quot;I am a alone function&quot;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>那么结果将变为</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">before</span> <span class="n">the</span> <span class="n">function</span> <span class="n">runs</span>
+</span><span class='line'><span class="n">before</span> <span class="n">the</span> <span class="n">decorator1</span> <span class="n">runs</span>
+</span><span class='line'><span class="n">I</span> <span class="n">am</span> <span class="n">a</span> <span class="n">alone</span> <span class="n">function</span>
+</span><span class='line'><span class="n">after</span> <span class="n">the</span> <span class="n">decorator1</span> <span class="n">runs</span>
+</span><span class='line'><span class="n">after</span> <span class="n">the</span> <span class="n">function</span> <span class="n">runs</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>一些迭代装饰器的用法</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># bold装饰器</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">makebold</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">():</span>
+</span><span class='line'>        <span class="c"># 在前后加入标签</span>
+</span><span class='line'>        <span class="k">return</span> <span class="s">&quot;&lt;b&gt;&quot;</span> <span class="o">+</span> <span class="n">fn</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot;&lt;/b&gt;&quot;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">wrapper</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># italic装饰器</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">makeitalic</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">():</span>
+</span><span class='line'>        <span class="c"># 加入标签</span>
+</span><span class='line'>        <span class="k">return</span> <span class="s">&quot;&lt;i&gt;&quot;</span> <span class="o">+</span> <span class="n">fn</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot;&lt;/i&gt;&quot;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">wrapper</span>
+</span><span class='line'>
+</span><span class='line'><span class="nd">@makebold</span>
+</span><span class='line'><span class="nd">@makeitalic</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">say</span><span class="p">():</span>
+</span><span class='line'>    <span class="k">return</span> <span class="s">&quot;hello&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">print</span> <span class="n">say</span><span class="p">()</span>
+</span><span class='line'><span class="c">#outputs: &lt;b&gt;&lt;i&gt;hello&lt;/i&gt;&lt;/b&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># 等价的代码</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">say</span><span class="p">():</span>
+</span><span class='line'>    <span class="k">return</span> <span class="s">&quot;hello&quot;</span>
+</span><span class='line'><span class="n">say</span> <span class="o">=</span> <span class="n">makebold</span><span class="p">(</span><span class="n">makeitalic</span><span class="p">(</span><span class="n">say</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">print</span> <span class="n">say</span><span class="p">()</span>
+</span><span class='line'><span class="c">#outputs: &lt;b&gt;&lt;i&gt;hello&lt;/i&gt;&lt;/b&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>是不是灰常炫酷。</p>
+
+<h2>高级用法</h2>
+
+<p>关于更多装饰器的高级用法，你可以戳以下链接：</p>
+
+<p><a href="https://wiki.python.org/moin/PythonDecoratorLibrary">戳我</a></p>
+
+<p>关于 Python Decroator 的各种提案，可以参看：</p>
+
+<p><a href="https://wiki.python.org/moin/PythonDecoratorProposals">Python Decorator Proposals</a></p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-12-07T14:12:24+08:00" pubdate data-updated="true">Dec  7, 2015</time></div>
+	
+
+<div class="tags">
+
+	<a class='category' href='/blog/categories/django/'>django</a>
+
+</div>
+
+
+	
+</div></article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2015/11/21/django-learning3/">
+		
+			Django 学习笔记3-- Models</a>
+	</h2>
+	<div class="entry-content">
+		<h2>MTV vs MVC</h2>
+
+<p>正如在之前<a href="http://thehackercat.me/blog/2015/11/14/django-learning1/">这篇文章</a>所提到的， 把数据存取逻辑、业务逻辑和表现逻辑组合在一起的概念有时被称为软件架构的 Model-View-Controller ( MVC )模式。 在这个模式中， Model 代表数据存取层，View 代表的是系统中选择显示什么和怎么显示的部分，Controller 指的是系统中根据用户输入并视需要访问模型，以决定使用哪个视图的那部分。</p>
+
+<p>而 Django 使用的更多的则是模型( Model )、模板( Template )和视图( Views )的软件设计模式，称为 MTV 模式。我在 Stack Overflow 的<a href="http://stackoverflow.com/questions/6621653/django-vs-model-view-controller">这个回答</a>里找到了对于 MTV vs MVC 两种设计模式间的微妙的差别。</p>
+
+<p>其中提到，不能简单的把 Django 视图认为是 MVC 控制器，把 Django 模板认为是 MVC 视图。</p>
+
+<p>两者之间的差别在于，在 Django 中，视图( Views )不处理用户输入，而是用来选择要展示的哪些数据，而不是要如何展示数据。而 Django 模板 仅仅决定如何展现Django视图指定的数据。</p>
+
+<p>或者说, Django 将 MVC 中的视图进一步分解为 Django 视图 和 Django 模板两个部分，分别决定 “展现哪些数据” 和 “如何展现”，使得 Django 的模板可以根据需要随时替换，而不仅仅限制于内置的模板。至于 MVC 控制器部分，由 Django 框架的 URLconf 来实现。</p>
+
+<h2>模型练手</h2>
+
+<p>为了深入了解 Django Models 对数据的操作，我写了一个简单的博客模型作为练手。</p>
+
+<p>在新建模型时遇到了一个 App migrations 问题如下：</p>
+
+<p><img src="http://thehackercat-hackercat.stor.sinaapp.com/model%20error%201.png" alt="Model CommandError" /></p>
+
+<p>后来发现是由于 Django 版本问题，在最近版本把 migrations 移出了所创建的 App 的根目录，只需要执行<code>python manage.py makemigration</code>接着再执行<code>python manage.py migrate</code>即可解决。</p>
+
+<p>写了个简单的博客的增删改查，代码如下：</p>
+
+<figure class='code'><figcaption><span>#view.py </span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -242,166 +782,105 @@ $(document).ready(
 <span class='line-number'>35</span>
 <span class='line-number'>36</span>
 <span class='line-number'>37</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>
-</span><span class='line'>{% load staticfiles %}
-</span><span class='line'><span class="cp">&lt;!DOCTYPE html&gt;</span>
-</span><span class='line'><span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'><span class="nt">&lt;head&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;UTF-8&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;title&gt;</span>{% block title %}{% endblock %}<span class="nt">&lt;/title&gt;</span>
-</span><span class='line'><span class="nt">&lt;/head&gt;</span>
-</span><span class='line'><span class="nt">&lt;body&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;p&gt;</span>Dear {{ person_name }},<span class="nt">&lt;/p&gt;</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c">#!/usr/bin/python</span>
+</span><span class='line'><span class="c">#-*-coding:utf-8 -*-</span>
 </span><span class='line'>
-</span><span class='line'>    <span class="nt">&lt;p&gt;</span>Thanks for placing an order from {{ company }}. It&#39;s scheduled to ship on {{ ship_date|date:&quot;F J,Y &quot; }}.<span class="nt">&lt;/p&gt;</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponseRedirect</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">blog.models</span> <span class="kn">import</span> <span class="n">Blog</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">blog</span> <span class="kn">import</span> <span class="n">forms</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.template</span> <span class="kn">import</span> <span class="n">RequestContext</span>
 </span><span class='line'>
-</span><span class='line'>    {% if ordered_warranty %}
-</span><span class='line'>    <span class="nt">&lt;p&gt;</span>Your warranty information will be included in the packaging.<span class="nt">&lt;/p&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;p&gt;</span>Here are the items you&#39;ve ordered: <span class="nt">&lt;/p&gt;</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">blog_list</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">blog_list</span> <span class="o">=</span> <span class="n">Blog</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s">&quot;blog_list.html&quot;</span><span class="p">,{</span><span class="s">&#39;blog_list&#39;</span><span class="p">:</span><span class="n">blog_list</span><span class="p">})</span>
 </span><span class='line'>
-</span><span class='line'>    <span class="nt">&lt;ul&gt;</span>
-</span><span class='line'>    {% for item in item_list %}
-</span><span class='line'>        <span class="nt">&lt;li&gt;</span>
-</span><span class='line'>            {{ item }}
-</span><span class='line'>        <span class="nt">&lt;/li&gt;</span>
-</span><span class='line'>    {% endfor %}
-</span><span class='line'>    <span class="nt">&lt;/ul&gt;</span>
-</span><span class='line'>    {% else %}
-</span><span class='line'>    <span class="nt">&lt;p&gt;</span>You didnt order a warranty, so you&#39;re on your own when the products inevitably stop working. <span class="nt">&lt;/p&gt;</span>
-</span><span class='line'>    {% endif %}
+</span><span class='line'><span class="k">def</span> <span class="nf">blog_form</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">&#39;POST&#39;</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">form</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">BlogForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
 </span><span class='line'>
-</span><span class='line'>    <span class="nt">&lt;p&gt;</span>Sincerely,<span class="nt">&lt;br</span> <span class="nt">/&gt;</span>{{ company }}<span class="nt">&lt;/p&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;p&gt;</span>footer<span class="nt">&lt;/p&gt;</span>
-</span><span class='line'>    {% block footer %}
-</span><span class='line'>    <span class="nt">&lt;hr&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;p&gt;</span>Thanks for visiting my site.<span class="nt">&lt;/p&gt;</span>
-</span><span class='line'>    {% endblock %}
-</span><span class='line'><span class="nt">&lt;/body&gt;</span>
-</span><span class='line'><span class="nt">&lt;/html&gt;</span>
+</span><span class='line'>        <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+</span><span class='line'>            <span class="n">data</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span>
 </span><span class='line'>
+</span><span class='line'>            <span class="k">if</span> <span class="s">&#39;id&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+</span><span class='line'>                <span class="n">blog</span> <span class="o">=</span> <span class="n">Blog</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;title&#39;</span><span class="p">],</span><span class="n">author</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;author&#39;</span><span class="p">],</span><span class="n">content</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;content&#39;</span><span class="p">])</span>
+</span><span class='line'>                <span class="n">blog</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</span><span class='line'>            <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>                <span class="n">blog</span> <span class="o">=</span> <span class="n">Blog</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+</span><span class='line'>                <span class="n">blog</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">&#39;title&#39;</span><span class="p">]</span>
+</span><span class='line'>                <span class="n">blog</span><span class="o">.</span><span class="n">author</span> <span class="o">=</span> <span class="n">date</span><span class="p">[</span><span class="s">&#39;author&#39;</span><span class="p">]</span>
+</span><span class='line'>                <span class="n">blog</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">&#39;content&#39;</span><span class="p">]</span>
+</span><span class='line'>                <span class="n">blog</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</span><span class='line'>            <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="s">&#39;/blog/list&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>            <span class="n">form</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">BlogForm</span><span class="p">()</span>
+</span><span class='line'>            <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s">&quot;blog_form.html&quot;</span><span class="p">,</span><span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">blog_del</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">errors</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span class='line'>    <span class="k">if</span> <span class="s">&#39;id&#39;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">bid_</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">]</span>
+</span><span class='line'>        <span class="n">Blog</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">fileter</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">bid_</span><span class="p">)</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="s">&#39;/blog/list&#39;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">blog_view</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">if</span> <span class="s">&#39;id&#39;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">bid_</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">]</span>
+</span><span class='line'>        <span class="n">blog</span> <span class="o">=</span> <span class="n">Blog</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">bid_</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">form</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">BlogForm</span><span class="p">(</span>
+</span><span class='line'>            <span class="n">initial</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;id&#39;</span><span class="p">:</span><span class="n">blog</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="s">&#39;title&#39;</span><span class="p">:</span><span class="n">blog</span><span class="o">.</span><span class="n">title</span><span class="p">,</span><span class="s">&#39;author&#39;</span><span class="p">:</span><span class="n">blog</span><span class="o">.</span><span class="n">author</span><span class="p">,</span><span class="s">&#39;content&#39;</span><span class="p">:</span><span class="n">blog</span><span class="o">.</span><span class="n">content</span><span class="p">}</span>
+</span><span class='line'>        <span class="p">)</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s">&quot;blog_form.html&quot;</span><span class="p">,{</span><span class="s">&#39;form&#39;</span><span class="p">:</span><span class="n">form</span><span class="p">},</span><span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>
+</span><span class='line'>    <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;参数异常请刷新后重试&quot;</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s">&quot;blog_list.html&quot;</span><span class="p">,{</span><span class="s">&#39;errors&#39;</span><span class="p">:</span><span class="n">errors</span><span class="p">})</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">blog_edit</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">errors</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span class='line'>    <span class="k">if</span> <span class="s">&#39;id&#39;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">bid_</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">]</span>
+</span><span class='line'>        <span class="n">blog</span> <span class="o">=</span> <span class="n">Blog</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">bid_</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">form</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">BlogForm</span><span class="p">(</span>
+</span><span class='line'>                <span class="n">initial</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;id&#39;</span><span class="p">:</span><span class="n">blog</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="s">&#39;title&#39;</span><span class="p">:</span><span class="n">blog</span><span class="o">.</span><span class="n">title</span><span class="p">,</span><span class="s">&#39;author&#39;</span><span class="p">:</span><span class="n">blog</span><span class="o">.</span><span class="n">author</span><span class="p">,</span><span class="s">&#39;content&#39;</span><span class="p">:</span><span class="n">blog</span><span class="o">.</span><span class="n">content</span><span class="p">}</span>
+</span><span class='line'>        <span class="p">)</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="s">&quot;blog_form.html&quot;</span><span class="p">,{</span><span class="s">&#39;form&#39;</span><span class="p">:</span><span class="n">form</span><span class="p">},</span><span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>
+</span><span class='line'>    <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;参数异常请刷新后重试&quot;</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="s">&quot;blog_list.html&quot;</span><span class="p">,{</span><span class="s">&#39;errors&#39;</span><span class="p">:</span><span class="n">errors</span><span class="p">})</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>看出，模板是基于 Html 的，事实上它就是保存成一个 .html 文件，它跟我们所看到的 html 的区别就在于多了一些由 <code>{{ }}</code>括起来的变量以及由<code>{% %}</code>括起来的模板标签，此外变量还通过过滤器 <code>|</code>来对文本输出格式进行转换。</p>
-
-<p>而这里<code>{{ }}</code>里的变量相当于一个形参，真正显示出来的是在我们渲染模板的 Python 文件里所传给它的值。</p>
-
-<p>比如在下面的模板渲染代码里</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">c</span> <span class="o">=</span> <span class="n">Context</span><span class="p">({</span><span class="s">&#39;person_name&#39;</span><span class="p">:</span><span class="s">&#39;LexusLee&#39;</span><span class="p">,</span>
-</span><span class='line'>          <span class="s">&#39;company&#39;</span><span class="p">:</span> <span class="s">&#39;UESTC&#39;</span><span class="p">,</span>
-</span><span class='line'>          <span class="s">&#39;ship_date&#39;</span><span class="p">:</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2015</span><span class="p">,</span><span class="mi">09</span><span class="p">,</span><span class="mi">24</span><span class="p">),</span>
-</span><span class='line'>          <span class="s">&#39;ordered_warranty&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">})</span>
-</span></code></pre></td></tr></table></div></figure>
 
 
-<p>那么模板中的<code>person_name</code>最终显示的就是<code>LexusLee</code>。</p>
-
-<h2>模板标签</h2>
-
-<ol>
-<li><code>{% if variable %} {% else %} {% endif %}</code>用于判断变量 variable 是否为真，为真则执行 else 标签前的内容，否则执行 else 便签内的内容，跟大部分编程语言中的条件语句用法一致。</li>
-<li>同理<code>{% for %} {% endfor %}</code>的用法也和大部分编程语言中循环语句的用法一致。需要注意的是，每个 for 循环中还有一个成为<code>{% forloop %}</code>的模板变量，这个变量能提示一些循环进度信息相关的属性，关于这个变量的详细统发可以参照<a href="http://djangobook.py3k.cn/appendixF/">这一节</a>。</li>
-<li><code>{% block content %} {% endblock %}</code>是用来处理<a href="http://djangobook.py3k.cn/appendixF/">模板继承</a>和重载的标签，来避免重复和冗余的代码。比如上述的实例模板( base.html )中，我希望在多个文件中都能显示 footer ，而不需要重复编码，故在该模板中写了<code>{% block footer %}</code>,而在另一个文件中只需要写</li>
-</ol>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'>
-</span><span class='line'>{% extends &quot;base.html&quot; %}
-</span><span class='line'>{% block footer %}
-</span><span class='line'><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;https://github.com/thehackercat&quot;</span><span class="nt">&gt;</span>Github<span class="nt">&lt;/a&gt;</span>
-</span><span class='line'>{% endblock %}
-</span><span class='line'>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这样所有的 footer 中都会有</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;https://github.com/thehackercat&quot;</span><span class="nt">&gt;</span>Github<span class="nt">&lt;/a&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这行代码。而之前<code>{% block footer %} {% endblock %}</code>框中的代码将会被 overwrite ，也就是说<strong>对于重载模块，子模板可以重载这些部分，如果子模板不重载这些部分，则会按照默认的内容显示</strong>。</p>
-
-<p>4.<code>{% load staticfiles %}</code>用来加载静态资源，比如加载 CSS 、 JS 等静态文件时会用到。</p>
-
-<p>5.<code>{# #}</code> 用于注释。</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-11-16T15:15:55+08:00" pubdate data-updated="true">Nov 16, 2015</time></div>
-	
-
-<div class="tags">
-
-	<a class='category' href='/blog/categories/django/'>django</a>
-
-</div>
-
-
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2015/11/14/django-learning1/">
-		
-			Django 学习笔记1-- URLconf</a>
-	</h2>
-	<div class="entry-content">
-		<p><img src="https://scontent-nrt1-1.xx.fbcdn.net/hphotos-xfp1/t31.0-8/12186716_1082564598443763_5619412981167558277_o.jpg" alt="PRAY FOR PARIS " /></p>
-
-<p>今天好像巴黎有点乱，希望明天太阳还会照常升起。</p>
-
-<h2>简介</h2>
-
-<p>Django 是一个由 Python 编写、开源并采用经典的 <a href="https://msdn.microsoft.com/en-us/library/ff649643.aspx">MVC</a> 设计模式的 Web Full Stack 应用框架。</p>
-
-<p>在 Django 中，控制器接受用户输入的部分由框架自行处理，所以 Django 里关注更多在模型( Model )、模板( Template )和视图( Views )，称为 MTV 模式。他们各自的职责如下：</p>
-
-<ul>
-<li>模型( Model )，数据存取层：处理与数据相关的所有事务，即如何存取、如何验证有效性、包含哪些行为以及数据之间的关系等。</li>
-<li>模板( Template )，表现层：处理与表现相关的决定，即如何在页面或其他类型文档中进行显示。</li>
-<li>视图( View )，业务逻辑层：存取模型及调取恰当模板的相关逻辑。模型与模板之间的桥梁。</li>
-</ul>
-
-
-<p>而 Django 的编译方式比较特别，他的 MVC 控制器部分由 URLconf 来实现。</p>
-
-<h2>URLconf</h2>
-
-<p>当我在 Django 中编写完视图要想将其路由要页面上时，我发现了 Django 的 URLconf 路由机制，他实现了为相应的视图函数路由到相应界面的映射功能，也就是说，当用户访问了 <code>http://127.0.0.1:8000/hello/</code> 时， Django 调用了视图 views.py 中的 hello () 函数。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>#form.py</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -409,69 +888,36 @@ $(document).ready(
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">include</span><span class="p">,</span> <span class="n">url</span>
-</span><span class='line'><span class="kn">from</span> <span class="nn">mysite.views</span> <span class="kn">import</span> <span class="n">hello</span><span class="p">,</span><span class="n">current_datetime</span><span class="p">,</span><span class="n">hours_ahead</span><span class="p">,</span><span class="n">letter</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c">#!/usr/bin/python</span>
+</span><span class='line'><span class="c">#-*-coding:utf-8 -*-</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">forms</span>
 </span><span class='line'>
-</span><span class='line'><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
-</span><span class='line'><span class="n">url</span><span class="p">(</span><span class="s">r&#39;^hello/$&#39;</span><span class="p">,</span> <span class="n">hello</span><span class="p">),</span>
-</span><span class='line'><span class="n">url</span><span class="p">(</span><span class="s">r&#39;^time/$&#39;</span><span class="p">,</span> <span class="n">current_datetime</span><span class="p">),</span>
-</span><span class='line'><span class="n">url</span><span class="p">(</span><span class="s">r&#39;^time/plus/(\d{1,2})/ $&#39;</span><span class="p">,</span><span class="n">hours_ahead</span><span class="p">),</span>
-</span><span class='line'><span class="p">]</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">BlogForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">title</span> <span class="o">=</span>  <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s">&#39;标题&#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">author</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s">&#39;作者&#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">content</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s">&#39;正文&#39;</span><span class="p">,</span><span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">Textarea</span><span class="p">)</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p></p>
+<p>其中 CharField() 相当于赋予了 title 表段 varchar 的属性。</p>
 
-<p>可以看出， URLconf 的路由是通过正则表达式来匹配一个完整的 hello 的 URL ，这样的话就可以保证 诸如 /hello/foo/ 等 URL 不会被匹配到。
-为了更深入了解 URLconf 路由的机制，我找到了类似的 <a href="https://github.com/tornadoweb/tornado">tornado</a> 框架来对比。</p>
+<p>object.all() 相当于执行了一条<code>select * from blog</code>的 sql 语句。</p>
 
-<p>注意到在其中 web.py 文件中的第2964行开始的如下代码：</p>
+<p>object.get() 相当于执行了一条<code>select * from blog where id='bid_'</code>的获取单个对象的 sql 语句。</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">application</span> <span class="o">=</span> <span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">Application</span><span class="p">([</span>
-</span><span class='line'>  <span class="p">(</span><span class="s">r&quot;/&quot;</span><span class="p">,</span> <span class="n">MainHandler</span><span class="p">),</span>
-</span><span class='line'><span class="p">])</span>
-</span><span class='line'><span class="n">http_server</span> <span class="o">=</span> <span class="n">tornado</span><span class="o">.</span><span class="n">httpserver</span><span class="o">.</span><span class="n">HTTPServer</span><span class="p">(</span><span class="n">application</span><span class="p">)</span>
-</span><span class='line'><span class="n">http_server</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
-</span><span class='line'><span class="n">tornado</span><span class="o">.</span><span class="n">ioloop</span><span class="o">.</span><span class="n">IOLoop</span><span class="o">.</span><span class="n">current</span><span class="p">(</span> <span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">(</span> <span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
+<p>object.save() 相当于执行了<code>UPDATE blog SET ...</code>的 sql 语句。</p>
 
+<p>并用 errors[] 列表来捕捉错误信息，一般防止出现错误的 sql 语句时增加了 blog 表段中的 id 号而其余属性值为空的情况。</p>
 
-<p></p>
+<p>感觉相比于 ThinkinPHP 操作表单 GET/POST 请求以及处理数据库方面要方便得多。</p>
 
-<p>可以看出 torando 现把一个路由表作为一个参数，传给 Application 类的构造函数，接着创建了一个实例，然后再把这个实例传递给 http_server 。那么当客户端发起<code>get /</code>请求的时候, http server 接收到这个请求，在路由表中匹配 url pattern ，最后交给 MainHandler 去处理。</p>
+<h2>疑惑</h2>
 
-<p>这个机制跟 Django 的 URLconf 是类似的，都是通过在 pattern 中匹配好对应的 url 接着传给处理器来负责从路由表中检索并路由。</p>
+<p>MVC 框架大大缩小了开发者对数据存储的直接操作，框架自动生成 sql 语句并空值数据的存取等。以后写 sql 感觉就跟 Excel 一样了，那应该怎么优化 sql 呢。</p>
 
-<p>这种方法<strong>松耦合</strong>了 http server 层和 web application 层，从而让开发者可以专注于 web 应用的逻辑层，很好！  ：D</p>
+<p>顺便吐槽一下，最近 GitHub Repositorie 换新的布局，天热噜，怎么能这么丑！</p>
 
-<h2>Django 如何处理请求</h2>
-
-<p>所以了解过了 Django 的 URLconf 机制后，我开始思考他是如何处理请求的。</p>
-
-<p>我开启服务器后在地址栏中输入 <code>http://127.0.0.1:8000/time/plus/20/</code></p>
-
-<p><img src="http://thehackercat-hackercat.stor.sinaapp.com/urlconf1.png" alt="timeplus20" /></p>
-
-<p>然后花现处理路线如下：</p>
-
-<ol>
-<li><p>进来的请求转入 /time/plus/20/ .</p></li>
-<li><p>Django 通过在 ROOT_URLCONF 配置来决定根 URLconf .</p></li>
-<li><p>Django 在 URLconf 中的所有 URL 模式中，查找第一个匹配 /time/plus/20/ 的条目。</p></li>
-<li><p>如果找到匹配，将调用相应的视图函数</p></li>
-<li><p>如果没找到匹配，则返回相应的 Http 状态码 (如图)</p></li>
-<li><p>视图函数返回一个HttpResponse</p></li>
-<li><p>Django 转换 HttpResponse 为一个适合的 HTTP response ，以 Web page 显示出来</p></li>
-</ol>
-
-
-<p><img src="http://thehackercat-hackercat.stor.sinaapp.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-11-14%20%E4%B8%8B%E5%8D%889.27.45.png" alt="http_request" /></p>
+<p><img src="http://thehackercat-hackercat.stor.sinaapp.com/dontstudyCS.jpg" alt="Dont learn CS" /></p>
 
 		
 		
@@ -491,315 +937,12 @@ $(document).ready(
   
 
 
-<time datetime="2015-11-14T20:12:37+08:00" pubdate data-updated="true">Nov 14, 2015</time></div>
+<time datetime="2015-11-21T13:17:57+08:00" pubdate data-updated="true">Nov 21, 2015</time></div>
 	
 
 <div class="tags">
 
 	<a class='category' href='/blog/categories/django/'>django</a>
-
-</div>
-
-
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2015/11/09/fix-the-datetime-bug/">
-		
-			使用Octopress搭建静态博客</a>
-	</h2>
-	<div class="entry-content">
-		<p><img src="http://farm4.staticflickr.com/3749/9616934444_2b0616cc59_b.jpg" alt="Spiderman" /></p>
-
-<p>最近把个人博客搭好了，用了<a href="https://github.com/octopress/octopress">Octopress</a>,一个基于 Jekyll 的集成开发工具。</p>
-
-<p>原来 CSDN 的那个『骇客猫』弃坑了。</p>
-
-<h2>安装和配置.</h2>
-
-<p>Octopress 的安装配置比较简单，是需要按照官网或者网上一些<a href="http://shengmingzhiqing.com/blog/setup-octopress-with-github-pages.html/">教程</a>一步步走即可。</p>
-
-<p>由于我在2015年10月1日更新了 OS X EI Capitan，新系统在权限设置上增加了 <a href="http://www.macworld.com/article/2948140/os-x/private-i-el-capitans-system-integrity-protection-will-shift-utilities-functions.html">System Integrity Protection</a> (SIP) 来提高系统安全性并且在 System Library 的路径上作了修改，导致了一些安装 Jekyll 时出现的异常，罗列如下：</p>
-
-<ol>
-<li><p>如果你使用命令行 <code>$ gem install jekyll</code> 安装 Jekyll 时 遇到了如下问题：</p>
-
-<pre><code> ERROR:  While executing gem ... (Errno::EPERM) 
- Operation not permitted - /usr/bin/jekyll
-</code></pre>
-
-<p>辣么尝试使用 <code>$ sudo gem install -n /usr/local/bin/ jekyll</code> 从而有效地避开 EI Captian 中 rootless 用户的权限问题。
-或者有更彻底的办法，在终端输入</p>
-
-<pre><code>  $ export PATH=/usr/local/bin:$PATH
-</code></pre>
-
-<p>这样会将原来 /usr/bin 的路径更改为 /usr/local/bin ，然后再进行安装，一劳永逸，但我不建议这么做。</p></li>
-<li><p>如果你在进行上述操作时遇见了如下问题：</p>
-
-<pre><code> ERROR: Error installing jekyll:
- ERROR: Failed to build gem native extension.  
-</code></pre>
-
-<p>辣么你应该没有安装 OS X developer tools ，安装后才能编译一些 ruby 的原生的拓展插件。
-在命令行中输入</p>
-
-<pre><code>  $ xcode-select --install
-</code></pre>
-
-<p>就口以安装了。</p></li>
-<li><p>如果你遇到了任何 Permission denied 的问题：</p>
-
-<pre><code> ERROR:  While executing gem ... (Errno::EACCES)
- Permission denied
-</code></pre>
-
-<p>辣么在命令行之前加上 <code>$ sudo</code> 。</p></li>
-</ol>
-
-
-<h2>个性化修改</h2>
-
-<p>对于我的博客的个性化修改我主要做了以下三个：</p>
-
-<ul>
-<li>第三方主题：Octopress有很多<a href="https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes">第三方主题</a>安装也很便捷。</li>
-<li>插件安装：可以在 <code>/plugins</code> 目录下安装一些第三方插件，诸如 Disqus 评论系统、 Twitter 的时间线等。</li>
-<li>样式修改：我在 <code>/sass/custom/_styles.scss</code> 中修改了字体、 blog 的行间距以及一些边边角角的地方。</li>
-</ul>
-
-
-<p>我使用了<strong>第三方主题</strong> cleanpress 她极简的风格很吸引我，但是这个主题有蛮多 bug 的。</p>
-
-<p>比如，在首页会遇见一个博客的 post 时间无法显示导致日历图标和目录图标重合的问题，如下所示：</p>
-
-<p><img src="https://cloud.githubusercontent.com/assets/190438/8529829/37c7bc80-23d2-11e5-896b-61a6cd0fc590.png" alt="Date_format_bug" /></p>
-
-<p>经过一上午的 debug ，我发现了在 <code>/source/_includes/post/date.html</code> 第11行
-<code>date_formatted</code> 是没有声明 formatted 的格式的从而导致了无法显示。
-故我将其替换成了 <code>date | date: "%b %e, %Y"</code> 然后就可以显示出 format 后的时间了。</p>
-
-<p><img src="https://cloud.githubusercontent.com/assets/10649416/11036546/3078799a-8734-11e5-80c6-8460962bd945.png" alt="Date_format_bug_fixed" /></p>
-
-<p>还有在发布超过20字的标题的博客时，首页的相应博客处会出现样式错误， date_line 会与标题重叠在一起。
-这两个 bug 我都已修复并提交了，在<a href="https://github.com/macjasp/cleanpress/pull/23">这里</a>可以查看并修改。</p>
-
-<p>我使用了<strong>第三方插件</strong> <a href="https://disqus.com/">Disqus</a> 非常棒的评论系统，以及 <a href="https://dev.twitter.com/web/embedded-timelines">Twitter Timeline</a> 也是非常棒的时光机插件。根据官网的教程很容易安装并使用。</p>
-
-<p>接着我还修改了<strong>样式</strong>，其中把全局字体改成了谷歌和 Adobe 联合发布的 <strong>思源黑体</strong> ，漂亮得不像实力派。修改过程主要参考了<a href="http://www.uisdc.com/source-han-sans-webfont">这篇文章</a>。其中每个不同的 Adobe 账户需要插入的是不同的 Typekit 代码( Adobe 会帮你自动生成代码)。但需要注意的是 Adobe Typekit 虽然不是免费服务，但也有免费方案可以选择，注册后有每月 25,000 次的浏览次数额度，对于一般个人 blog 或小型网站来说其实还算充裕（当然你也可以考虑付费升级，价格并不高 ：P ）。</p>
-
-<h2>为什么是蜘蛛侠 ？</h2>
-
-<p>嗷，其实是这样的，熟悉我的人就知道，我个人是漫威巨粉，而先前我看到 cleanpress 的 demo 页是酱的图片我很喜欢，并且想起来<a href="http://marvel.com/news/movies/24062/sony_pictures_entertainment_brings_marvel_studios_into_the_amazing_world_of_spider-man">蜘蛛侠要回归漫威了</a>, <del>再看绿箭我就节食5分钟！</del> 这就像苯宝宝又要回归已经弃坑的绿箭侠一样鸡冻。</p>
-
-<p><img src="http://1.im.guokr.com/DQq0wz6RNDAcEszKLQI4xJXatRcJXp-327H-__RyrwToAQAAlQEAAEpQ.jpg" alt="苯宝宝只想安静地装醇" /></p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-11-09T11:25:00+08:00" pubdate data-updated="true">Nov  9, 2015</time></div>
-	
-
-<div class="tags">
-
-	<a class='category' href='/blog/categories/octopress/'>octopress</a>
-
-</div>
-
-
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2015/04/02/little-prince-and-bear/">
-		
-			小王子与春天的熊</a>
-	</h2>
-	<div class="entry-content">
-		<p><img src="http://jokerwang-blogpic.stor.sinaapp.com/original/f777064f36fd2b901fadbed0d3e9efab.jpg" alt="Litte prince" /></p>
-
-<p>小王子的星球上忽然绽放了一朵娇艳的玫瑰花。</p>
-
-<p>在我没长牙前，我就知道，草是绿的，花是红的，眼泪是咸的，口水是黏的，漂亮阿姨上厕所是不能偷看的。</p>
-
-<p>在我长牙约莫拾几朵玫瑰花之后，我开始明白，玫瑰是不能摘的，春天是追不到的。</p>
-
-<p>只能追，不能到！</p>
-
-<p>成都的春天鲜艳得很。</p>
-
-<p>仿佛向整个天空泼上绿色的漆。</p>
-
-<p>这也使玫瑰显得更加耀眼。</p>
-
-<p>所以，小王子爱上这朵玫瑰，细心地呵护它。他以为，这是一朵唯一的花，只有他的星球上才有，其他的地方都不存在。</p>
-
-<p>然而，玫瑰有刺，香水有毒。</p>
-
-<p>当所有的女青年们一层腻子再一层粉盖住玻尿酸和肉毒杆菌微雕后的粉脸，闷几行code，写几首诗，拜读下冯
-唐，再上微博刷个韩寒。</p>
-
-<p>我开始发现，原来世界上有数百万朵这么完全一样的花儿。</p>
-
-<p>这时，他才知道，他有的只是一朵普通的花。</p>
-
-<p>然而，小王子并没有停止浇灌他的玫瑰花。</p>
-
-<p>因为他知道，他星球上的那朵，仍然是独一无二的，他浇灌过它，用屏风保护过它，还倾听过它的哀怨自诩、它的孤单寂寞。</p>
-
-<blockquote><p>It is the time you have wasted for your rose that makes your rose so important.  <br/>
-&mdash;- 小王子。</p></blockquote>
-
-<p>小王子注定不是个沾满胭脂味的人。</p>
-
-<p>我也不是。</p>
-
-<p>因为我还要纠结<code>preg_match_all($rose，$spring,$you);</code> 会不会报错。</p>
-
-<p>//『从 &lsquo;春天&rsquo; 里抓取 一朵'玫瑰'，传回给 &lsquo;你'；』</p>
-
-<p>我还要担心明天自己能否调整呼吸气定神闲地跟食堂阿姨要个豆浆鸡蛋饼。</p>
-
-<p>然后默默保佑自己 听到闹钟就起床，上课不睡觉，代码一遍过，不得颈椎病。</p>
-
-<p>我远不如小王子那样潇洒，</p>
-
-<blockquote><p>如果不能活得洒脱，那我选择活得机灵。                                                                                                                                                               <br/>
-&mdash;- 小虚大魔王。</p>
-
-<p>If I cant be dissolute, I prefer to die.                                                                                                                                                     <br/>
-&mdash;- 不要碧莲的小虚大魔王。</p></blockquote>
-
-<p>所以我想到多年前认识的一个机灵的朋友。</p>
-
-<p>他是一只熊。</p>
-
-<p>一只春天里的熊。</p>
-
-<pre><code>“最最喜欢你，绿子。”
-“什么程度？”
-“像喜欢春天的熊一样。”
-“春天的熊？什么春天的熊？”
-“春天的原野里，你，一个人正走着，对面走来一只可爱的小熊，浑身的毛活像天鹅绒，眼睛圆鼓鼓的。
-它这么对你说道：
-‘你好，小姐，和我一块儿打滚玩好么？’
-接着，你就和小熊抱在一起，顺着长满三叶草的山坡咕噜噜滚下"   "来，整整玩了一大天，你说棒不棒？”
-“太棒了！”
-“我就是这么喜欢你！”
-</code></pre>
-
-<p>春天的熊哥注定是个极讨女孩子欢心的熊。</p>
-
-<p>我却不是。</p>
-
-<p>因为我既没有他那绒厚的脂肪来缓冲从山顶滚到山脚的摩擦，也没有他那清澈的晶状体房水来倒映出整个湛蓝的天。</p>
-
-<p>然而，我还是很高兴能结识他们两个碧池碧莲。</p>
-
-<p>他们鲜衣怒马，少年才俊。</p>
-
-<p>他们就是牛逼，</p>
-
-<p>新鲜的牛逼。</p>
-
-<p>有空时，</p>
-
-<p>我们聊聊教育面向现代化面向世界面向未来，</p>
-
-<p>再吹逼一下世界霍乱时我们如何去拯救别人的爱情。</p>
-
-<p>最后总结一下把整个春天都拥入怀里的250种方法。</p>
-
-<p>看来所有不要脸的人都注定要相遇的。</p>
-
-<p>成都的春天真绿啊。</p>
-
-<p>阳光透过叶的缝隙小孔成像。</p>
-
-<p>不规则地映射了一个季节。</p>
-
-<p>不知道厦门的太阳是否温软？</p>
-
-<p>不知道可否有一天，我能够像小王子和春天的熊一样，</p>
-
-<p>以真正牛逼的姿态再次相见。</p>
-
-<p>大言不惭地说自己已经足够帅气足够有钱任性，</p>
-
-<p>能依然对汲汲营营的名誉、条条框框的规则、战战兢兢的人情 不屑一顾，</p>
-
-<p>对嘲讽和贬低的声音置之不理，保有与物质世界隔开距离的独到审美，</p>
-
-<p>把所有的目光都留给美好、聪明、温柔的所在。</p>
-
-<p>毕竟，</p>
-
-<p>这才是我们和这个世界结交的缘由。</p>
-
-<p>小王子走近这朵不期而至的玫瑰花。</p>
-
-<p>风却把这朵玫瑰吹散。</p>
-
-<p>花瓣迎着风，</p>
-
-<p>在最高点乘着叶片向前飞。</p>
-
-<p>小王子也迎着风向前追。</p>
-
-<p>然而，扬起的风反而使玫瑰渐行渐远。</p>
-
-<p><strong>如果我不能像一阵风，</strong></p>
-
-<p><strong>那么，</strong></p>
-
-<p><strong>请让我追逐你风中飘忽不定的脸。</strong></p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-04-02T01:40:54+08:00" pubdate data-updated="true">Apr  2, 2015</time></div>
-	
-
-<div class="tags">
-
-	<a class='category' href='/blog/categories/gossip/'>gossip</a>
 
 </div>
 
@@ -812,6 +955,8 @@ $(document).ready(
         <a href="1" class="prev">Prev</a>
     
     
+        <a href="3" class="next">Next</a>
+    
     <div class="center"><a href="/archives">Blog Archives</a></div>
 </nav></div>
 	<footer id="footer" class="inner"><a href="http://twitter.com/lexuscyborg103">Twitter</a>
@@ -822,7 +967,7 @@ $(document).ready(
  • 
 <a href="https://www.linkedin.com/profile/preview?locale=zh_CN&trk=prof-0-sb-preview-primary-button">Linkedin</a>
 <br>
-Copyright &copy; 2015
+Copyright &copy; 2016
 
     TheHackerCat
 
