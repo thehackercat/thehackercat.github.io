@@ -82,4 +82,10 @@
   <url>
     <loc>http://thehackercat.me/blog/categories/django-rest-framework/</loc>
   </url>
+  <url>
+    <loc>http://thehackercat.me/posts/2/</loc>
+  </url>
+  <url>
+    <loc>http://thehackercat.me/posts/3/</loc>
+  </url>
 </urlset>
