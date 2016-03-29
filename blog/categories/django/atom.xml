@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Django | TheHackerCat's Blog]]></title>
   <link href="http://thehackercat.me/blog/categories/django/atom.xml" rel="self"/>
   <link href="http://thehackercat.me/"/>
-  <updated>2016-03-29T15:51:56+08:00</updated>
+  <updated>2016-03-29T16:52:50+08:00</updated>
   <id>http://thehackercat.me/</id>
   <author>
     <name><![CDATA[TheHackerCat]]></name>
@@ -474,10 +474,12 @@ urlpatterns = [
 
 <h2>装饰器的定义</h2>
 
-<p>首先，你需要知道 <a href="http://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/00143449934543461c9d5dfeeb848f5b72bd012e1113d15000">Python 的闭包</a>，接着发现3点 Python 的特性在装饰器中运用：
-1. 函数可以赋值给一个变量。
-2. 函数可以定义在另一个函数内部。
-3. 函数名可以作为函数返回值。
+<p>首先，你需要知道 <a href="http://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/00143449934543461c9d5dfeeb848f5b72bd012e1113d15000">Python 的闭包</a>，接着发现3点 Python 的特性在装饰器中运用：</p>
+
+<ol>
+<li>函数可以赋值给一个变量。</li>
+<li>函数可以定义在另一个函数内部。</li>
+<li><p>函数名可以作为函数返回值。
 辣么，先来看一段代码:
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -584,22 +586,24 @@ urlpatterns = [
 <span class='line-number'>103</span>
 <span class='line-number'>104</span>
 <span class='line-number'>105</span>
+<span class='line-number'>106</span>
 </pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">getTalk</span><span class="p">(</span><span class="nb">type</span><span class="o">=&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">shout</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;):</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="c"># 定义函数</span>
-</span><span class='line'><span class="k">def</span> <span class="nf">shout</span><span class="p">(</span><span class="n">word</span><span class="o">=</span><span class="s">&quot;yes&quot;</span><span class="p">):</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">word</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="o">+</span><span class="s">&quot;!&quot;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="c"># 定义函数</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">shout</span><span class="p">(</span><span class="n">word</span><span class="o">=&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">yes</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;):</span>
+</span><span class='line'>      <span class="k">return</span> <span class="n">word</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="o">+&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="err">!</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="nf">whisper</span><span class="p">(</span><span class="n">word</span><span class="o">=</span><span class="s">&quot;yes&quot;</span><span class="p">)</span> <span class="p">:</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">word</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">+</span><span class="s">&quot;...&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="k">def</span> <span class="nf">whisper</span><span class="p">(</span><span class="n">word</span><span class="o">=&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">yes</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;)</span> <span class="p">:</span>
+</span><span class='line'>      <span class="k">return</span> <span class="n">word</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">+&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="o">&amp;</span><span class="n">hellip</span><span class="p">;</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="c"># 返回函数</span>
-</span><span class='line'><span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="s">&quot;shout&quot;</span><span class="p">:</span>
-</span><span class='line'>    <span class="c"># 没有使用&quot;()&quot;, 并不是要调用函数，而是要返回函数对象</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">shout</span>
-</span><span class='line'><span class="k">else</span><span class="p">:</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">whisper</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="c"># 返回函数</span>
+</span><span class='line'>  <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">shout</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;:</span>
+</span><span class='line'>      <span class="c"># 没有使用&quot;()&amp;ldquo;, 并不是要调用函数，而是要返回函数对象</span>
+</span><span class='line'>      <span class="k">return</span> <span class="n">shout</span>
+</span><span class='line'>  <span class="k">else</span><span class="p">:</span>
+</span><span class='line'>      <span class="k">return</span> <span class="n">whisper</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">ol</span><span class="o">&gt;</span>
+</span><span class='line'>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="err">如何使用？</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
 </span><span class='line'>

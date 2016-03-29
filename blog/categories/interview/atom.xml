@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Interview | TheHackerCat's Blog]]></title>
   <link href="http://thehackercat.me/blog/categories/interview/atom.xml" rel="self"/>
   <link href="http://thehackercat.me/"/>
-  <updated>2016-03-29T15:51:56+08:00</updated>
+  <updated>2016-03-29T16:52:50+08:00</updated>
   <id>http://thehackercat.me/</id>
   <author>
     <name><![CDATA[TheHackerCat]]></name>
@@ -67,15 +67,23 @@ def induplicate(L):
 
 <p>这个我当时说错了</p>
 
-<p>我说的是
-- 2 开头的是成功
-- 3 开头的是需要等待
-- 4 开头的通常是请求出错
-- 5 开头的是服务器问题</p>
+<p>我说的是</p>
 
-<p>后来回来查了下
-- 3 开头的标识重定向
-- 5 开头的表示服务不可用</p>
+<ul>
+<li>2 开头的是成功</li>
+<li>3 开头的是需要等待</li>
+<li>4 开头的通常是请求出错</li>
+<li>5 开头的是服务器问题</li>
+</ul>
+
+
+<p>后来回来查了下</p>
+
+<ul>
+<li>3 开头的标识重定向</li>
+<li>5 开头的表示服务不可用</li>
+</ul>
+
 
 <h2>TCP 3次握手连接和4次握手断开连接的过程</h2>
 
@@ -162,10 +170,14 @@ def induplicate(L):
 
 <h2>解释下 Django 的 MVC 模式，其中那一部分充当的是 controller 的部分？</h2>
 
-<p>我解释了下，其实 Django 是一个 MTV 模式的框架, MTV 三个部分如下，
-- 模型( Model )，数据存取层：处理与数据相关的所有事务，即如何存取、如何验证有效性、包含哪些行为以及数据之间的关系等。
-- 模板( Template )，表现层：处理与表现相关的决定，即如何在页面或其他类型文档中进行显示。
-- 视图( View )，业务逻辑层：存取模型及调取恰当模板的相关逻辑。模型与模板之间的桥梁。</p>
+<p>我解释了下，其实 Django 是一个 MTV 模式的框架, MTV 三个部分如下，</p>
+
+<ul>
+<li>模型( Model )，数据存取层：处理与数据相关的所有事务，即如何存取、如何验证有效性、包含哪些行为以及数据之间的关系等。</li>
+<li>模板( Template )，表现层：处理与表现相关的决定，即如何在页面或其他类型文档中进行显示。</li>
+<li>视图( View )，业务逻辑层：存取模型及调取恰当模板的相关逻辑。模型与模板之间的桥梁。</li>
+</ul>
+
 
 <p>而其中作为 controller 的部分是 Django 的 URLconf。</p>
 

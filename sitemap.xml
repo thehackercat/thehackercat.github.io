@@ -45,6 +45,10 @@
     <lastmod>2015-11-09T11:25:00+08:00</lastmod>
   </url>
   <url>
+    <loc>http://thehackercat.me/blog/2015/05/16/giraffe-man/</loc>
+    <lastmod>2015-05-16T02:01:33+08:00</lastmod>
+  </url>
+  <url>
     <loc>http://thehackercat.me/blog/2015/04/02/little-prince-and-bear/</loc>
     <lastmod>2015-04-02T01:40:54+08:00</lastmod>
   </url>
@@ -77,11 +81,5 @@
   </url>
   <url>
     <loc>http://thehackercat.me/blog/categories/django-rest-framework/</loc>
-  </url>
-  <url>
-    <loc>http://thehackercat.me/posts/2/</loc>
-  </url>
-  <url>
-    <loc>http://thehackercat.me/posts/3/</loc>
   </url>
 </urlset>
