@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[TheHackerCat's blog]]></title>
+  <title><![CDATA[TheHackerCat's Blog]]></title>
   <link href="http://thehackercat.me/atom.xml" rel="self"/>
   <link href="http://thehackercat.me/"/>
-  <updated>2016-02-27T22:14:53+08:00</updated>
+  <updated>2016-03-29T15:51:56+08:00</updated>
   <id>http://thehackercat.me/</id>
   <author>
     <name><![CDATA[TheHackerCat]]></name>
@@ -14,13 +14,197 @@
 
   
   <entry>
-    <title type="html"><![CDATA[在 Ubuntu 下搭建 uWSGI + nginx + Django]]></title>
+    <title type="html"><![CDATA[Django REST Framework 快速上手]]></title>
+    <link href="http://thehackercat.me/blog/2016/03/29/django-rest-framework/"/>
+    <updated>2016-03-29T15:43:36+08:00</updated>
+    <id>http://thehackercat.me/blog/2016/03/29/django-rest-framework</id>
+    <content type="html"><![CDATA[<h2>Django REST Framework 快速上手</h2>
+
+<h3>背景</h3>
+
+<p>这几天正好在研究 RESTful 的方式来写 API，然后上手 Django REST 框架。</p>
+
+<p>Django REST Framework (以下简称 DRF )是一个轻量级的库，熟悉 Django 的话可以很容易的用它来构建 Web API。</p>
+
+<!--more-->
+
+
+<h3>安装前提</h3>
+
+<p>Django REST Framework 安装需要以下前提:</p>
+
+<ul>
+<li>Python (2.7, 3.2, 3.3, 3.4, 3.5)</li>
+<li>Django (1.7+, 1.8, 1.9)</li>
+</ul>
+
+
+<p>我自己的环境是:</p>
+
+<ul>
+<li>Python 2.7.10</li>
+<li>Django 1.8.2
+
+<h3>安装配置</h3>
+
+<p>安装 DRF 需要用到 <code>pip</code> 命令</p></li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pip install djangorestframework
+</span><span class='line'>pip install markdown  # Markdown support for the browsable API.
+</span><span class='line'>pip install django-filter # Filtering support</span></code></pre></td></tr></table></div></figure>
+
+
+<p>或者在 GitHub 上 clone 它</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git clone git@github.com:tomchristie/django-rest-framework.git</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接着在 Django Project 根目录的 <code>setting.py</code> 文件中的 <code>INSTALLED_APPS</code> 加入 <code>'rest_framework'</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='Python'><span class='line'><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">(</span>
+</span><span class='line'>    <span class="o">...</span>
+</span><span class='line'>    <span class="s">&#39;rest_framework&#39;</span><span class="p">,</span>
+</span><span class='line'><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果你要使用 DRF 的 browsable API 的话，你可能还需要添加 REST 框架的登录登出视图 ( views )，辣么需要在 <code>url.py</code> 文件中加入以下代码:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='Python'><span class='line'><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>    <span class="o">...</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^api-auth/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s">&#39;rest_framework.urls&#39;</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="s">&#39;rest_framework&#39;</span><span class="p">))</span>
+</span><span class='line'><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注: 这个 URL 地址可以是任意的，但是必须 include <code>'rest_framework.urls'</code> 和 <code>namespace='rest_framework'</code> 。</p>
+
+<h3>举个栗子</h3>
+
+<p>现在我们来看一下一个简单的用 DRF 来构建一个模型支持较好的 API 的栗子。</p>
+
+<p>任何一个对 REST 框架的全局设置都被放在 <code>REST_FRAMEWORK</code> 的模块内，所以你需要在 <code>settings.py</code> 文件中添加以下代码来通过 <code>REST_FRAMEWORK</code> 入口进行全局设置:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">REST_FRAMEWORK</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c"># Use Django&#39;s standard `django.contrib.auth` permissions,</span>
+</span><span class='line'>    <span class="c"># or allow read-only access for unauthenticated users.</span>
+</span><span class='line'>    <span class="s">&#39;DEFAULT_PERMISSION_CLASSES&#39;</span><span class="p">:</span> <span class="p">[</span>
+</span><span class='line'>        <span class="s">&#39;rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly&#39;</span>
+</span><span class='line'>    <span class="p">]</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>现在我们可以构建 API 了，编辑 Django 项目根目录的 <code>url.py</code> 文件:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">url</span><span class="p">,</span> <span class="n">include</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">routers</span><span class="p">,</span> <span class="n">serializers</span><span class="p">,</span> <span class="n">viewsets</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># Serializers define the API representation.</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">UserSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedModelSerializer</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">model</span> <span class="o">=</span> <span class="n">User</span>
+</span><span class='line'>        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;url&#39;</span><span class="p">,</span> <span class="s">&#39;username&#39;</span><span class="p">,</span> <span class="s">&#39;email&#39;</span><span class="p">,</span> <span class="s">&#39;is_staff&#39;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># ViewSets define the view behavior.</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">UserViewSet</span><span class="p">(</span><span class="n">viewsets</span><span class="o">.</span><span class="n">ModelViewSet</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">queryset</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">UserSerializer</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># Routers provide an easy way of automatically determining the URL conf.</span>
+</span><span class='line'><span class="n">router</span> <span class="o">=</span> <span class="n">routers</span><span class="o">.</span><span class="n">DefaultRouter</span><span class="p">()</span>
+</span><span class='line'><span class="n">router</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s">r&#39;users&#39;</span><span class="p">,</span> <span class="n">UserViewSet</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># Wire up our API using automatic URL routing.</span>
+</span><span class='line'><span class="c"># Additionally, we include login URLs for the browsable API.</span>
+</span><span class='line'><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="n">router</span><span class="o">.</span><span class="n">urls</span><span class="p">)),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^api-auth/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s">&#39;rest_framework.urls&#39;</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="s">&#39;rest_framework&#39;</span><span class="p">))</span>
+</span><span class='line'><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>解释一下，</p>
+
+<p>每个 <code>xxxSerializer</code> 都要继承 <code>ModelSerializer</code> 来选择模型和模型字段。</p>
+
+<p>UserSerializer 类继承了更符合 RESTful 设计的 <code>HyperlinkedModelSerializer</code> 超链接模型 Serializer 类，它和普通的 <code>ModelSerializer</code> 类有以下区别:</p>
+
+<ul>
+<li>缺省状态下不包含 pk 字段</li>
+<li>具有一个 url 字段，即HyperlinkedIdentityField类型</li>
+<li>用HyperlinkedRelatedField表示关系，而非PrimaryKeyRelatedField</li>
+</ul>
+
+
+<p>然后在 <code>class Meta</code> 中选择模型和要展现的模型元素</p>
+
+<p><code>ViewSet</code> 用来定义 View 的行为，和 Django 的 views 类似，用来处理 API 的 read 、write、 update 等方法(而 Django views 则处理 http 的 GET 和 POST )</p>
+
+<p>在 ViewSet 实例化之后，通过 <code>Router</code> 类，最终将 URL 和 ViewSet 方法绑定起来。</p>
+
+<p>ok，现在你可以通过在浏览器中访问 <code>http://127.0.0.1:8000/</code> 来查看你的 &lsquo;users&rsquo; API 了。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[在 Ubuntu 下搭建 uWSGI + Nginx + Django]]></title>
     <link href="http://thehackercat.me/blog/2016/02/27/nginx-uwsgi-django/"/>
     <updated>2016-02-27T21:04:07+08:00</updated>
     <id>http://thehackercat.me/blog/2016/02/27/nginx-uwsgi-django</id>
     <content type="html"><![CDATA[<h3>背景 :</h3>
 
 <p>公司要求用 Django 做些项目，之前按网上教程搭环境的时候就遇到很多问题，感觉有些教程都是有误的，今天用 uWSGI 开多线程的时候服务器报了 HTTP 500 的错( Internal Server Error )，然后就一直连不上去了。所以按<a href="http://uwsgi-docs.readthedocs.org/en/latest/tutorials/Django_and_nginx.html">官网的教程</a>重新配置一遍，把出现的问题记录下来。</p>
+
+<!--more-->
+
 
 <h3>准备工作</h3>
 
@@ -100,9 +284,11 @@
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
+<span class='line-number'>5</span>
 </pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># test.py</span>
 </span><span class='line'><span class="k">def</span> <span class="nf">application</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">start_response</span><span class="p">):</span>
-</span><span class='line'>  <span class="n">start_response</span><span class="p">(</span><span class="s">&#39;200 OK&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="s">&#39;Content-Type&#39;</span><span class="p">,</span><span class="s">&#39;text/html&#39;</span><span class="p">)])</span> <span class="k">return</span> <span class="p">[</span><span class="n">b</span><span class="s">&quot;Hello World&quot;</span><span class="p">]</span> <span class="c"># python3</span>
+</span><span class='line'>    <span class="n">start_response</span><span class="p">(</span><span class="s">&#39;200 OK&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="s">&#39;Content-Type&#39;</span><span class="p">,</span><span class="s">&#39;text/html&#39;</span><span class="p">)])</span>
+</span><span class='line'>    <span class="k">return</span> <span class="p">[</span><span class="n">b</span><span class="s">&quot;Hello World&quot;</span><span class="p">]</span> <span class="c"># python3</span>
 </span><span class='line'>  <span class="c">#return [&quot;Hello World&quot;] # python2</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -315,7 +501,15 @@
 
 <p>如果显示出了图片，说明 nginx 服务已经正确运行惹。</p>
 
-<p>注意在从浏览器中请求图片信息时，在 uwsgi 里是没有输出信息的，而请求一个其他的动态网页时，则会输出类似 <code>[pid: 1952|app: 0|req: 3/3] 127.0.0.1 () {36 vars in 599 bytes} [Wed Mar 18 08:43:27 2015] GET /time/ =&gt; generated 63 bytes in 1 msecs (HTTP/1.1 200) 2 headers in 88 bytes (1 switches on core 0)</code> 这样的信息。</p>
+<p>注意在从浏览器中请求图片信息时，在 uwsgi 里是没有输出信息的，而请求一个其他的动态网页时，则会输出类似</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="p">[</span><span class="n">pid</span><span class="p">:</span> <span class="mi">1952</span><span class="o">|</span><span class="n">app</span><span class="p">:</span> <span class="mi">0</span><span class="o">|</span><span class="n">req</span><span class="p">:</span> <span class="mi">3</span><span class="o">/</span><span class="mi">3</span><span class="p">]</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span> <span class="p">()</span> <span class="p">{</span><span class="mi">36</span> <span class="nb">vars</span> <span class="ow">in</span> <span class="mi">599</span> <span class="nb">bytes</span><span class="p">}</span> <span class="p">[</span><span class="n">Wed</span> <span class="n">Mar</span> <span class="mi">18</span> <span class="mi">08</span><span class="p">:</span><span class="mi">43</span><span class="p">:</span><span class="mi">27</span> <span class="mi">2015</span><span class="p">]</span> <span class="n">GET</span> <span class="o">/</span><span class="n">time</span><span class="o">/</span> <span class="o">=&gt;</span> <span class="n">generated</span> <span class="mi">63</span> <span class="nb">bytes</span> <span class="ow">in</span> <span class="mi">1</span> <span class="n">msecs</span> <span class="p">(</span><span class="n">HTTP</span><span class="o">/</span><span class="mf">1.1</span> <span class="mi">200</span><span class="p">)</span> <span class="mi">2</span> <span class="n">headers</span> <span class="ow">in</span> <span class="mi">88</span> <span class="nb">bytes</span> <span class="p">(</span><span class="mi">1</span> <span class="n">switches</span> <span class="n">on</span> <span class="n">core</span> <span class="mi">0</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+这样的信息。</p>
 
 <p>也就是缩，当你在浏览器中请求 media.png 时， nginx 会检查这个地址 /media/ ，接着它会在 mysite_nginx.conf 文件中看到这段代码:</p>
 
@@ -476,6 +670,9 @@
 
 <p>12月23号下午2：00参加了绿盟的 Web 后端开发实习生的面试。考官是个胖哥哥，也是科大的，人很温柔和蔼。先问了一些数据结构与算法的问题，接着问了计算机网络的一些基础问题，最后考察了下 Web 开发的一些知识。总得来说题目不难，但是自己也发挥不好，原来以为有了几次面经，但是在现场还是紧张得不行。 (真是给自己的心理素质跪了 ：P)</p>
 
+<!--more-->
+
+
 <h2>(数据结构与算法)图的遍历</h2>
 
 <p>我怕出错就写了5个结点的无向图，如下：
@@ -575,6 +772,9 @@
     <content type="html"><![CDATA[<h2>背景</h2>
 
 <p>12月11号下午4：30参加了海豚浏览器的 Python 后台开发实习生的电面，考官一开始先问了我一些 Python 基础的问题，接着问了些计网的经典面试题，最后考了2道算法题，然后开始扯皮一些之前做过的项目中的问题等，最后总结心得如下：</p>
+
+<!--more-->
+
 
 <h2>Python 的 List 能不能作为字典的 key 传入？</h2>
 
@@ -735,12 +935,12 @@
 
 <p>不过，我有了其他的考虑了，心理也安定了许多。</p>
 
-<p>希望各自安好吧。</p>
+<p>现在，我只想去睡个十除以三的懒觉。</p>
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Django 高级 views 和 URLconf 配置]]></title>
+    <title type="html"><![CDATA[Django 高级 Views 和 URLconf 配置]]></title>
     <link href="http://thehackercat.me/blog/2015/12/08/django-learning-4/"/>
     <updated>2015-12-08T15:08:35+08:00</updated>
     <id>http://thehackercat.me/blog/2015/12/08/django-learning-4</id>
@@ -771,6 +971,9 @@
 </span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^time/plus/(\d{1,2})/$&#39;</span><span class="p">,</span> <span class="n">hours_ahead</span><span class="p">),</span>
 </span><span class='line'><span class="p">]</span>
 </span></code></pre></td></tr></table></div></figure>
+
+
+<!--more-->
 
 
 
@@ -924,6 +1127,9 @@
     <updated>2015-12-07T14:12:24+08:00</updated>
     <id>http://thehackercat.me/blog/2015/12/07/python-decorator-learning</id>
     <content type="html"><![CDATA[<p>最近在写 Python+Django 的时候发现，有时候封装 API 的时候经常会遗失一些重复的装饰信息，但是直接封装到方法里是比较差劲的写法，因为有多个模块可能同时需要这些装饰信息，所以我希望使用一种可以迭代的装饰器。于是我在 <a href="http://stackoverflow.com/questions/739654/how-can-i-make-a-chain-of-function-decorators-in-python/1594484#1594484">Stack Overflow</a> 上找到了相应的解答。下面以这篇解答为引写下我理解 Python decorator 的思路过程。</p>
+
+<!--more-->
+
 
 <h2>装饰器是做什么用的？</h2>
 
@@ -1275,7 +1481,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[ Django 学习笔记3-- Models ]]></title>
+    <title type="html"><![CDATA[Django 学习笔记3-- Models]]></title>
     <link href="http://thehackercat.me/blog/2015/11/21/django-learning3/"/>
     <updated>2015-11-21T13:17:57+08:00</updated>
     <id>http://thehackercat.me/blog/2015/11/21/django-learning3</id>
@@ -1284,6 +1490,9 @@
 <p>正如在之前<a href="http://thehackercat.me/blog/2015/11/14/django-learning1/">这篇文章</a>所提到的， 把数据存取逻辑、业务逻辑和表现逻辑组合在一起的概念有时被称为软件架构的 Model-View-Controller ( MVC )模式。 在这个模式中， Model 代表数据存取层，View 代表的是系统中选择显示什么和怎么显示的部分，Controller 指的是系统中根据用户输入并视需要访问模型，以决定使用哪个视图的那部分。</p>
 
 <p>而 Django 使用的更多的则是模型( Model )、模板( Template )和视图( Views )的软件设计模式，称为 MTV 模式。我在 Stack Overflow 的<a href="http://stackoverflow.com/questions/6621653/django-vs-model-view-controller">这个回答</a>里找到了对于 MTV vs MVC 两种设计模式间的微妙的差别。</p>
+
+<!--more-->
+
 
 <p>其中提到，不能简单的把 Django 视图认为是 MVC 控制器，把 Django 模板认为是 MVC 视图。</p>
 
@@ -1480,7 +1689,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[在 Octopress 中生成包含 liquid 语句的代码]]></title>
+    <title type="html"><![CDATA[在 Octopress 中生成包含 Liquid 语句的代码]]></title>
     <link href="http://thehackercat.me/blog/2015/11/20/blog-with-liquid/"/>
     <updated>2015-11-20T16:32:12+08:00</updated>
     <id>http://thehackercat.me/blog/2015/11/20/blog-with-liquid</id>
@@ -1493,6 +1702,9 @@
 <h2>解决方法</h2>
 
 <p>比如，我之前写的</p>
+
+<!--more-->
+
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -1539,7 +1751,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[ Django 学习笔记2-- Templates ]]></title>
+    <title type="html"><![CDATA[Django 学习笔记2-- Templates]]></title>
     <link href="http://thehackercat.me/blog/2015/11/16/django-learning2/"/>
     <updated>2015-11-16T15:15:55+08:00</updated>
     <id>http://thehackercat.me/blog/2015/11/16/django-learning2</id>
@@ -1548,6 +1760,11 @@
 <h2>流模板基础</h2>
 
 <p>举个例子，下面这个模板大致含括了 Django 模板的几个特性。</p>
+
+<!--more-->
+
+
+
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -1685,7 +1902,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[ Django 学习笔记1-- URLconf ]]></title>
+    <title type="html"><![CDATA[Django 学习笔记1-- URLconf]]></title>
     <link href="http://thehackercat.me/blog/2015/11/14/django-learning1/"/>
     <updated>2015-11-14T20:12:37+08:00</updated>
     <id>http://thehackercat.me/blog/2015/11/14/django-learning1</id>
@@ -1698,6 +1915,9 @@
 <p>Django 是一个由 Python 编写、开源并采用经典的 <a href="https://msdn.microsoft.com/en-us/library/ff649643.aspx">MVC</a> 设计模式的 Web Full Stack 应用框架。</p>
 
 <p>在 Django 中，控制器接受用户输入的部分由框架自行处理，所以 Django 里关注更多在模型( Model )、模板( Template )和视图( Views )，称为 MTV 模式。他们各自的职责如下：</p>
+
+<!--more-->
+
 
 <ul>
 <li>模型( Model )，数据存取层：处理与数据相关的所有事务，即如何存取、如何验证有效性、包含哪些行为以及数据之间的关系等。</li>
@@ -1791,7 +2011,7 @@
     <link href="http://thehackercat.me/blog/2015/11/09/fix-the-datetime-bug/"/>
     <updated>2015-11-09T11:25:00+08:00</updated>
     <id>http://thehackercat.me/blog/2015/11/09/fix-the-datetime-bug</id>
-    <content type="html"><![CDATA[<p><img src="http://farm4.staticflickr.com/3749/9616934444_2b0616cc59_b.jpg" alt="Spiderman" /></p>
+    <content type="html"><![CDATA[<p><img src="http://7xse6j.com1.z0.glb.clouddn.com/spiderman.jpg" alt="Spiderman" /></p>
 
 <p>最近把个人博客搭好了，用了<a href="https://github.com/octopress/octopress">Octopress</a>,一个基于 Jekyll 的集成开发工具。</p>
 
@@ -1802,6 +2022,9 @@
 <p>Octopress 的安装配置比较简单，是需要按照官网或者网上一些<a href="http://shengmingzhiqing.com/blog/setup-octopress-with-github-pages.html/">教程</a>一步步走即可。</p>
 
 <p>由于我在2015年10月1日更新了 OS X EI Capitan，新系统在权限设置上增加了 <a href="http://www.macworld.com/article/2948140/os-x/private-i-el-capitans-system-integrity-protection-will-shift-utilities-functions.html">System Integrity Protection</a> (SIP) 来提高系统安全性并且在 System Library 的路径上作了修改，导致了一些安装 Jekyll 时出现的异常，罗列如下：</p>
+
+<!--more-->
+
 
 <ol>
 <li><p>如果你使用命令行 <code>$ gem install jekyll</code> 安装 Jekyll 时 遇到了如下问题：</p>
@@ -1892,6 +2115,9 @@
 <p>在我长牙约莫拾几朵玫瑰花之后，我开始明白，玫瑰是不能摘的，春天是追不到的。</p>
 
 <p>只能追，不能到！</p>
+
+<!--more-->
+
 
 <p>成都的春天鲜艳得很。</p>
 

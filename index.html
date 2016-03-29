@@ -1,865 +1,369 @@
 
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+
 <head>
-	<script data-cfasync="false" type="text/javascript" src="//use.typekit.net/axj3cfp.js"></script>
-	<script data-cfasync="false" type="text/javascript">try{Typekit.load();}catch(e){}</script>
-	<meta charset="utf-8">
-	<title>Think like a hacker  | TheHackerCat's blog</title>
 
-<meta name="author" content="TheHackerCat"> 
 
-<meta name="description" content="背景 : 公司要求用 Django 做些项目，之前按网上教程搭环境的时候就遇到很多问题，感觉有些教程都是有误的，今天用 uWSGI 开多线程的时候服务器报了 HTTP 500 的错( Internal Server Error )，然后就一直连不上去了。所以按官网的教程重新配置一遍， &hellip;"> <meta name="keywords" content="">
+<meta charset="utf-8">
+<meta http-equiv="cleartype" content="on">
 
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>TheHackerCat's Blog</title>
+<meta name="author" content="TheHackerCat">
 
-	<link href="/atom.xml" rel="alternate" title="TheHackerCat's blog" type="application/atom+xml">
-	<link rel="canonical" href="">
-	<link href="/favicon.png" rel="shortcut icon">
-	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-	<link href="/stylesheets/font-awesome.min.css" rel="stylesheet" type="text/css">
-	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	<script type="text/javascript" src="/javascripts/jquery.fancybox.pack.js"></script>
 
-<script language="Javascript" type="text/javascript">
-$(document).ready(
-  function() {
-    (function($) {
-      $(".fancybox[data-content-id]").each(function() {
-        this.href = $(this).data('content-id');
-      });
-      $(".fancybox").fancybox({
-        beforeLoad: function() {
-          var el, 
-              id = $(this.element).data('title-id');
 
-          if (id) {
-            el = $('#' + id);
 
-            if (el.length) {
-              this.title = el.html();
-            }
-          }
-          if ($(this).data('content')) {
-            this.content = $(this).data('content');
-          }
-        },
-        helpers: {
-          title: {
-            type: 'inside'
-          }
-        }
-      });
-    })(jQuery);
-  }
-);
-</script>
+<meta name="description" content="喂喂喂，说你呢，快过来，跟我一起做个「十除以三」的梦！">
 
-	
+<meta name="keywords" content=" thehackercat">
+
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Twitter Cards -->
+
+  
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="/images/abstract-12.jpg"
+  
+  <meta name="twitter:title" content="TheHackerCat's Blog">
+  <meta name="twitter:description" content="喂喂喂，说你呢，快过来，跟我一起做个「十除以三」的梦！">
+  <meta name="twitter:creator" content="@lexuscyborg103">
+
+
+<!-- Open Graph -->
+<meta property="og:local" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://thehackercat.me">
+<meta property="og:title" content="TheHackerCat's Blog">
+<meta property="og:description" content="喂喂喂，说你呢，快过来，跟我一起做个「十除以三」的梦！">
+
+  <meta property="og:image" content="/images/abstract-12.jpg">
+
+<meta property="og:site_name" content="TheHackerCat's Blog">
+
+<link rel="canonical" href="http://thehackercat.me">
+<link href="/favicon.png" rel="icon">
+<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="/atom.xml" rel="alternate" title="TheHackerCat's Blog" type="application/atom+xml">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+<script>Modernizr || document.write('<script src="/javascripts/vendor/modernizr-2.6.2.custom.min.js"><\/script>') </script>
+
+
+
+<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+
 </head>
 
+<body id="post-index" class="feature">
+  <!--[if lt IE 9]><div class="upgrade"><strong><a href="http://whatbrowser.org/">Your browser is quite old!</strong> Why not upgrade to a different browser to better enjoy this site?</a></div><![endif]-->
+  <nav id="dl-menu" class="dl-menuwrapper" role="navigation">
+	<button class="dl-trigger">Open Menu</button>
+	<ul class="dl-menu">
+		<li><a href="/">Home</a></li>
+		<li>
+			<a href="#">About</a>
+			<ul class="dl-submenu">
+				<li>
+					<img src="/images/avatar-lion.jpg" alt="TheHackerCat photo" class="author-photo">
+					<h4>TheHackerCat</h4>
+					<p>Web 后端工程师</p>
+				</li>
+				
+				<li>
+					<a href="mailto:lexuscyborg103@gmail.com"><i class="fa fa-envelope"></i> Email</a>
+				</li>
+				<li>
+					<a href="https://twitter.com/lexuscyborg103"><i class="fa fa-twitter"></i> Twitter</a>
+				</li>
+				
+				<li>
+					<a href="https://github.com/thehackercat"><i class="fa fa-github"></i> GitHub</a>
+				</li>
+				
+			</ul><!-- /.dl-submenu -->
+		</li>
+		<li>
+			<a href="#">Posts</a>
+			<ul class="dl-submenu">
+				<li><a href="/posts/">All Posts</a></li>
+				<li><a href="/categories/">All Categories</a></li>
+			</ul>
+		</li>
+		
+	</ul><!-- /.dl-menu -->
+</nav><!-- /.dl-menuwrapper -->
 
 
-<body>
-	<header id="header" class="inner"><h1><a href="/">TheHackerCat's blog</a></h1>
-<h4>Think like a hacker</h4>
-<nav id="main-nav"><ul>
-	<li><a href="/">Blog</a></li>
-	<li><a href="/about">About</a></li>
-	<li><a href="/portfolio">Portfolio</a></li>
-	<li><a href="/archives">Archive</a></li>
-</ul>
-</nav>
-<nav id="mobile-nav">
-	<div class="alignleft menu">
-		<a class="button">Menu</a>
-		<div class="container"><ul>
-	<li><a href="/">Blog</a></li>
-	<li><a href="/about">About</a></li>
-	<li><a href="/portfolio">Portfolio</a></li>
-	<li><a href="/archives">Archive</a></li>
-</ul>
-</div>
-	</div>
-	<div class="alignright search">
-		<a class="button"></a>
-		<div class="container">
-			<form action="https://www.google.com/search" method="get">
-				<input type="text" name="q" results="0">
-				<input type="hidden" name="q" value="site:thehackercat.me">
-			</form>
-		</div>
-	</div>
-</nav>
+  <div class="entry-header">
+    
+    
+      <div class="entry-image">
+        <img src="/images/abstract-12.jpg" alt="">
+      </div><!-- /.entry-image -->
+    
+    <div class="header-title">
+      <div class="header-title-wrap">
+        <h1>TheHackerCat's Blog</h1>
+        <h2>Think like a hacker.</h2>
+      </div><!-- /.header-title-wrap -->
+    </div><!-- /.header-title -->
+  </div><!-- /.entry-header -->
+
+  <div id="main" role="main">
+    
+
+<article class="hentry">
+  
 
 
+
+<header>
+  <div class="entry-meta">
+    <span class="entry-date date published updated">
+      <time datetime="2016-03-29T15:43:36+08:00">
+        <a href="/blog/2016/03/29/django-rest-framework/">March 29, 2016</a>
+      </time>
+    </span>
+    <span class="author vcard">
+      <span class="fn">
+        <a href="" title="About TheHackerCat">TheHackerCat</a>
+      </span>
+    </span>
+    
+      &nbsp; &bull; &nbsp;<span class="entry-comments">
+        <a href="/blog/2016/03/29/django-rest-framework/#disqus_thread">Comment</a>
+      </span>
+    
+  </div><!-- /.entry-meta -->
+  
+    <h1 class="entry-title">
+      <a href="/blog/2016/03/29/django-rest-framework/" rel="bookmark" title="Django REST Framework 快速上手" itemprop="url">Django REST Framework 快速上手</a>
+    </h1>
+  
 </header>
 
-	<div id="content" class="inner">
+<div class="entry-content">
+  <h2>Django REST Framework 快速上手</h2>
+
+<h3>背景</h3>
+
+<p>这几天正好在研究 RESTful 的方式来写 API，然后上手 Django REST 框架。</p>
+
+<p>Django REST Framework (以下简称 DRF )是一个轻量级的库，熟悉 Django 的话可以很容易的用它来构建 Web API。</p>
 
 
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2016/02/27/nginx-uwsgi-django/">
-		
-			在 Ubuntu 下搭建 uWSGI + Nginx + Django</a>
-	</h2>
-	<div class="entry-content">
-		<h3>背景 :</h3>
+  
+  
+    <footer>
+      <a class="btn" rel="full-article" href="/blog/2016/03/29/django-rest-framework/">Read on &rarr;</a>
+    </footer>
+  
+</div><!-- /.entry-content -->
+
+
+
+
+
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  
+
+
+
+<header>
+  <div class="entry-meta">
+    <span class="entry-date date published updated">
+      <time datetime="2016-02-27T21:04:07+08:00">
+        <a href="/blog/2016/02/27/nginx-uwsgi-django/">February 27, 2016</a>
+      </time>
+    </span>
+    <span class="author vcard">
+      <span class="fn">
+        <a href="" title="About TheHackerCat">TheHackerCat</a>
+      </span>
+    </span>
+    
+      &nbsp; &bull; &nbsp;<span class="entry-comments">
+        <a href="/blog/2016/02/27/nginx-uwsgi-django/#disqus_thread">Comment</a>
+      </span>
+    
+  </div><!-- /.entry-meta -->
+  
+    <h1 class="entry-title">
+      <a href="/blog/2016/02/27/nginx-uwsgi-django/" rel="bookmark" title="在 Ubuntu 下搭建 uWSGI + Nginx + Django" itemprop="url">在 Ubuntu 下搭建 uWSGI + Nginx + Django</a>
+    </h1>
+  
+</header>
+
+<div class="entry-content">
+  <h3>背景 :</h3>
 
 <p>公司要求用 Django 做些项目，之前按网上教程搭环境的时候就遇到很多问题，感觉有些教程都是有误的，今天用 uWSGI 开多线程的时候服务器报了 HTTP 500 的错( Internal Server Error )，然后就一直连不上去了。所以按<a href="http://uwsgi-docs.readthedocs.org/en/latest/tutorials/Django_and_nginx.html">官网的教程</a>重新配置一遍，把出现的问题记录下来。</p>
 
-<h3>准备工作</h3>
 
-<h4>概况</h4>
+  
+  
+    <footer>
+      <a class="btn" rel="full-article" href="/blog/2016/02/27/nginx-uwsgi-django/">Read on &rarr;</a>
+    </footer>
+  
+</div><!-- /.entry-content -->
 
-<p>一个 Web 服务器能加载 ( Html , images , CSS 等静态文件)，但是它不能直接跑 Django 应用 (对于动态的请求无法处理) ，它需要某些工具来支持 Django 应用的运行，从而使 服务器能够接受客户端的请求，处理，并返回请求。s</p>
 
-<p>这时，我们就需要一个服务器网关接口 &ndash; WSGI ! WSGI 是一种Web服务器网关接口。它是一个 Web 服务器（如 nginx）与应用服务器（如 uWSGI 服务器）通信的一种规范</p>
 
-<p>而 uWSGI 是一个Web服务器，它实现了 WSGI 协议、 uwsgi 、 http 等协议。</p>
 
-<p>nginx 中 <code>HttpUwsgiModule</code> 的作用是与 uWSGI 服务器进行数据交换。</p>
 
-<p>所以这套配置的实现原理是将 nginx 作为服务器最前端，它将接收 Web 的所有请求，统一管理请求。nginx 把所有静态请求自己来处理（这是 Nginx 的强项）。然后，Nginx 将所有非静态请求通过 uwsgi 传递给 Django ，由 Django 来进行处理，从而完成一次 Web 请求。</p>
+</article><!-- /.hentry -->
 
-<p>配置 uWSGI + nginx + Django 即实现以下4个链接，在下文，我们会一步步进行链接。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>the web client &lt;-&gt; the web server &lt;-&gt; the socket &lt;-&gt; uwsgi &lt;-&gt; Django</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>Python</h4>
-
-<p>Ubuntu 14.04 自带了 Python2.7.6</p>
-
-<p>你也可以通过</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get install python2.7 python2.7-dev</span></code></pre></td></tr></table></div></figure>
-
-
-<p>来安装最新版本的 Python2.7.11</p>
-
-<h4>Python-pip</h4>
-
-<p>pip 是 Python 的包管理工具，建议 Python 的包都用  pip 进行管理。</p>
-
-<p>通过以下命令安装  pip  :</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get install python-pip</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>Django</h4>
-
-<p>通过以下命令安装 Django 并创建一个新的项目，然后进入到项目根目录 :</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo pip install Django
-</span><span class='line'>django-admin.py startproject mysite
-</span><span class='line'>cd mysite</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>关于域名和端口</h4>
-
-<p>在这篇 blog 中，我们把调试域名定为 127.0.0.1，你可以用自己的域名或本机 ip 地址来替代它。</p>
-
-<p>并且，我们用 8000 端口作为 web 调试地址端口，这个端口与大部分 web 服务器的端口不重叠，当然你也可以自行修改调试地址的端口。</p>
-
-<h3>安装配置 uWSGI</h3>
-
-<h4>安装</h4>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo pip install uwsgi</span></code></pre></td></tr></table></div></figure>
-
-
-<p>用 <code>pip</code> 安装 uwsgi 最为方便，因为如果你用 <code>apt-get install</code> 来安装 uwsgi 的话，你需要在 Python 搜索路径中添加入 uwsgi 模块。</p>
-
-<h4>测试 uwsgi</h4>
-
-<p>在刚刚的 mysite 目录下新建一个 Python 文件 <code>test.py</code> :</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># test.py</span>
-</span><span class='line'><span class="k">def</span> <span class="nf">application</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">start_response</span><span class="p">):</span>
-</span><span class='line'>  <span class="n">start_response</span><span class="p">(</span><span class="s">&#39;200 OK&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="s">&#39;Content-Type&#39;</span><span class="p">,</span><span class="s">&#39;text/html&#39;</span><span class="p">)])</span> <span class="k">return</span> <span class="p">[</span><span class="n">b</span><span class="s">&quot;Hello World&quot;</span><span class="p">]</span> <span class="c"># python3</span>
-</span><span class='line'>  <span class="c">#return [&quot;Hello World&quot;] # python2</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>接着运行 uWSGI 命令:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">uwsgi</span> <span class="o">--</span><span class="n">http</span> <span class="p">:</span><span class="mi">8000</span> <span class="o">--</span><span class="n">wsgi</span><span class="o">-</span><span class="nb">file</span> <span class="n">test</span><span class="o">.</span><span class="n">py</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>注意：在 <code>http</code> 与 <code>:8000</code> 之间有一个空格！</p>
-
-<p>参数含义：</p>
-
-<ul>
-<li><code>http :8000</code>：使用 http 协议，8000端口</li>
-<li><code>wsgi-file test.py</code> : 加载指定文件 test.py</li>
-</ul>
-
-
-<p>接着在浏览器中输入以下 url :</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">8000</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>如果出现了 &lsquo;Hello World!&rsquo; 那说明 uWSGI 安装成功，以下链接是成功的 :</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">the</span> <span class="n">web</span> <span class="n">client</span> <span class="o">&lt;-&gt;</span> <span class="n">uWSGI</span> <span class="o">&lt;-&gt;</span> <span class="n">Django</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>测试 Django 项目</h4>
-
-<p>现在我们用 uWSGI 来跑 Django 网站试试。</p>
-
-<p>首先进入 Django 项目根目录，即之前的 /mysite/ 运行</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">python</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">runserver</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">8888</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>在浏览器中访问该 url ，如果出现如下界面则说明你的 mysite 项目是可运行的 :</p>
-
-<p><img src="http://thehackercat-hackercat.stor.sinaapp.com/django_test1.png" alt="django_test" /></p>
-
-<p>接着运行 uWSGI :</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">uwsgi</span> <span class="o">--</span><span class="n">http</span> <span class="p">:</span><span class="mi">8000</span> <span class="o">--</span><span class="n">module</span> <span class="n">mysite</span><span class="o">.</span><span class="n">wsgi</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li><code>module mysite.wsgi</code> : 读取特定的 wsgi 模块</li>
-</ul>
-
-
-<p>如果出现同样的界面，说明你的 uWSGI 已经可以搭载你的 Django 应用惹，所以以下的链接是成功的 :</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">the</span> <span class="n">web</span> <span class="n">client</span> <span class="o">&lt;-&gt;</span> <span class="n">uWSGI</span> <span class="o">&lt;-&gt;</span> <span class="n">Django</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>安装配置 nginx</h3>
-
-<h4>安装 nginx</h4>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">nginx</span>
-</span><span class='line'><span class="n">sudo</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">init</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">nginx</span> <span class="n">start</span>    <span class="c"># 开启 nginx 服务</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>现在到浏览器中输入 <code>http://127.0.0.1</code> ，如果你看到以下信息 : “Welcome to nginx!”那么说明 nginx 服务器运行成功，以下链接成功 :</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">the</span> <span class="n">web</span> <span class="n">client</span> <span class="o">&lt;-&gt;</span> <span class="n">the</span> <span class="n">web</span> <span class="n">server</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>配置 nginx</h4>
-
-<p>首先，你需要一个 uwsgi_params 文件。</p>
-
-<ul>
-<li>将 uwsgi_params 文件拷贝到项目文件夹下(即 /mysite/ )。uwsgi_params文件在/etc/nginx/目录下，也可以从这个<a href="https://github.com/nginx/nginx/blob/master/conf/uwsgi_params">页面下载</a></li>
-<li>在项目文件夹下创建文件 mysite_nginx.conf ,填入并修改下面内容：</li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># mysite_nginx.conf</span>
-</span><span class='line'>
-</span><span class='line'><span class="c"># the upstream component nginx needs to connect to</span>
-</span><span class='line'><span class="n">upstream</span> <span class="n">django</span> <span class="p">{</span>
-</span><span class='line'>    <span class="c"># server unix:///path/to/your/mysite/mysite.sock; # for a file socket</span>
-</span><span class='line'>    <span class="n">server</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">8001</span><span class="p">;</span> <span class="c"># for a web port socket (we&#39;ll use this first)</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="c"># configuration of the server</span>
-</span><span class='line'><span class="n">server</span> <span class="p">{</span>
-</span><span class='line'>    <span class="c"># the port your site will be served on</span>
-</span><span class='line'>    <span class="n">listen</span>      <span class="mi">8000</span><span class="p">;</span>
-</span><span class='line'>    <span class="c"># the domain name it will serve for</span>
-</span><span class='line'>    <span class="n">server_name</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">;</span> <span class="c"># substitute your machine&#39;s IP address or FQDN</span>
-</span><span class='line'>    <span class="n">charset</span>     <span class="n">utf</span><span class="o">-</span><span class="mi">8</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c"># max upload size</span>
-</span><span class='line'>    <span class="n">client_max_body_size</span> <span class="mi">75</span><span class="n">M</span><span class="p">;</span>   <span class="c"># adjust to taste</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c"># Django media</span>
-</span><span class='line'>    <span class="n">location</span> <span class="o">/</span><span class="n">media</span>  <span class="p">{</span>
-</span><span class='line'>        <span class="n">alias</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">mysite</span><span class="o">/</span><span class="n">media</span><span class="p">;</span>  <span class="c"># your Django project&#39;s media files - amend as required</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">location</span> <span class="o">/</span><span class="n">static</span> <span class="p">{</span>
-</span><span class='line'>        <span class="n">alias</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">mysite</span><span class="o">/</span><span class="n">static</span><span class="p">;</span> <span class="c"># your Django project&#39;s static files - amend as required</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c"># Finally, send all non-media requests to the Django server.</span>
-</span><span class='line'>    <span class="n">location</span> <span class="o">/</span> <span class="p">{</span>
-</span><span class='line'>        <span class="n">uwsgi_pass</span>  <span class="n">django</span><span class="p">;</span>
-</span><span class='line'>        <span class="n">include</span>     <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">mysite</span><span class="o">/</span><span class="n">uwsgi_params</span><span class="p">;</span> <span class="c"># the uwsgi_params file you installed</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>在终端中进入之前的 /mysite/ 项目文件夹，输入 ``pwd``` ，复制下该路径，将 mysite_nginx.conf 中的 /path/to/your/mysite 全部替换掉。</p>
-
-<p>在/etc/nginx/sites-enabled目录下创建本文件的连接，使nginx能够使用它 :</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">sudo</span> <span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">~/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">mysite</span><span class="o">/</span><span class="n">mysite_nginx</span><span class="o">.</span><span class="n">conf</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">enabled</span><span class="o">/</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>注意：记得检查 /etc/nginx/sites-enabled/ 下的软链接是否成功，因为之前我就遇到了路径出错的问题。</p>
-
-<h4>部署静态文件</h4>
-
-<p>在运行 nginx 前，你还需要把 Django 的所有静态文件全部整理到之前的 static 文件夹里，在 /mysite/mysite/settings.py 中添加以下内容 :</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">STATIC_ROOT</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s">&quot;static/&quot;</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>接着运行</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">python</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">collectstatic</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>现在你发现 Django 所有的静态文件都被整理到了 /mysite/static/ 文件夹里了。</p>
-
-<h4>测试 nginx</h4>
-
-<p>首先重启 ngxin 服务 :</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">sudo</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">init</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">nginx</span> <span class="n">restart</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>在 /mysite/mysite/media/ 文件夹中添加一个 <code>media.png</code> 文件。</p>
-
-<p>在浏览器中打开 :<code>http://127.0.0.1:8000/media/media.png</code></p>
-
-<p>如果显示出了图片，说明 nginx 服务已经正确运行惹。</p>
-
-<p>注意在从浏览器中请求图片信息时，在 uwsgi 里是没有输出信息的，而请求一个其他的动态网页时，则会输出类似 <code>[pid: 1952|app: 0|req: 3/3] 127.0.0.1 () {36 vars in 599 bytes} [Wed Mar 18 08:43:27 2015] GET /time/ =&gt; generated 63 bytes in 1 msecs (HTTP/1.1 200) 2 headers in 88 bytes (1 switches on core 0)</code> 这样的信息。</p>
-
-<p>也就是缩，当你在浏览器中请求 media.png 时， nginx 会检查这个地址 /media/ ，接着它会在 mysite_nginx.conf 文件中看到这段代码:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">location</span> <span class="o">/</span><span class="n">media</span>  <span class="p">{</span>
-</span><span class='line'>        <span class="n">alias</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">thehackercat</span><span class="o">/</span><span class="n">Dev</span><span class="o">/</span><span class="n">mysite</span><span class="o">/</span><span class="n">mysite</span><span class="o">/</span><span class="n">media</span><span class="p">;</span>  <span class="c"># your Django project&#39;s media files - amend as required</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>它会直接从这个路径下去寻找图片，找到了就显示粗来，没找着就报 404 错误。</p>
-
-<h4>nginx and uWSGI and test.py</h4>
-
-<p>现在进入 /mysite/ 文件夹 输入以下命令 ：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">uwsgi</span> <span class="o">--</span><span class="n">socket</span> <span class="p">:</span><span class="mi">8001</span> <span class="o">--</span><span class="n">wsgi</span><span class="o">-</span><span class="nb">file</span> <span class="n">test</span><span class="o">.</span><span class="n">py</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>在浏览器中访问 <code>http://127.0.0.1:8000</code> 如果出现 &lsquo;Hello World!&rsquo; 则说明以下链接是成功的 :</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">the</span> <span class="n">web</span> <span class="n">client</span> <span class="o">&lt;-&gt;</span> <span class="n">the</span> <span class="n">web</span> <span class="n">server</span> <span class="o">&lt;-&gt;</span> <span class="n">the</span> <span class="n">socket</span> <span class="o">&lt;-&gt;</span> <span class="n">uWSGI</span> <span class="o">&lt;-&gt;</span> <span class="n">Python</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>用 UNIX socket 取代 TCP port</h3>
-
-<p>在 mysite/ 文件夹下创建一个新文件 mysite.sock （空文本文档即可）。</p>
-
-<p>然后对 <code>mysite_nginx.conf</code> 做以下修改 :</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">server</span> <span class="n">unix</span><span class="p">:</span><span class="o">///</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">mysite</span><span class="o">/</span><span class="n">mysite</span><span class="o">.</span><span class="n">sock</span><span class="p">;</span> <span class="c"># for a file socket</span>
-</span><span class='line'><span class="c"># server 127.0.0.1:8001; # for a web port socket (we&#39;ll use this first)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>运行 :</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">sudo</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">init</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">nginx</span> <span class="n">restart</span>
-</span><span class='line'><span class="n">uwsgi</span> <span class="o">--</span><span class="n">socket</span> <span class="n">mysite</span><span class="o">.</span><span class="n">sock</span> <span class="o">--</span><span class="n">wsgi</span><span class="o">-</span><span class="nb">file</span> <span class="n">test</span><span class="o">.</span><span class="n">py</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>打开 <code>http://127.0.0.1:8000</code> 结果报错了，出现了这个错误</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="p">[</span><span class="n">crit</span><span class="p">]</span> <span class="mi">4133</span><span class="c">#0: *1 connect() to unix:/home/thehackercat/Dev/mysite/mysite.sock failed (13: Permission denied) while connecting to upstream, client: 127.0.0.1, server: 127.0.0.1, request: &quot;GET / HTTP/1.1&quot;, upstream: &quot;uwsgi://unix:/home/thehackercat/Dev/mysite/mysite.sock:&quot;, host: &quot;127.0.0.1:8000&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>发现原来是权限的问题，于是在命令中加入这一段 :</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">uwsgi</span> <span class="o">--</span><span class="n">socket</span> <span class="n">mysite</span><span class="o">.</span><span class="n">sock</span> <span class="o">--</span><span class="n">wsgi</span><span class="o">-</span><span class="nb">file</span> <span class="n">test</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">chmod</span><span class="o">-</span><span class="n">socket</span><span class="o">=</span><span class="mi">666</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>然后就成功了！</p>
-
-<h4>用 uswgi 和 nginx 跑 Django 应用</h4>
-
-<p>如果上面一切都运行正常，则输入下面命令可以跑 Django 应用 :</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">uwsgi</span> <span class="o">--</span><span class="n">socket</span> <span class="n">mysite</span><span class="o">.</span><span class="n">sock</span> <span class="o">--</span><span class="n">module</span> <span class="n">mysite</span><span class="o">.</span><span class="n">wsgi</span> <span class="o">--</span><span class="n">chmod</span><span class="o">-</span><span class="n">socket</span><span class="o">=</span><span class="mi">666</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>配置 uWSGI 便捷开启服务器</h3>
-
-<p>如果每次都按上述命令来跑 Django 应用实在麻烦，所以使用 .ini 文件来简化工作，便捷开启服务器，方法如下 :</p>
-
-<p>在 /mysite/ 文件夹下创建文件 mysite_uwsgi.ini ，并填写修改下面内容 :</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">mysite_uwsgi</span><span class="o">.</span><span class="n">ini</span> <span class="nb">file</span>
-</span><span class='line'><span class="p">[</span><span class="n">uwsgi</span><span class="p">]</span>
-</span><span class='line'>
-</span><span class='line'><span class="c"># Django-related settings</span>
-</span><span class='line'><span class="c"># the base directory (full path)</span>
-</span><span class='line'><span class="n">chdir</span> <span class="o">=</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">thehackercat</span><span class="o">/</span><span class="n">Dev</span><span class="o">/</span><span class="n">mysite</span>
-</span><span class='line'><span class="c"># Django&#39;s wsgi file</span>
-</span><span class='line'><span class="n">module</span> <span class="o">=</span> <span class="n">mysite</span><span class="o">.</span><span class="n">wsgi</span>
-</span><span class='line'><span class="c"># the virtualenv (full path) 如果你没有装 virtualenv 就把下面这行用注释掉</span>
-</span><span class='line'><span class="n">home</span> <span class="o">=</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">virtualenv</span>
-</span><span class='line'>
-</span><span class='line'><span class="c"># process-related settings</span>
-</span><span class='line'><span class="c"># master</span>
-</span><span class='line'><span class="n">master</span> <span class="o">=</span> <span class="n">true</span>
-</span><span class='line'><span class="c"># maximum number of worker processes</span>
-</span><span class='line'><span class="n">processes</span> <span class="o">=</span> <span class="mi">10</span>
-</span><span class='line'><span class="c"># the socket (use the full path to be safe</span>
-</span><span class='line'><span class="n">socket</span> <span class="o">=</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">thehackercat</span><span class="o">/</span><span class="n">Dev</span><span class="o">/</span><span class="n">mysite</span><span class="o">/</span><span class="n">mysite</span><span class="o">.</span><span class="n">sock</span>
-</span><span class='line'><span class="c"># ... with appropriate permissions - may be needed</span>
-</span><span class='line'><span class="n">chmod</span><span class="o">-</span><span class="n">socket</span> <span class="o">=</span> <span class="mi">666</span>
-</span><span class='line'><span class="c"># clear environment on exit</span>
-</span><span class='line'><span class="n">vacuum</span> <span class="o">=</span> <span class="n">true</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>现在，只要运行以下命令，就可以跑 Django 应用了 :</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">uwsgi</span> <span class="o">--</span><span class="n">ini</span> <span class="n">mysite_uwsgi</span><span class="o">.</span><span class="n">ini</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>到这里，如果你在浏览器中访问<code>http://127.0.0.1:8000</code> 可以看到正常的 Django 页面，则说明 uWSGI + nginx + Django 配置成功！</p>
-
-<h4>参考文档</h4>
-
-<ol>
-<li><a href="http://www.jianshu.com/p/32dbe2537b78">nginx与Django不可不说的秘密</a></li>
-<li><a href="http://uwsgi-docs.readthedocs.org/en/latest/tutorials/Django_and_nginx.html">Setting up Django and your web server with uWSGI and nginx</a></li>
-</ol>
-
-
-<p>有些同学一定会被网上各种教程的 Django 目录结构搞得头大，其实这个目录是可自定义的，下面是我的目录结构 :</p>
-
-<p><img src="http://thehackercat-hackercat.stor.sinaapp.com/django_test4.png" alt="django_menu" /></p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
+<article class="hentry">
   
 
 
-<time datetime="2016-02-27T21:04:07+08:00" pubdate data-updated="true">Feb 27, 2016</time></div>
-	
 
-<div class="tags">
+<header>
+  <div class="entry-meta">
+    <span class="entry-date date published updated">
+      <time datetime="2015-12-23T21:37:16+08:00">
+        <a href="/blog/2015/12/23/nsfocus-interview/">December 23, 2015</a>
+      </time>
+    </span>
+    <span class="author vcard">
+      <span class="fn">
+        <a href="" title="About TheHackerCat">TheHackerCat</a>
+      </span>
+    </span>
+    
+      &nbsp; &bull; &nbsp;<span class="entry-comments">
+        <a href="/blog/2015/12/23/nsfocus-interview/#disqus_thread">Comment</a>
+      </span>
+    
+  </div><!-- /.entry-meta -->
+  
+    <h1 class="entry-title">
+      <a href="/blog/2015/12/23/nsfocus-interview/" rel="bookmark" title="绿盟 Web 后端实习面试心得" itemprop="url">绿盟 Web 后端实习面试心得</a>
+    </h1>
+  
+</header>
 
-	<a class='category' href='/blog/categories/django/'>django</a>
-
-</div>
-
-
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2015/12/23/nsfocus-interview/">
-		
-			绿盟 Web 后端实习面试心得</a>
-	</h2>
-	<div class="entry-content">
-		<h2>背景</h2>
+<div class="entry-content">
+  <h2>背景</h2>
 
 <p>12月23号下午2：00参加了绿盟的 Web 后端开发实习生的面试。考官是个胖哥哥，也是科大的，人很温柔和蔼。先问了一些数据结构与算法的问题，接着问了计算机网络的一些基础问题，最后考察了下 Web 开发的一些知识。总得来说题目不难，但是自己也发挥不好，原来以为有了几次面经，但是在现场还是紧张得不行。 (真是给自己的心理素质跪了 ：P)</p>
 
-<h2>(数据结构与算法)图的遍历</h2>
 
-<p>我怕出错就写了5个结点的无向图，如下：
-<img src="http://thehackercat-hackercat.stor.sinaapp.com/tulun.jpg" alt="undirected graph" /></p>
-
-<p>然后写了广度优先遍历：</p>
-
-<p>1->2->3->4->5</p>
-
-<p>深度优先遍历：</p>
-
-<p>1->2->5->4->3</p>
-
-<h2>(数据结构与算法)写个排序算法求列表中倒数第二大的元素</h2>
-
-<p>我用 Python 写了个冒泡排序来处理：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># 冒泡排序</span>
-</span><span class='line'><span class="k">def</span> <span class="nf">bubbleSort</span><span class="p">(</span><span class="n">L</span><span class="p">):</span>
-</span><span class='line'>    <span class="k">for</span> <span class="n">passnum</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">L</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-</span><span class='line'>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">passnum</span><span class="p">):</span>
-</span><span class='line'>            <span class="k">if</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]:</span>
-</span><span class='line'>              <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span><span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">L</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>(数据结构与算法)去重的优化算法</h2>
-
-<p>接着不造为什么就谈到了之前在海豚面试的时候对算法时间复杂度进行优化的问题，然后考官问了我一个去除一个列表中重复元素的算法。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># 去重</span>
-</span><span class='line'><span class="k">def</span> <span class="nf">induplicate</span><span class="p">(</span><span class="n">L</span><span class="p">):</span>
-</span><span class='line'>  <span class="n">L1</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span class='line'>  <span class="k">return</span> <span class="p">[</span><span class="n">L2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">L</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">L2</span><span class="p">]</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这样通过增加空间复杂度来降低时间复杂度</p>
-
-<h2>Http 状态码</h2>
-
-<p>这个我当时说错了</p>
-
-<p>我说的是
-- 2 开头的是成功
-- 3 开头的是需要等待
-- 4 开头的通常是请求出错
-- 5 开头的是服务器问题</p>
-
-<p>后来回来查了下
-- 3 开头的标识重定向
-- 5 开头的表示服务不可用</p>
-
-<h2>TCP 3次握手连接和4次握手断开连接的过程</h2>
-
-<p>这个不能更经典了。</p>
-
-<p>就不详细列出了，可以参见这个<a href="http://blog.csdn.net/zhuying_linux/article/details/7449403">详解</a></p>
-
-<h2>设计一个产品参数配置页面布局</h2>
-
-<p>我本来打算多扯一些的，因为最近正好在看的<a href="http://book.douban.com/subject/3323633/">《写给大家看的设计书》</a>，但是词穷了，就画了个抽屉菜单的布局,但是感觉还有很多交互设计的地方我欠考虑。</p>
-
-<h2>Http 和 Https 的区别</h2>
-
-<p>这个我没答出来，我只知道 Https 是经过一定手段加密使得 Http 传输的数据包中一些明文数据变得"隐晦"，但是具体的实现方法不太清楚。</p>
-
-<p>后来我看了一篇 <a href="http://www.fenesky.com/blog/2014/07/19/how-https-works.html">Blog</a>，主要是用 SSL/TLS 来对数据包进行加密。</p>
-
-<p>这样经过 SSL/TLS 协议加密后，当客户端收到服务器的 Https 请求后，会查询本机所支持的加密算法，并通过该算法来解密 Https 请求。</p>
-
-<h2>总结</h2>
-
-<p>这次面试总的来说题目相对简单。</p>
-
-<p>面试官也教了我很多网安方面的知识，比如12306的签名协议和网关安全，虽然我是网络安全方面的小白，但是我觉得 Web 安全很炫酷。</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
+  
+  
+    <footer>
+      <a class="btn" rel="full-article" href="/blog/2015/12/23/nsfocus-interview/">Read on &rarr;</a>
+    </footer>
+  
+</div><!-- /.entry-content -->
 
 
 
 
 
+</article><!-- /.hentry -->
 
-
-
+<article class="hentry">
   
 
 
-<time datetime="2015-12-23T21:37:16+08:00" pubdate data-updated="true">Dec 23, 2015</time></div>
-	
 
-<div class="tags">
+<header>
+  <div class="entry-meta">
+    <span class="entry-date date published updated">
+      <time datetime="2015-12-18T12:02:37+08:00">
+        <a href="/blog/2015/12/18/dolphin-interview/">December 18, 2015</a>
+      </time>
+    </span>
+    <span class="author vcard">
+      <span class="fn">
+        <a href="" title="About TheHackerCat">TheHackerCat</a>
+      </span>
+    </span>
+    
+      &nbsp; &bull; &nbsp;<span class="entry-comments">
+        <a href="/blog/2015/12/18/dolphin-interview/#disqus_thread">Comment</a>
+      </span>
+    
+  </div><!-- /.entry-meta -->
+  
+    <h1 class="entry-title">
+      <a href="/blog/2015/12/18/dolphin-interview/" rel="bookmark" title="海豚浏览器 Python 实习面试心得" itemprop="url">海豚浏览器 Python 实习面试心得</a>
+    </h1>
+  
+</header>
 
-	<a class='category' href='/blog/categories/interview/'>interview</a>
-
-</div>
-
-
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2015/12/18/dolphin-interview/">
-		
-			海豚浏览器 Python 实习面试心得</a>
-	</h2>
-	<div class="entry-content">
-		<h2>背景</h2>
+<div class="entry-content">
+  <h2>背景</h2>
 
 <p>12月11号下午4：30参加了海豚浏览器的 Python 后台开发实习生的电面，考官一开始先问了我一些 Python 基础的问题，接着问了些计网的经典面试题，最后考了2道算法题，然后开始扯皮一些之前做过的项目中的问题等，最后总结心得如下：</p>
 
-<h2>Python 的 List 能不能作为字典的 key 传入？</h2>
 
-<p>我回答的是不能，因为字典的 key 值必须是不变的，而 List 的值是可变的。</p>
-
-<p>之后我上网查了下，更标准的说法是，Python Dict 的 key 值是 hashable 的，即</p>
-
-<ul>
-<li>这个 key 值在其生命周期内是不变的。</li>
-<li>并且可以和其他对象进行比较。</li>
-</ul>
+  
+  
+    <footer>
+      <a class="btn" rel="full-article" href="/blog/2015/12/18/dolphin-interview/">Read on &rarr;</a>
+    </footer>
+  
+</div><!-- /.entry-content -->
 
 
-<p>以下是官方对于 hashable 给出的解释：</p>
-
-<blockquote><p>An object is hashable if it has a hash value which never changes during its lifetime (it needs a hash() method), and can be compared to other objects (it needs an eq() or cmp() method). Hashable objects which compare equal must have the same hash value.</p>
-
-<p>Hashability makes an object usable as a dictionary key and a set member, because these data structures use the hash value internally.</p>
-
-<p>All of Python’s immutable built-in objects are hashable, while no mutable containers (such as lists or dictionaries) are. Objects which are instances of user-defined classes are hashable by default; they all compare unequal (except with themselves), and their hash value is their id().</p></blockquote>
-
-<p>所以得出，Python 中所有不变的内奸对象都是 hashable 的，所有可变的容器(比如，list or dict)都不是 hashable 的，故不能作为字典的 key。</p>
-
-<h2>Python 装饰器是什么，有什么看法？</h2>
-
-<p>正好之前我写了一篇深入理解 Python 装饰器的 <a href="http://thehackercat.me/blog/2015/12/07/python-decorator-learning/">blog</a></p>
-
-<p>我就向他解释了下，装饰器是在不修改原先代码块的情况下，为其加上一些装饰。</p>
-
-<p>然后我扯了一些装饰器所使用的 Python 语言的几个特性</p>
-
-<ul>
-<li>闭包</li>
-<li>把函数作为参数传递</li>
-<li>装饰器的迭代</li>
-</ul>
 
 
-<h2>Python 的 yield() 函数的看法？</h2>
 
-<p>我想起来之前有看过一篇 <a href="http://pyzh.readthedocs.org/en/latest/the-python-yield-keyword-explained.html">blog</a> 正好讲过。</p>
+</article><!-- /.hentry -->
 
-<p>yield 函数是 Python 在进行迭代时，函数内部的代码并不立刻执行，而是返回一个 generator 对象，接着每次迭代时，再读取下一个元素。</p>
-
-<p>这样的好处在于，不需要一次性读取全部对象，二是实时地读取生成数据，减少了内存的开支。</p>
-
-<h2>解释下 Django 的 MVC 模式，其中那一部分充当的是 controller 的部分？</h2>
-
-<p>我解释了下，其实 Django 是一个 MTV 模式的框架, MTV 三个部分如下，
-- 模型( Model )，数据存取层：处理与数据相关的所有事务，即如何存取、如何验证有效性、包含哪些行为以及数据之间的关系等。
-- 模板( Template )，表现层：处理与表现相关的决定，即如何在页面或其他类型文档中进行显示。
-- 视图( View )，业务逻辑层：存取模型及调取恰当模板的相关逻辑。模型与模板之间的桥梁。</p>
-
-<p>而其中作为 controller 的部分是 Django 的 URLconf。</p>
-
-<p>它获取用户在地址栏中输入的 URL 并将其路由到 views 模块对应的各个函数，并调用他们。实现了相应的视图函数路由到相应界面的映射功能。</p>
-
-<h2>Django 中的缓存用过吗？看法是？</h2>
-
-<p>正好之前在写一个 Django 练手的图书馆项目中试过 Django 的缓存机制，所以就以那个例子介绍了下。</p>
-
-<p>Django 的缓存系统让开发者能够缓存某个视图的输出。这个缓存是无法在浏览器缓存中控制的，因为它并不包含在 http 头部内。</p>
-
-<p>我用的是 Django 缓存系统的 memcached。 memcached 作为一个后台进程运行，并分配一个指定的内存量，它所实现的功能是提供一个添加、检索和删除缓存中任意数据的快速接口，所有的数据是直接存储在内存中的，所以没有用到数据库或者文件系统，减少了额外开销。</p>
-
-<p>但是 memcached 有一个缺点是，它的缓存是完全存在内存中的，一旦服务器崩溃，辣么所有缓存的数据就丢失了。</p>
-
-<p>其他的缓存机制偶没有用过，所以就没有谈。</p>
-
-<h2>用户在浏览器中输入一个网址，到 Django 后台捕捉到请求其中的过程？</h2>
-
-<p>这个我当时貌似讲偏题了，我说的是</p>
-
-<p>用户输入一个网址后</p>
-
-<ol>
-<li>浏览器先检查缓存，如果有缓存，就从缓存中获得资源文件并加载，如果木有缓存，则执行下一步。</li>
-<li>进行 DNS 域名解析，将域名解析成 ip 地址。</li>
-<li>与 ip 地址对影的服务器进行 TCP 连接。</li>
-<li>接着经历 TCP 3次握手过程。</li>
-<li>一旦连接建立后，开始发送 Http 请求。</li>
-<li>服务器获得 Http 请求后，将该请求打包成 HttpRequest 对象。</li>
-<li>接着检查 Request 中是否需要 Django 中间件的方法，如果没有则执行下一步。</li>
-<li>判断 Request 中的各种信息，诸如 user_agent、GET/POST 等，并在 URLconf 中进行匹配路由到对应的 views 视图函数中。</li>
-<li>返回一个 Response 对象，并调用相应的 views 视图函数。</li>
-<li>最后返回一个 Http 相应，并加载页面。</li>
-</ol>
+<article class="hentry">
+  
 
 
-<h2>(数据结构与算法)获得两个列表的交集</h2>
 
-<p>我第一次写的是</p>
+<header>
+  <div class="entry-meta">
+    <span class="entry-date date published updated">
+      <time datetime="2015-12-08T15:08:35+08:00">
+        <a href="/blog/2015/12/08/django-learning-4/">December 08, 2015</a>
+      </time>
+    </span>
+    <span class="author vcard">
+      <span class="fn">
+        <a href="" title="About TheHackerCat">TheHackerCat</a>
+      </span>
+    </span>
+    
+      &nbsp; &bull; &nbsp;<span class="entry-comments">
+        <a href="/blog/2015/12/08/django-learning-4/#disqus_thread">Comment</a>
+      </span>
+    
+  </div><!-- /.entry-meta -->
+  
+    <h1 class="entry-title">
+      <a href="/blog/2015/12/08/django-learning-4/" rel="bookmark" title="Django 高级 Views 和 URLconf 配置" itemprop="url">Django 高级 Views 和 URLconf 配置</a>
+    </h1>
+  
+</header>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">intset</span><span class="p">(</span><span class="n">L1</span><span class="p">,</span><span class="n">L2</span><span class="p">):</span>
-</span><span class='line'>  <span class="n">L</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span class='line'>  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">L1</span><span class="p">:</span>
-</span><span class='line'>      <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">L2</span><span class="p">:</span>
-</span><span class='line'>          <span class="n">L</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-</span><span class='line'>  <span class="k">return</span> <span class="n">L</span>
-</span></code></pre></td></tr></table></div></figure>
+<div class="entry-content">
+  <p>由于官网教程讲得迷迷糊糊的，所以我提炼了下代码，发现便于理解很多。</p>
 
+<h2>URLconf 技巧</h2>
 
-<p>接着考官问我，这个时间复杂度是多少，很明显是O(n<sup>2</sup>)，他又问我有没有更好的方法，</p>
-
-<p>于是我写了第二种方法</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">intset2</span><span class="p">(</span><span class="n">L1</span><span class="p">,</span><span class="n">L2</span><span class="p">):</span>
-</span><span class='line'>  <span class="n">L</span> <span class="o">=</span> <span class="p">[</span><span class="nb">set</span><span class="p">(</span><span class="n">L1</span><span class="p">)</span><span class="o">^</span><span class="nb">set</span><span class="p">(</span><span class="n">L2</span><span class="p">)]</span>
-</span><span class='line'>  <span class="k">return</span> <span class="n">L</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这样先把L1、L2列表中重复的元素删除了，接着再用异或符来取得他们的交集。</p>
-
-<h2>(数据结构与算法)一个人一次可以爬3级或5级的台阶，请问他爬到第m层时，有n种解法，求解</h2>
-
-<p>这个我当时没写出来，我第一眼感觉是递归的题，后来室友告诉我是线性规划的题。之后我在 leetcode 上也看到了相应的解法，真是太蠢了我！</p>
-
-<p>leetcode 解法如下：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>urls.py</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -869,120 +373,64 @@ $(document).ready(
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
-</span><span class='line'>    <span class="c"># @param {integer} n</span>
-</span><span class='line'>    <span class="c"># @return {integer}</span>
-</span><span class='line'>    <span class="k">def</span> <span class="nf">climbStairs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
-</span><span class='line'>        <span class="k">if</span> <span class="n">n</span><span class="o">==</span><span class="mi">1</span> <span class="ow">or</span> <span class="n">n</span><span class="o">==</span><span class="mi">2</span><span class="p">:</span>
-</span><span class='line'>            <span class="k">return</span> <span class="n">n</span>
-</span><span class='line'>        <span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span><span class="n">c</span><span class="o">=</span><span class="mi">3</span>
-</span><span class='line'>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
-</span><span class='line'>            <span class="n">c</span><span class="o">=</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">;</span><span class="n">a</span><span class="o">=</span><span class="n">b</span><span class="p">;</span><span class="n">b</span><span class="o">=</span><span class="n">c</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">c</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># 在模块开始导入关联的视图函数，直接传递函数对象</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">include</span><span class="p">,</span> <span class="n">url</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">mysite.views</span> <span class="kn">import</span> <span class="n">hello</span><span class="p">,</span> <span class="n">current_datetime</span><span class="p">,</span> <span class="n">hours_ahead</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^admin/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">)),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^hello/$&#39;</span><span class="p">,</span> <span class="n">hello</span><span class="p">),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^time/$&#39;</span><span class="p">,</span> <span class="n">current_datetime</span><span class="p">),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^time/plus/(\d{1,2})/$&#39;</span><span class="p">,</span> <span class="n">hours_ahead</span><span class="p">),</span>
+</span><span class='line'><span class="p">]</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
-<h2>总结</h2>
-
-<p>以上就是我这次 Python 实习面试的大部分考题，面试完之后感觉自己基础还是不扎实，对于性能优化的理解还有缺陷，代码写得不够漂亮，算法方面很薄弱。故决定刷一下 Python 文档和 Leetcode。</p>
-
-<p>而且这次面试感觉要黄，因为都一星期了，HR 还是木有给我打电话 T.T</p>
-
-<p>不过，我有了其他的考虑了，心理也安定了许多。</p>
-
-<p>希望各自安好吧。</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
 
 
 
   
-
-
-<time datetime="2015-12-18T12:02:37+08:00" pubdate data-updated="true">Dec 18, 2015</time></div>
-	
-
-<div class="tags">
-
-	<a class='category' href='/blog/categories/interview/'>interview</a>
-
-</div>
-
-
-	
-</div></article>
-
-<nav id="pagenavi">
-    
-    
-        <a href="2" class="next">Next</a>
-    
-    <div class="center"><a href="/archives">Blog Archives</a></div>
-</nav></div>
-	<footer id="footer" class="inner"><a href="http://twitter.com/lexuscyborg103">Twitter</a>
- • 
-<a href="https://github.com/thehackercat">Github</a>
- • 
-<a href="http://weibo.com/thehackercat">Weibo</a>
- • 
-<a href="https://www.linkedin.com/profile/preview?locale=zh_CN&trk=prof-0-sb-preview-primary-button">Linkedin</a>
-<br>
-Copyright &copy; 2016
-
-    TheHackerCat
-
-<br>
-Powered by Oliver Queen.
-</footer>
-	<script src="/javascripts/slash.js"></script>
-<script src="/javascripts/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-	$('.fancybox').fancybox();
-})(jQuery);
-</script> <!-- Delete or comment this line to disable Fancybox -->
-
-
-<script type="text/javascript">
-      var disqus_shortname = 'thehackercat';
-      
-        
-        var disqus_script = 'count.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
+  
+    <footer>
+      <a class="btn" rel="full-article" href="/blog/2015/12/08/django-learning-4/">Read on &rarr;</a>
+    </footer>
+  
+</div><!-- /.entry-content -->
 
 
 
-<!-- Google Analytics -->
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
- (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
- m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
- })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'thehackercat');
-ga('send', 'pageview');
-
-</script>
-<!-- End Google Analytics -->
 
 
+</article><!-- /.hentry -->
+
+
+<div class="pagination">
+  
+  <a href="/archives">Blog Archives</a>
+  
+    <a href="/posts/2" class="btn">Next</a>
+  
+</div><!-- /.pagination -->
+
+  </div><!-- /#main -->
+
+  <div class="footer-wrapper">
+    <footer role="contentinfo">
+      <span>Copyright &copy; 2016 TheHackerCat <br />Powered by Oliver Queen<!-- <a href="http://octopress.org">Octopress</a> using the <a href="https://github.com/jez/hpstr-theme/">HPSTR Theme for Octopress</a> -->.</span>
+
+    </footer>
+  </div><!-- /.footer-wrapper -->
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/javascripts/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="/javascripts/octopress.js" type="text/javascript"></script>
+<script src="/javascripts/scripts.min.js"></script>
+
+
+
+
+          
+  
 
 </body>
 </html>

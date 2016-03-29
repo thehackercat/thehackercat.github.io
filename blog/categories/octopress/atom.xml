@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[分类：octopress | TheHackerCat's blog]]></title>
+  <title><![CDATA[Category: Octopress | TheHackerCat's Blog]]></title>
   <link href="http://thehackercat.me/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://thehackercat.me/"/>
-  <updated>2016-02-27T22:14:53+08:00</updated>
+  <updated>2016-03-29T15:51:56+08:00</updated>
   <id>http://thehackercat.me/</id>
   <author>
     <name><![CDATA[TheHackerCat]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[在 Octopress 中生成包含 liquid 语句的代码]]></title>
+    <title type="html"><![CDATA[在 Octopress 中生成包含 Liquid 语句的代码]]></title>
     <link href="http://thehackercat.me/blog/2015/11/20/blog-with-liquid/"/>
     <updated>2015-11-20T16:32:12+08:00</updated>
     <id>http://thehackercat.me/blog/2015/11/20/blog-with-liquid</id>
@@ -26,15 +26,19 @@
 
 <h2>解决方法</h2>
 
-<p>比如，我之前写的
-<code>
+<p>比如，我之前写的</p>
 
-{% if variable %}
-{% else %}
+<!--more-->
+
+
+<pre><code>
+{% if variable %} 
+{% else %} 
 {% endif %}
 
-</code>
-就会因为包含了 <code>{% ... %}</code>的 Liquid 语句而导致编译出错无法生成 blog 。</p>
+</code></pre>
+
+<p>就会因为包含了 <code>{% ... %}</code>的 Liquid 语句而导致编译出错无法生成 blog 。</p>
 
 <p>解决方法是：</p>
 
@@ -66,7 +70,7 @@
     <link href="http://thehackercat.me/blog/2015/11/09/fix-the-datetime-bug/"/>
     <updated>2015-11-09T11:25:00+08:00</updated>
     <id>http://thehackercat.me/blog/2015/11/09/fix-the-datetime-bug</id>
-    <content type="html"><![CDATA[<p><img src="http://farm4.staticflickr.com/3749/9616934444_2b0616cc59_b.jpg" alt="Spiderman" /></p>
+    <content type="html"><![CDATA[<p><img src="http://7xse6j.com1.z0.glb.clouddn.com/spiderman.jpg" alt="Spiderman" /></p>
 
 <p>最近把个人博客搭好了，用了<a href="https://github.com/octopress/octopress">Octopress</a>,一个基于 Jekyll 的集成开发工具。</p>
 
@@ -77,6 +81,9 @@
 <p>Octopress 的安装配置比较简单，是需要按照官网或者网上一些<a href="http://shengmingzhiqing.com/blog/setup-octopress-with-github-pages.html/">教程</a>一步步走即可。</p>
 
 <p>由于我在2015年10月1日更新了 OS X EI Capitan，新系统在权限设置上增加了 <a href="http://www.macworld.com/article/2948140/os-x/private-i-el-capitans-system-integrity-protection-will-shift-utilities-functions.html">System Integrity Protection</a> (SIP) 来提高系统安全性并且在 System Library 的路径上作了修改，导致了一些安装 Jekyll 时出现的异常，罗列如下：</p>
+
+<!--more-->
+
 
 <ol>
 <li><p>如果你使用命令行 <code>$ gem install jekyll</code> 安装 Jekyll 时 遇到了如下问题：</p>

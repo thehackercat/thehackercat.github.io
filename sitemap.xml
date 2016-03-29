@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://thehackercat.me/blog/2016/03/29/django-rest-framework/</loc>
+    <lastmod>2016-03-29T15:43:36+08:00</lastmod>
+  </url>
+  <url>
     <loc>http://thehackercat.me/blog/2016/02/27/nginx-uwsgi-django/</loc>
     <lastmod>2016-02-27T21:04:07+08:00</lastmod>
   </url>
@@ -45,19 +49,19 @@
     <lastmod>2015-04-02T01:40:54+08:00</lastmod>
   </url>
   <url>
-    <loc>http://thehackercat.me/blog/</loc>
+    <loc>http://thehackercat.me/blog/archives/</loc>
   </url>
   <url>
     <loc>http://thehackercat.me/archives/</loc>
   </url>
   <url>
+    <loc>http://thehackercat.me/categories/</loc>
+  </url>
+  <url>
     <loc>http://thehackercat.me/</loc>
   </url>
   <url>
-    <loc>http://thehackercat.me/blog/archives/</loc>
-  </url>
-  <url>
-    <loc>http://thehackercat.me/about/</loc>
+    <loc>http://thehackercat.me/posts/</loc>
   </url>
   <url>
     <loc>http://thehackercat.me/blog/categories/gossip/</loc>
@@ -70,5 +74,14 @@
   </url>
   <url>
     <loc>http://thehackercat.me/blog/categories/interview/</loc>
+  </url>
+  <url>
+    <loc>http://thehackercat.me/blog/categories/django-rest-framework/</loc>
+  </url>
+  <url>
+    <loc>http://thehackercat.me/posts/2/</loc>
+  </url>
+  <url>
+    <loc>http://thehackercat.me/posts/3/</loc>
   </url>
 </urlset>

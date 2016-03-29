@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[分类：gossip | TheHackerCat's blog]]></title>
+  <title><![CDATA[Category: Gossip | TheHackerCat's Blog]]></title>
   <link href="http://thehackercat.me/blog/categories/gossip/atom.xml" rel="self"/>
   <link href="http://thehackercat.me/"/>
-  <updated>2016-02-27T22:14:53+08:00</updated>
+  <updated>2016-03-29T15:51:56+08:00</updated>
   <id>http://thehackercat.me/</id>
   <author>
     <name><![CDATA[TheHackerCat]]></name>
@@ -27,6 +27,9 @@
 <p>在我长牙约莫拾几朵玫瑰花之后，我开始明白，玫瑰是不能摘的，春天是追不到的。</p>
 
 <p>只能追，不能到！</p>
+
+<!--more-->
+
 
 <p>成都的春天鲜艳得很。</p>
 

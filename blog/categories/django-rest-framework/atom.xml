@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Django-rest-framework | TheHackerCat's Blog]]></title>
+  <link href="http://thehackercat.me/blog/categories/django-rest-framework/atom.xml" rel="self"/>
+  <link href="http://thehackercat.me/"/>
+  <updated>2016-03-29T15:51:56+08:00</updated>
+  <id>http://thehackercat.me/</id>
+  <author>
+    <name><![CDATA[TheHackerCat]]></name>
+    <email><![CDATA[lexuscyborg103@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Django REST Framework 快速上手]]></title>
+    <link href="http://thehackercat.me/blog/2016/03/29/django-rest-framework/"/>
+    <updated>2016-03-29T15:43:36+08:00</updated>
+    <id>http://thehackercat.me/blog/2016/03/29/django-rest-framework</id>
+    <content type="html"><![CDATA[<h2>Django REST Framework 快速上手</h2>
+
+<h3>背景</h3>
+
+<p>这几天正好在研究 RESTful 的方式来写 API，然后上手 Django REST 框架。</p>
+
+<p>Django REST Framework (以下简称 DRF )是一个轻量级的库，熟悉 Django 的话可以很容易的用它来构建 Web API。</p>
+
+<!--more-->
+
+
+<h3>安装前提</h3>
+
+<p>Django REST Framework 安装需要以下前提:</p>
+
+<ul>
+<li>Python (2.7, 3.2, 3.3, 3.4, 3.5)</li>
+<li>Django (1.7+, 1.8, 1.9)</li>
+</ul>
+
+
+<p>我自己的环境是:</p>
+
+<ul>
+<li>Python 2.7.10</li>
+<li>Django 1.8.2
+
+<h3>安装配置</h3>
+
+<p>安装 DRF 需要用到 <code>pip</code> 命令</p></li>
+</ul>
+
+
+<pre><code>pip install djangorestframework
+pip install markdown    # Markdown support for the browsable API.
+pip install django-filter   # Filtering support
+</code></pre>
+
+<p>或者在 GitHub 上 clone 它
+<code>
+git clone git@github.com:tomchristie/django-rest-framework.git
+</code></p>
+
+<p>接着在 Django Project 根目录的 <code>setting.py</code> 文件中的 <code>INSTALLED_APPS</code> 加入 <code>'rest_framework'</code></p>
+
+<pre><code class="Python">INSTALLED_APPS = (
+    ...
+    'rest_framework',
+)
+</code></pre>
+
+<p>如果你要使用 DRF 的 browsable API 的话，你可能还需要添加 REST 框架的登录登出视图 ( views )，辣么需要在 <code>url.py</code> 文件中加入以下代码:</p>
+
+<pre><code>urlpatterns = [
+    ...
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+]
+</code></pre>
+
+<p>注: 这个 URL 地址可以是任意的，但是必须 include <code>'rest_framework.urls'</code> 和 <code>namespace='rest_framework'</code> 。</p>
+
+<h3>举个栗子</h3>
+
+<p>现在我们来看一下一个简单的用 DRF 来构建一个模型支持较好的 API 的栗子。</p>
+
+<p>任何一个对 REST 框架的全局设置都被放在 <code>REST_FRAMEWORK</code> 的模块内，所以你需要在 <code>settings.py</code> 文件中添加以下代码来通过 <code>REST_FRAMEWORK</code> 入口进行全局设置:</p>
+
+<pre><code class="python">REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
+</code></pre>
+
+<p>现在我们可以构建 API 了，编辑 Django 项目根目录的 <code>url.py</code> 文件:</p>
+
+<pre><code class="python">from django.conf.urls import url, include
+from django.contrib.auth.models import User
+from rest_framework import routers, serializers, viewsets
+
+# Serializers define the API representation.
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = ('url', 'username', 'email', 'is_staff')
+
+# ViewSets define the view behavior.
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+# Routers provide an easy way of automatically determining the URL conf.
+router = routers.DefaultRouter()
+router.register(r'users', UserViewSet)
+
+# Wire up our API using automatic URL routing.
+# Additionally, we include login URLs for the browsable API.
+urlpatterns = [
+    url(r'^', include(router.urls)),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+]
+</code></pre>
+
+<p>解释一下，</p>
+
+<p>每个 <code>xxxSerializer</code> 都要继承 <code>ModelSerializer</code> 来选择模型和模型字段。</p>
+
+<p>UserSerializer 类继承了更符合 RESTful 设计的 <code>HyperlinkedModelSerializer</code> 超链接模型 Serializer 类，它和普通的 <code>ModelSerializer</code> 类有以下区别:</p>
+
+<ul>
+<li>缺省状态下不包含 pk 字段</li>
+<li>具有一个 url 字段，即HyperlinkedIdentityField类型</li>
+<li>用HyperlinkedRelatedField表示关系，而非PrimaryKeyRelatedField</li>
+</ul>
+
+
+<p>然后在 <code>class Meta</code> 中选择模型和要展现的模型元素</p>
+
+<p><code>ViewSet</code> 用来定义 View 的行为，和 Django 的 views 类似，用来处理 API 的 read 、write、 update 等方法(而 Django views 则处理 http 的 GET 和 POST )</p>
+
+<p>在 ViewSet 实例化之后，通过 <code>Router</code> 类，最终将 URL 和 ViewSet 方法绑定起来。</p>
+
+<p>ok，现在你可以通过在浏览器中访问 <code>http://127.0.0.1:8000/</code> 来查看你的 &lsquo;users&rsquo; API 了。</p>
+]]></content>
+  </entry>
+  
+</feed>

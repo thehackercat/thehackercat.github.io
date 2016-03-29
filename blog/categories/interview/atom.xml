@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[分类：interview | TheHackerCat's blog]]></title>
+  <title><![CDATA[Category: Interview | TheHackerCat's Blog]]></title>
   <link href="http://thehackercat.me/blog/categories/interview/atom.xml" rel="self"/>
   <link href="http://thehackercat.me/"/>
-  <updated>2016-02-27T22:14:53+08:00</updated>
+  <updated>2016-03-29T15:51:56+08:00</updated>
   <id>http://thehackercat.me/</id>
   <author>
     <name><![CDATA[TheHackerCat]]></name>
@@ -21,6 +21,9 @@
     <content type="html"><![CDATA[<h2>背景</h2>
 
 <p>12月23号下午2：00参加了绿盟的 Web 后端开发实习生的面试。考官是个胖哥哥，也是科大的，人很温柔和蔼。先问了一些数据结构与算法的问题，接着问了计算机网络的一些基础问题，最后考察了下 Web 开发的一些知识。总得来说题目不难，但是自己也发挥不好，原来以为有了几次面经，但是在现场还是紧张得不行。 (真是给自己的心理素质跪了 ：P)</p>
+
+<!--more-->
+
 
 <h2>(数据结构与算法)图的遍历</h2>
 
@@ -108,6 +111,9 @@ def induplicate(L):
     <content type="html"><![CDATA[<h2>背景</h2>
 
 <p>12月11号下午4：30参加了海豚浏览器的 Python 后台开发实习生的电面，考官一开始先问了我一些 Python 基础的问题，接着问了些计网的经典面试题，最后考了2道算法题，然后开始扯皮一些之前做过的项目中的问题等，最后总结心得如下：</p>
+
+<!--more-->
+
 
 <h2>Python 的 List 能不能作为字典的 key 传入？</h2>
 
@@ -244,7 +250,7 @@ class Solution:
 
 <p>不过，我有了其他的考虑了，心理也安定了许多。</p>
 
-<p>希望各自安好吧。</p>
+<p>现在，我只想去睡个十除以三的懒觉。</p>
 ]]></content>
   </entry>
   
