@@ -4,7 +4,7 @@
   <title><![CDATA[TheHackerCat's Blog]]></title>
   <link href="http://thehackercat.me/atom.xml" rel="self"/>
   <link href="http://thehackercat.me/"/>
-  <updated>2016-04-07T09:57:46+08:00</updated>
+  <updated>2016-04-08T14:57:59+08:00</updated>
   <id>http://thehackercat.me/</id>
   <author>
     <name><![CDATA[TheHackerCat]]></name>
@@ -28,6 +28,9 @@
 <li>只有 Movies 的创建者才可以更新或删除它。</li>
 <li>未授权的用户只能进行查看。</li>
 </ul>
+
+
+<!--more-->
 
 
 <h3>在 models 中增加以下信息</h3>
