@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Django-rest-framework | TheHackerCat's Blog]]></title>
   <link href="http://thehackercat.me/blog/categories/django-rest-framework/atom.xml" rel="self"/>
   <link href="http://thehackercat.me/"/>
-  <updated>2016-04-08T14:57:59+08:00</updated>
+  <updated>2016-04-08T15:06:41+08:00</updated>
   <id>http://thehackercat.me/</id>
   <author>
     <name><![CDATA[TheHackerCat]]></name>
@@ -12,6 +12,155 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[DRF教程5 - 关联性和超链接]]></title>
+    <link href="http://thehackercat.me/blog/2016/04/08/drf-tutoriaial5/"/>
+    <updated>2016-04-08T15:05:11+08:00</updated>
+    <id>http://thehackercat.me/blog/2016/04/08/drf-tutoriaial5</id>
+    <content type="html"><![CDATA[<h2>关联性和超链接</h2>
+
+<p>之前我们的 api 都是用外键关联，然而实际上用超链接的方式更符合 RESTful 的思想。</p>
+
+<p>所以在这一章中我们将要用超链接(代替外键的方式)来提高关联性。</p>
+
+<h3>为 api 提供根路径</h3>
+
+<p>由于要采用超链接的方式，而之前我们的 &lsquo;movies&rsquo; / &lsquo;directors&rsquo; / &lsquo;users&rsquo; 虽然有了 endpoints ，但 api 本身却没有一个整体的根路径，所以我们使用 <code>@api_view</code> 装饰器来创建一个根路径。</p>
+
+<p>在 <code>douban/views.py</code> 中添加如下代码:</p>
+
+<!--more-->
+
+
+<pre><code class="python">from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.reverse import reverse
+
+# api 根目录
+@api_view(['GET'])
+def api_root(request, format=None):
+    return Response({
+        'user': reverse('user-list', request=request, format=format),
+        'movies': reverse('movies-list', request=request, format=format),
+        'director': reverse('director-list', request=request, format=format)
+    })
+</code></pre>
+
+<p>在这里需要注意两样东西：</p>
+
+<ol>
+<li>我们用了 DRF 的 <code>reverse</code> 方法而不是 Django 自带的 <code>reverse</code> 方法来返回一个正确的 URLs。</li>
+<li>此时如果打开 Web api 界面会报错, 因为我们还没有为 url 进行绑定， 稍后我们会添加。</li>
+</ol>
+
+
+<p>接着在 <code>doubt/urls.py</code> 中添加对应路径</p>
+
+<pre><code class="python">url(r'^$', views.api_root),
+</code></pre>
+
+<h3>使用炫酷的超链接</h3>
+
+<p>DRF 提供了以下几种方式来处理实体间的关系:</p>
+
+<ul>
+<li>主键</li>
+<li>超链接</li>
+<li>相关项使用单一标识符</li>
+<li>相关项默认文本信息</li>
+<li>子项在母项中显示出来</li>
+<li>其他方式</li>
+</ul>
+
+
+<p>在这个栗子中我们使用超链接的方式来处理实体关系。</p>
+
+<p>首先在序列器中使用 <code>HyperlinkedModelSerializer</code> 替代 <code>ModelSerializer</code></p>
+
+<p>注:  <code>HyperlinkedModelSerializer</code>  和 <code>ModelSerializer</code> 有以下几点区别:</p>
+
+<ul>
+<li>它没有主键域 ( pk field )</li>
+<li>它默认包含一个 url 域</li>
+<li>关联时使用的是 <code>HyperlinkedRelatedField</code> 而不是 <code>PrimaryKeyRelatedField</code></li>
+</ul>
+
+
+<p>在 <code>doubt/serializer.py</code> 中进行如下改写:</p>
+
+<pre><code class="python">#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+from django.contrib.auth.models import User
+from rest_framework import serializers
+from douban.models import Movies, celebrity, COUNTRY_CHOICES, TYPE_CHOICES
+
+class MoviesSerializer(serializers.HyperlinkedModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
+    director = serializers.HyperlinkedRelatedField(many=False, queryset=celebrity.objects.all(), view_name='director-detail')
+    class Meta:
+        model = Movies
+        fields = ('id', 'title', 'director', 'year', 'country', 'type', 'rating', 'owner')
+
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    movies = serializers.HyperlinkedRelatedField(many=True, view_name='movies-detail', read_only=True)
+
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'movies')
+
+class DirectorSerializer(serializers.HyperlinkedModelSerializer):
+    movies = serializers.HyperlinkedRelatedField(many=True, view_name='movies-detail')
+    class Meta:
+        model = celebrity
+        fields = ('id', 'name', 'age', 'gender', 'movies')
+</code></pre>
+
+<h3>绑定 url</h3>
+
+<p>使用超链接 api 有个前提条件，我们需要确保 URL pattern 都已命名。</p>
+
+<p>编辑 <code>douban/urls.py</code> 进行如下修改:</p>
+
+<pre><code class="python">#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+from django.conf.urls import url
+from rest_framework.urlpatterns import format_suffix_patterns
+from douban import views
+
+urlpatterns = format_suffix_patterns([
+    url(r'^$', views.api_root),
+    url(r'^movies/$', views.MoviesList.as_view(), name='movies-list'),
+    url(r'^movies/(?P&lt;pk&gt;[0-9]+)/$', views.MoviesDetail.as_view(), name='movies-detail'),
+    url(r'^users/$', views.UserList.as_view(), name='user-list'),
+    url(r'^users/(?P&lt;pk&gt;[0-9]+)/$', views.UserDetail.as_view(), name='user-detail'),
+    url(r'^directors/$', views.DirectorList.as_view(), name='director-list'),
+    url(r'^directors/(?P&lt;pk&gt;[0-9]+)/$', views.DirectorDetail.as_view(), name='director-detail'),
+])
+</code></pre>
+
+<p>确保每个 URL pattern 都正确的与 <code>views.py</code> 中对应视图的命名进行绑定。</p>
+
+<h3>增加分页</h3>
+
+<p>对于大量的数据在单页显示体验很不好，所以要设置分页。</p>
+
+<p>编辑 <code>restapit/settings.py</code> :</p>
+
+<pre><code class="python">REST_FRAMEWORK = {
+    'PAGE_SIZE': 10
+}
+</code></pre>
+
+<p>现在用浏览器访问我们的 api 界面，不断地添数据，就可以看到分页效果辣。</p>
+
+<h3>为什么使用超链接</h3>
+
+<p>因为用超链接的方式有个明确的指向，比如该栗子中 movies 的 director 字段由外键变为超链接的关联形式允许直接跳转到 director 的 api 页面。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[DRF 教程4 - 验证与授权]]></title>
@@ -1014,139 +1163,6 @@ urlpatterns = [
 <p>如果出现如图所示的 api 则说明 Web api 返回成功。</p>
 
 <p>(顺便安利一个 chrome 插件 — <a href="https://www.baidufe.com/fehelper">FeHelper</a> 可以自动格式化 JSON 代码)</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Django REST Framework 快速上手]]></title>
-    <link href="http://thehackercat.me/blog/2016/03/29/django-rest-framework/"/>
-    <updated>2016-03-29T15:43:36+08:00</updated>
-    <id>http://thehackercat.me/blog/2016/03/29/django-rest-framework</id>
-    <content type="html"><![CDATA[<h2>Django REST Framework 快速上手</h2>
-
-<h3>背景</h3>
-
-<p>这几天正好在研究 RESTful 的方式来写 API，然后上手 Django REST 框架。</p>
-
-<p>Django REST Framework (以下简称 DRF )是一个轻量级的库，熟悉 Django 的话可以很容易的用它来构建 Web API。</p>
-
-<!--more-->
-
-
-<h3>安装前提</h3>
-
-<p>Django REST Framework 安装需要以下前提:</p>
-
-<ul>
-<li>Python (2.7, 3.2, 3.3, 3.4, 3.5)</li>
-<li>Django (1.7+, 1.8, 1.9)</li>
-</ul>
-
-
-<p>我自己的环境是:</p>
-
-<ul>
-<li>Python 2.7.10</li>
-<li>Django 1.8.2
-
-<h3>安装配置</h3>
-
-<p>安装 DRF 需要用到 <code>pip</code> 命令</p></li>
-</ul>
-
-
-<pre><code>pip install djangorestframework
-pip install markdown    # Markdown support for the browsable API.
-pip install django-filter   # Filtering support
-</code></pre>
-
-<p>或者在 GitHub 上 clone 它
-<code>
-git clone git@github.com:tomchristie/django-rest-framework.git
-</code></p>
-
-<p>接着在 Django Project 根目录的 <code>setting.py</code> 文件中的 <code>INSTALLED_APPS</code> 加入 <code>'rest_framework'</code></p>
-
-<pre><code class="Python">INSTALLED_APPS = (
-    ...
-    'rest_framework',
-)
-</code></pre>
-
-<p>如果你要使用 DRF 的 browsable API 的话，你可能还需要添加 REST 框架的登录登出视图 ( views )，辣么需要在 <code>url.py</code> 文件中加入以下代码:</p>
-
-<pre><code>urlpatterns = [
-    ...
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
-]
-</code></pre>
-
-<p>注: 这个 URL 地址可以是任意的，但是必须 include <code>'rest_framework.urls'</code> 和 <code>namespace='rest_framework'</code> 。</p>
-
-<h3>举个栗子</h3>
-
-<p>现在我们来看一下一个简单的用 DRF 来构建一个模型支持较好的 API 的栗子。</p>
-
-<p>任何一个对 REST 框架的全局设置都被放在 <code>REST_FRAMEWORK</code> 的模块内，所以你需要在 <code>settings.py</code> 文件中添加以下代码来通过 <code>REST_FRAMEWORK</code> 入口进行全局设置:</p>
-
-<pre><code class="python">REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
-}
-</code></pre>
-
-<p>现在我们可以构建 API 了，编辑 Django 项目根目录的 <code>url.py</code> 文件:</p>
-
-<pre><code class="python">from django.conf.urls import url, include
-from django.contrib.auth.models import User
-from rest_framework import routers, serializers, viewsets
-
-# Serializers define the API representation.
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = User
-        fields = ('url', 'username', 'email', 'is_staff')
-
-# ViewSets define the view behavior.
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-# Routers provide an easy way of automatically determining the URL conf.
-router = routers.DefaultRouter()
-router.register(r'users', UserViewSet)
-
-# Wire up our API using automatic URL routing.
-# Additionally, we include login URLs for the browsable API.
-urlpatterns = [
-    url(r'^', include(router.urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
-]
-</code></pre>
-
-<p>解释一下，</p>
-
-<p>每个 <code>xxxSerializer</code> 都要继承 <code>ModelSerializer</code> 来选择模型和模型字段。</p>
-
-<p>UserSerializer 类继承了更符合 RESTful 设计的 <code>HyperlinkedModelSerializer</code> 超链接模型 Serializer 类，它和普通的 <code>ModelSerializer</code> 类有以下区别:</p>
-
-<ul>
-<li>缺省状态下不包含 pk 字段</li>
-<li>具有一个 url 字段，即HyperlinkedIdentityField类型</li>
-<li>用HyperlinkedRelatedField表示关系，而非PrimaryKeyRelatedField</li>
-</ul>
-
-
-<p>然后在 <code>class Meta</code> 中选择模型和要展现的模型元素</p>
-
-<p><code>ViewSet</code> 用来定义 View 的行为，和 Django 的 views 类似，用来处理 API 的 read 、write、 update 等方法(而 Django views 则处理 http 的 GET 和 POST )</p>
-
-<p>在 ViewSet 实例化之后，通过 <code>Router</code> 类，最终将 URL 和 ViewSet 方法绑定起来。</p>
-
-<p>ok，现在你可以通过在浏览器中访问 <code>http://127.0.0.1:8000/</code> 来查看你的 &lsquo;users&rsquo; API 了。</p>
 ]]></content>
   </entry>
   

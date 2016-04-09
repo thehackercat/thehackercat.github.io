@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://thehackercat.me/blog/2016/04/08/drf-tutoriaial5/</loc>
+    <lastmod>2016-04-08T15:05:11+08:00</lastmod>
+  </url>
+  <url>
     <loc>http://thehackercat.me/blog/2016/04/07/drf-tutorial4/</loc>
     <lastmod>2016-04-07T09:52:33+08:00</lastmod>
   </url>
@@ -97,14 +101,5 @@
   </url>
   <url>
     <loc>http://thehackercat.me/blog/categories/django-rest-framework/</loc>
-  </url>
-  <url>
-    <loc>http://thehackercat.me/posts/2/</loc>
-  </url>
-  <url>
-    <loc>http://thehackercat.me/posts/3/</loc>
-  </url>
-  <url>
-    <loc>http://thehackercat.me/posts/4/</loc>
   </url>
 </urlset>

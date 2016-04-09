@@ -4,7 +4,7 @@
   <title><![CDATA[TheHackerCat's Blog]]></title>
   <link href="http://thehackercat.me/atom.xml" rel="self"/>
   <link href="http://thehackercat.me/"/>
-  <updated>2016-04-08T14:57:59+08:00</updated>
+  <updated>2016-04-08T15:06:41+08:00</updated>
   <id>http://thehackercat.me/</id>
   <author>
     <name><![CDATA[TheHackerCat]]></name>
@@ -12,6 +12,220 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[DRF教程5 - 关联性和超链接]]></title>
+    <link href="http://thehackercat.me/blog/2016/04/08/drf-tutoriaial5/"/>
+    <updated>2016-04-08T15:05:11+08:00</updated>
+    <id>http://thehackercat.me/blog/2016/04/08/drf-tutoriaial5</id>
+    <content type="html"><![CDATA[<h2>关联性和超链接</h2>
+
+<p>之前我们的 api 都是用外键关联，然而实际上用超链接的方式更符合 RESTful 的思想。</p>
+
+<p>所以在这一章中我们将要用超链接(代替外键的方式)来提高关联性。</p>
+
+<h3>为 api 提供根路径</h3>
+
+<p>由于要采用超链接的方式，而之前我们的 &lsquo;movies&rsquo; / &lsquo;directors&rsquo; / &lsquo;users&rsquo; 虽然有了 endpoints ，但 api 本身却没有一个整体的根路径，所以我们使用 <code>@api_view</code> 装饰器来创建一个根路径。</p>
+
+<p>在 <code>douban/views.py</code> 中添加如下代码:</p>
+
+<!--more-->
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">from</span> <span class="nn">rest_framework.decorators</span> <span class="kn">import</span> <span class="n">api_view</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">rest_framework.response</span> <span class="kn">import</span> <span class="n">Response</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">rest_framework.reverse</span> <span class="kn">import</span> <span class="n">reverse</span>
+</span><span class='line'>
+</span><span class='line'><span class="c"># api 根目录</span>
+</span><span class='line'><span class="nd">@api_view</span><span class="p">([</span><span class="s">&#39;GET&#39;</span><span class="p">])</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">api_root</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">Response</span><span class="p">({</span>
+</span><span class='line'>        <span class="s">&#39;user&#39;</span><span class="p">:</span> <span class="n">reverse</span><span class="p">(</span><span class="s">&#39;user-list&#39;</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="n">request</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="n">format</span><span class="p">),</span>
+</span><span class='line'>        <span class="s">&#39;movies&#39;</span><span class="p">:</span> <span class="n">reverse</span><span class="p">(</span><span class="s">&#39;movies-list&#39;</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="n">request</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="n">format</span><span class="p">),</span>
+</span><span class='line'>        <span class="s">&#39;director&#39;</span><span class="p">:</span> <span class="n">reverse</span><span class="p">(</span><span class="s">&#39;director-list&#39;</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="n">request</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="n">format</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在这里需要注意两样东西：</p>
+
+<ol>
+<li>我们用了 DRF 的 <code>reverse</code> 方法而不是 Django 自带的 <code>reverse</code> 方法来返回一个正确的 URLs。</li>
+<li>此时如果打开 Web api 界面会报错, 因为我们还没有为 url 进行绑定， 稍后我们会添加。</li>
+</ol>
+
+
+<p>接着在 <code>doubt/urls.py</code> 中添加对应路径</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">url</span><span class="p">(</span><span class="s">r&#39;^$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">api_root</span><span class="p">),</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>使用炫酷的超链接</h3>
+
+<p>DRF 提供了以下几种方式来处理实体间的关系:</p>
+
+<ul>
+<li>主键</li>
+<li>超链接</li>
+<li>相关项使用单一标识符</li>
+<li>相关项默认文本信息</li>
+<li>子项在母项中显示出来</li>
+<li>其他方式</li>
+</ul>
+
+
+<p>在这个栗子中我们使用超链接的方式来处理实体关系。</p>
+
+<p>首先在序列器中使用 <code>HyperlinkedModelSerializer</code> 替代 <code>ModelSerializer</code></p>
+
+<p>注:  <code>HyperlinkedModelSerializer</code>  和 <code>ModelSerializer</code> 有以下几点区别:</p>
+
+<ul>
+<li>它没有主键域 ( pk field )</li>
+<li>它默认包含一个 url 域</li>
+<li>关联时使用的是 <code>HyperlinkedRelatedField</code> 而不是 <code>PrimaryKeyRelatedField</code></li>
+</ul>
+
+
+<p>在 <code>doubt/serializer.py</code> 中进行如下改写:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c">#!/usr/bin/python</span>
+</span><span class='line'><span class="c"># -*- coding: utf-8 -*-</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">serializers</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">douban.models</span> <span class="kn">import</span> <span class="n">Movies</span><span class="p">,</span> <span class="n">celebrity</span><span class="p">,</span> <span class="n">COUNTRY_CHOICES</span><span class="p">,</span> <span class="n">TYPE_CHOICES</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">MoviesSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedModelSerializer</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">owner</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">ReadOnlyField</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s">&#39;owner.username&#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">director</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedRelatedField</span><span class="p">(</span><span class="n">many</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">queryset</span><span class="o">=</span><span class="n">celebrity</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">(),</span> <span class="n">view_name</span><span class="o">=</span><span class="s">&#39;director-detail&#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">model</span> <span class="o">=</span> <span class="n">Movies</span>
+</span><span class='line'>        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;id&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">,</span> <span class="s">&#39;director&#39;</span><span class="p">,</span> <span class="s">&#39;year&#39;</span><span class="p">,</span> <span class="s">&#39;country&#39;</span><span class="p">,</span> <span class="s">&#39;type&#39;</span><span class="p">,</span> <span class="s">&#39;rating&#39;</span><span class="p">,</span> <span class="s">&#39;owner&#39;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">UserSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedModelSerializer</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">movies</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedRelatedField</span><span class="p">(</span><span class="n">many</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">view_name</span><span class="o">=</span><span class="s">&#39;movies-detail&#39;</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">model</span> <span class="o">=</span> <span class="n">User</span>
+</span><span class='line'>        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;id&#39;</span><span class="p">,</span> <span class="s">&#39;username&#39;</span><span class="p">,</span> <span class="s">&#39;movies&#39;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">DirectorSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedModelSerializer</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">movies</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedRelatedField</span><span class="p">(</span><span class="n">many</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">view_name</span><span class="o">=</span><span class="s">&#39;movies-detail&#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+</span><span class='line'>        <span class="n">model</span> <span class="o">=</span> <span class="n">celebrity</span>
+</span><span class='line'>        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;id&#39;</span><span class="p">,</span> <span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="s">&#39;age&#39;</span><span class="p">,</span> <span class="s">&#39;gender&#39;</span><span class="p">,</span> <span class="s">&#39;movies&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>绑定 url</h3>
+
+<p>使用超链接 api 有个前提条件，我们需要确保 URL pattern 都已命名。</p>
+
+<p>编辑 <code>douban/urls.py</code> 进行如下修改:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c">#!/usr/bin/python</span>
+</span><span class='line'><span class="c"># -*- coding: utf-8 -*-</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">url</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">rest_framework.urlpatterns</span> <span class="kn">import</span> <span class="n">format_suffix_patterns</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">douban</span> <span class="kn">import</span> <span class="n">views</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">urlpatterns</span> <span class="o">=</span> <span class="n">format_suffix_patterns</span><span class="p">([</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">api_root</span><span class="p">),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^movies/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">MoviesList</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;movies-list&#39;</span><span class="p">),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^movies/(?P&lt;pk&gt;[0-9]+)/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">MoviesDetail</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;movies-detail&#39;</span><span class="p">),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^users/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">UserList</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;user-list&#39;</span><span class="p">),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^users/(?P&lt;pk&gt;[0-9]+)/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">UserDetail</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;user-detail&#39;</span><span class="p">),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^directors/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">DirectorList</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;director-list&#39;</span><span class="p">),</span>
+</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^directors/(?P&lt;pk&gt;[0-9]+)/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">DirectorDetail</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;director-detail&#39;</span><span class="p">),</span>
+</span><span class='line'><span class="p">])</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>确保每个 URL pattern 都正确的与 <code>views.py</code> 中对应视图的命名进行绑定。</p>
+
+<h3>增加分页</h3>
+
+<p>对于大量的数据在单页显示体验很不好，所以要设置分页。</p>
+
+<p>编辑 <code>restapit/settings.py</code> :</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">REST_FRAMEWORK</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>    <span class="s">&#39;PAGE_SIZE&#39;</span><span class="p">:</span> <span class="mi">10</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>现在用浏览器访问我们的 api 界面，不断地添数据，就可以看到分页效果辣。</p>
+
+<h3>为什么使用超链接</h3>
+
+<p>因为用超链接的方式有个明确的指向，比如该栗子中 movies 的 director 字段由外键变为超链接的关联形式允许直接跳转到 director 的 api 页面。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[DRF 教程4 - 验证与授权]]></title>

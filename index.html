@@ -135,6 +135,64 @@
 <header>
   <div class="entry-meta">
     <span class="entry-date date published updated">
+      <time datetime="2016-04-08T15:05:11+08:00">
+        <a href="/blog/2016/04/08/drf-tutoriaial5/">April 08, 2016</a>
+      </time>
+    </span>
+    <span class="author vcard">
+      <span class="fn">
+        <a href="" title="About TheHackerCat">TheHackerCat</a>
+      </span>
+    </span>
+    
+      &nbsp; &bull; &nbsp;<span class="entry-comments">
+        <a href="/blog/2016/04/08/drf-tutoriaial5/#disqus_thread">Comment</a>
+      </span>
+    
+  </div><!-- /.entry-meta -->
+  
+    <h1 class="entry-title">
+      <a href="/blog/2016/04/08/drf-tutoriaial5/" rel="bookmark" title="DRF教程5 - 关联性和超链接" itemprop="url">DRF教程5 - 关联性和超链接</a>
+    </h1>
+  
+</header>
+
+<div class="entry-content">
+  <h2>关联性和超链接</h2>
+
+<p>之前我们的 api 都是用外键关联，然而实际上用超链接的方式更符合 RESTful 的思想。</p>
+
+<p>所以在这一章中我们将要用超链接(代替外键的方式)来提高关联性。</p>
+
+<h3>为 api 提供根路径</h3>
+
+<p>由于要采用超链接的方式，而之前我们的 &lsquo;movies&rsquo; / &lsquo;directors&rsquo; / &lsquo;users&rsquo; 虽然有了 endpoints ，但 api 本身却没有一个整体的根路径，所以我们使用 <code>@api_view</code> 装饰器来创建一个根路径。</p>
+
+<p>在 <code>douban/views.py</code> 中添加如下代码:</p>
+
+
+  
+  
+    <footer>
+      <a class="btn" rel="full-article" href="/blog/2016/04/08/drf-tutoriaial5/">Read on &rarr;</a>
+    </footer>
+  
+</div><!-- /.entry-content -->
+
+
+
+
+
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  
+
+
+
+<header>
+  <div class="entry-meta">
+    <span class="entry-date date published updated">
       <time datetime="2016-04-07T09:52:33+08:00">
         <a href="/blog/2016/04/07/drf-tutorial4/">April 07, 2016</a>
       </time>
@@ -364,60 +422,6 @@
   
     <footer>
       <a class="btn" rel="full-article" href="/blog/2016/04/01/drf-tutorial1/">Read on &rarr;</a>
-    </footer>
-  
-</div><!-- /.entry-content -->
-
-
-
-
-
-</article><!-- /.hentry -->
-
-<article class="hentry">
-  
-
-
-
-<header>
-  <div class="entry-meta">
-    <span class="entry-date date published updated">
-      <time datetime="2016-03-29T15:43:36+08:00">
-        <a href="/blog/2016/03/29/django-rest-framework/">March 29, 2016</a>
-      </time>
-    </span>
-    <span class="author vcard">
-      <span class="fn">
-        <a href="" title="About TheHackerCat">TheHackerCat</a>
-      </span>
-    </span>
-    
-      &nbsp; &bull; &nbsp;<span class="entry-comments">
-        <a href="/blog/2016/03/29/django-rest-framework/#disqus_thread">Comment</a>
-      </span>
-    
-  </div><!-- /.entry-meta -->
-  
-    <h1 class="entry-title">
-      <a href="/blog/2016/03/29/django-rest-framework/" rel="bookmark" title="Django REST Framework 快速上手" itemprop="url">Django REST Framework 快速上手</a>
-    </h1>
-  
-</header>
-
-<div class="entry-content">
-  <h2>Django REST Framework 快速上手</h2>
-
-<h3>背景</h3>
-
-<p>这几天正好在研究 RESTful 的方式来写 API，然后上手 Django REST 框架。</p>
-
-<p>Django REST Framework (以下简称 DRF )是一个轻量级的库，熟悉 Django 的话可以很容易的用它来构建 Web API。</p>
-
-
-  
-  
-    <footer>
-      <a class="btn" rel="full-article" href="/blog/2016/03/29/django-rest-framework/">Read on &rarr;</a>
     </footer>
   
 </div><!-- /.entry-content -->
