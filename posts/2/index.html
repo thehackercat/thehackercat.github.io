@@ -135,6 +135,84 @@
 <header>
   <div class="entry-meta">
     <span class="entry-date date published updated">
+      <time datetime="2016-04-01T14:27:27+08:00">
+        <a href="/blog/2016/04/01/drf-tutorial1/">April 01, 2016</a>
+      </time>
+    </span>
+    <span class="author vcard">
+      <span class="fn">
+        <a href="" title="About TheHackerCat">TheHackerCat</a>
+      </span>
+    </span>
+    
+      &nbsp; &bull; &nbsp;<span class="entry-comments">
+        <a href="/blog/2016/04/01/drf-tutorial1/#disqus_thread">Comment</a>
+      </span>
+    
+  </div><!-- /.entry-meta -->
+  
+    <h1 class="entry-title">
+      <a href="/blog/2016/04/01/drf-tutorial1/" rel="bookmark" title="DRF 教程1 - 序列化" itemprop="url">DRF 教程1 - 序列化</a>
+    </h1>
+  
+</header>
+
+<div class="entry-content">
+  <h2>序列化</h2>
+
+<h3>环境搭建</h3>
+
+<p>首先我们先新建一个 <code>restapi</code>  项目并安装上 django-rest-framework (DRF) 环境</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>pip install djangorestframework
+</span><span class='line'><span class="nv">$ </span>python manage.py startnewproject restapi
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>restapi
+</span><span class='line'><span class="nv">$ </span>python manage.py startnewapp douban
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接着，我们需要在 <code>setting.py</code> 里的加入如下代码:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">(</span>
+</span><span class='line'>    <span class="o">...</span>
+</span><span class='line'>    <span class="s">&#39;rest_framework&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s">&#39;douban&#39;</span><span class="p">,</span>
+</span><span class='line'><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+  
+  
+    <footer>
+      <a class="btn" rel="full-article" href="/blog/2016/04/01/drf-tutorial1/">Read on &rarr;</a>
+    </footer>
+  
+</div><!-- /.entry-content -->
+
+
+
+
+
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  
+
+
+
+<header>
+  <div class="entry-meta">
+    <span class="entry-date date published updated">
       <time datetime="2016-03-29T15:43:36+08:00">
         <a href="/blog/2016/03/29/django-rest-framework/">March 29, 2016</a>
       </time>
@@ -321,81 +399,6 @@
   
     <footer>
       <a class="btn" rel="full-article" href="/blog/2015/12/18/dolphin-interview/">Read on &rarr;</a>
-    </footer>
-  
-</div><!-- /.entry-content -->
-
-
-
-
-
-</article><!-- /.hentry -->
-
-<article class="hentry">
-  
-
-
-
-<header>
-  <div class="entry-meta">
-    <span class="entry-date date published updated">
-      <time datetime="2015-12-08T15:08:35+08:00">
-        <a href="/blog/2015/12/08/django-learning-4/">December 08, 2015</a>
-      </time>
-    </span>
-    <span class="author vcard">
-      <span class="fn">
-        <a href="" title="About TheHackerCat">TheHackerCat</a>
-      </span>
-    </span>
-    
-      &nbsp; &bull; &nbsp;<span class="entry-comments">
-        <a href="/blog/2015/12/08/django-learning-4/#disqus_thread">Comment</a>
-      </span>
-    
-  </div><!-- /.entry-meta -->
-  
-    <h1 class="entry-title">
-      <a href="/blog/2015/12/08/django-learning-4/" rel="bookmark" title="Django 高级 Views 和 URLconf 配置" itemprop="url">Django 高级 Views 和 URLconf 配置</a>
-    </h1>
-  
-</header>
-
-<div class="entry-content">
-  <p>由于官网教程讲得迷迷糊糊的，所以我提炼了下代码，发现便于理解很多。</p>
-
-<h2>URLconf 技巧</h2>
-
-<figure class='code'><figcaption><span>urls.py</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c"># 在模块开始导入关联的视图函数，直接传递函数对象</span>
-</span><span class='line'><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">include</span><span class="p">,</span> <span class="n">url</span>
-</span><span class='line'><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
-</span><span class='line'><span class="kn">from</span> <span class="nn">mysite.views</span> <span class="kn">import</span> <span class="n">hello</span><span class="p">,</span> <span class="n">current_datetime</span><span class="p">,</span> <span class="n">hours_ahead</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
-</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^admin/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">)),</span>
-</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^hello/$&#39;</span><span class="p">,</span> <span class="n">hello</span><span class="p">),</span>
-</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^time/$&#39;</span><span class="p">,</span> <span class="n">current_datetime</span><span class="p">),</span>
-</span><span class='line'>    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^time/plus/(\d{1,2})/$&#39;</span><span class="p">,</span> <span class="n">hours_ahead</span><span class="p">),</span>
-</span><span class='line'><span class="p">]</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-  
-  
-    <footer>
-      <a class="btn" rel="full-article" href="/blog/2015/12/08/django-learning-4/">Read on &rarr;</a>
     </footer>
   
 </div><!-- /.entry-content -->

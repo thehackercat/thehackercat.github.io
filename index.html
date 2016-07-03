@@ -135,6 +135,68 @@
 <header>
   <div class="entry-meta">
     <span class="entry-date date published updated">
+      <time datetime="2016-07-04T03:52:29+08:00">
+        <a href="/blog/2016/07/04/rpcserver/">July 04, 2016</a>
+      </time>
+    </span>
+    <span class="author vcard">
+      <span class="fn">
+        <a href="" title="About TheHackerCat">TheHackerCat</a>
+      </span>
+    </span>
+    
+      &nbsp; &bull; &nbsp;<span class="entry-comments">
+        <a href="/blog/2016/07/04/rpcserver/#disqus_thread">Comment</a>
+      </span>
+    
+  </div><!-- /.entry-meta -->
+  
+    <h1 class="entry-title">
+      <a href="/blog/2016/07/04/rpcserver/" rel="bookmark" title="Twisted + Gevent 异步+协程服务器开发" itemprop="url">Twisted + Gevent 异步+协程服务器开发</a>
+    </h1>
+  
+</header>
+
+<div class="entry-content">
+  <h2>背景</h2>
+
+<p>最近接触到用 Twisted 来写个 RPC 服务器，对高并发、性能和大量长连接时的稳定性方面有要求，所以应该在 Twisted 的基础上再造些轮子，最后考虑用 Twisted + gevent 来实现 「异步+协程」的部分。</p>
+
+<p>分别简要介绍下 Twisted 和 gevent。</p>
+
+<h2>Twisted</h2>
+
+<p>Twisted是用 Python 实现的基于事件驱动的异步的网络引擎框架。它封装了大部分主流的网络协议(传输层或应用层)，如 TCP、UDP、SSL/TLS、HTTP、IMAP、SSH、IRC以及FTP等，在这我主要会用到 TCP 协议。</p>
+
+<p>使用 Twisted 的好处在于，它是以事件驱动编程实现的，所以提供了事件注册的回调函数的接口，每次接受到请求，获得了事件通知，就调用事件所注册的回调函数( Node.js 程序员可能比较熟悉)。这让我不必去操心服务器事件驱动的编写。</p>
+
+<p>并且，在网络引擎方面，有心跳包和粘包的三方库，非常完善。</p>
+
+<p>然而，Twisted 有一个缺陷，它的异步有点问题，单个连接建立后是一个进程，在进程里用多线程实现并发，但多个连接建立后仍然会出现同步阻塞的情况，所以这就要引入 gevent 来填充其性能上的缺陷。</p>
+
+
+  
+  
+    <footer>
+      <a class="btn" rel="full-article" href="/blog/2016/07/04/rpcserver/">Read on &rarr;</a>
+    </footer>
+  
+</div><!-- /.entry-content -->
+
+
+
+
+
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  
+
+
+
+<header>
+  <div class="entry-meta">
+    <span class="entry-date date published updated">
       <time datetime="2016-04-08T15:05:11+08:00">
         <a href="/blog/2016/04/08/drf-tutoriaial5/">April 08, 2016</a>
       </time>
@@ -344,84 +406,6 @@
   
     <footer>
       <a class="btn" rel="full-article" href="/blog/2016/04/01/drf-tutoriaial2/">Read on &rarr;</a>
-    </footer>
-  
-</div><!-- /.entry-content -->
-
-
-
-
-
-</article><!-- /.hentry -->
-
-<article class="hentry">
-  
-
-
-
-<header>
-  <div class="entry-meta">
-    <span class="entry-date date published updated">
-      <time datetime="2016-04-01T14:27:27+08:00">
-        <a href="/blog/2016/04/01/drf-tutorial1/">April 01, 2016</a>
-      </time>
-    </span>
-    <span class="author vcard">
-      <span class="fn">
-        <a href="" title="About TheHackerCat">TheHackerCat</a>
-      </span>
-    </span>
-    
-      &nbsp; &bull; &nbsp;<span class="entry-comments">
-        <a href="/blog/2016/04/01/drf-tutorial1/#disqus_thread">Comment</a>
-      </span>
-    
-  </div><!-- /.entry-meta -->
-  
-    <h1 class="entry-title">
-      <a href="/blog/2016/04/01/drf-tutorial1/" rel="bookmark" title="DRF 教程1 - 序列化" itemprop="url">DRF 教程1 - 序列化</a>
-    </h1>
-  
-</header>
-
-<div class="entry-content">
-  <h2>序列化</h2>
-
-<h3>环境搭建</h3>
-
-<p>首先我们先新建一个 <code>restapi</code>  项目并安装上 django-rest-framework (DRF) 环境</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>pip install djangorestframework
-</span><span class='line'><span class="nv">$ </span>python manage.py startnewproject restapi
-</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>restapi
-</span><span class='line'><span class="nv">$ </span>python manage.py startnewapp douban
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>接着，我们需要在 <code>setting.py</code> 里的加入如下代码:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">(</span>
-</span><span class='line'>    <span class="o">...</span>
-</span><span class='line'>    <span class="s">&#39;rest_framework&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="s">&#39;douban&#39;</span><span class="p">,</span>
-</span><span class='line'><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-  
-  
-    <footer>
-      <a class="btn" rel="full-article" href="/blog/2016/04/01/drf-tutorial1/">Read on &rarr;</a>
     </footer>
   
 </div><!-- /.entry-content -->
