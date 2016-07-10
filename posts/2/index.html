@@ -135,6 +135,67 @@
 <header>
   <div class="entry-meta">
     <span class="entry-date date published updated">
+      <time datetime="2016-04-01T16:39:18+08:00">
+        <a href="/blog/2016/04/01/drf-tutoriaial2/">April 01, 2016</a>
+      </time>
+    </span>
+    <span class="author vcard">
+      <span class="fn">
+        <a href="" title="About TheHackerCat">TheHackerCat</a>
+      </span>
+    </span>
+    
+      &nbsp; &bull; &nbsp;<span class="entry-comments">
+        <a href="/blog/2016/04/01/drf-tutoriaial2/#disqus_thread">Comment</a>
+      </span>
+    
+  </div><!-- /.entry-meta -->
+  
+    <h1 class="entry-title">
+      <a href="/blog/2016/04/01/drf-tutoriaial2/" rel="bookmark" title="DRF 教程2 - 请求与相应" itemprop="url">DRF 教程2 - 请求与相应</a>
+    </h1>
+  
+</header>
+
+<div class="entry-content">
+  <h2>请求与响应</h2>
+
+<h3>请求对象</h3>
+
+<p>DRF 提供了一个 <code>request</code> 对象，它继承自 <code>HttpRequest</code> 并且提供了更丰富的对 request 的解析处理的方法。其中最核心的是 <code>request</code> 对象的 request.data 属性，它看起来和 Django 的 request.POST 相似，但是在处理 Web API 上更强大些。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="n">request</span><span class="o">.</span><span class="n">POST</span>  <span class="c"># Only handles form data.  Only works for &#39;POST&#39; method.</span>
+</span><span class='line'><span class="n">request</span><span class="o">.</span><span class="n">data</span>  <span class="c"># Handles arbitrary data.  Works for &#39;POST&#39;, &#39;PUT&#39; and &#39;PATCH&#39; methods.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>request.data 相比于 request.POST 能够处理 api 中的 「POST」、「PUT」、「PATCH」等请求。</p>
+
+
+  
+  
+    <footer>
+      <a class="btn" rel="full-article" href="/blog/2016/04/01/drf-tutoriaial2/">Read on &rarr;</a>
+    </footer>
+  
+</div><!-- /.entry-content -->
+
+
+
+
+
+</article><!-- /.hentry -->
+
+<article class="hentry">
+  
+
+
+
+<header>
+  <div class="entry-meta">
+    <span class="entry-date date published updated">
       <time datetime="2016-04-01T14:27:27+08:00">
         <a href="/blog/2016/04/01/drf-tutorial1/">April 01, 2016</a>
       </time>
@@ -349,56 +410,6 @@
   
     <footer>
       <a class="btn" rel="full-article" href="/blog/2015/12/23/nsfocus-interview/">Read on &rarr;</a>
-    </footer>
-  
-</div><!-- /.entry-content -->
-
-
-
-
-
-</article><!-- /.hentry -->
-
-<article class="hentry">
-  
-
-
-
-<header>
-  <div class="entry-meta">
-    <span class="entry-date date published updated">
-      <time datetime="2015-12-18T12:02:37+08:00">
-        <a href="/blog/2015/12/18/dolphin-interview/">December 18, 2015</a>
-      </time>
-    </span>
-    <span class="author vcard">
-      <span class="fn">
-        <a href="" title="About TheHackerCat">TheHackerCat</a>
-      </span>
-    </span>
-    
-      &nbsp; &bull; &nbsp;<span class="entry-comments">
-        <a href="/blog/2015/12/18/dolphin-interview/#disqus_thread">Comment</a>
-      </span>
-    
-  </div><!-- /.entry-meta -->
-  
-    <h1 class="entry-title">
-      <a href="/blog/2015/12/18/dolphin-interview/" rel="bookmark" title="海豚浏览器 Python 实习面试心得" itemprop="url">海豚浏览器 Python 实习面试心得</a>
-    </h1>
-  
-</header>
-
-<div class="entry-content">
-  <h2>背景</h2>
-
-<p>12月11号下午4：30参加了海豚浏览器的 Python 后台开发实习生的电面，考官一开始先问了我一些 Python 基础的问题，接着问了些计网的经典面试题，最后考了2道算法题，然后开始扯皮一些之前做过的项目中的问题等，最后总结心得如下：</p>
-
-
-  
-  
-    <footer>
-      <a class="btn" rel="full-article" href="/blog/2015/12/18/dolphin-interview/">Read on &rarr;</a>
     </footer>
   
 </div><!-- /.entry-content -->
