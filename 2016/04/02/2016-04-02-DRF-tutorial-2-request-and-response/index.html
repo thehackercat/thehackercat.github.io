@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <!-- Title -->
+    
+    <title>
+        Django REST Framework 2-请求和响应 | LexusLee&#39;s Blog
+    </title>
+    
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" sizes="192x192" href="/img/favicon.png">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+    
+    <!-- Meta & INfo -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0097A7">
+    <meta name="author" content="LexusLee">
+    <meta name="description" content="Be the change you want to see in the world.">
+    <meta name="keywords" content="Lexus">
+    
+    <!--iOS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-title" content="Title">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="480">
+    
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="LexusLee&#39;s Blog">
+    
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://lexuslee.me">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="Django REST Framework 2-请求和响应 | LexusLee&#39;s Blog">
+    <meta property="og:description" content="Be the change you want to see in the world.">
+    
+     <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+        
+        
+            <script src="/js/ie-blocker.en.js"></script>
+        
+    <![endif]-->
+    
+    <!-- Import CSS -->
+    <link rel="stylesheet" href="/css/material.min.css">
+    <link rel="stylesheet" href="/css/style.min.css">
+    <!-- Config CSS -->
+
+
+<!-- Other Styles -->
+<style>
+	body, html{
+		font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+	}
+	
+    a{
+        color: #00838F
+    }
+    
+    .mdl-card__media,
+    #search-label,
+    #search-form-label:after,
+    #scheme-Paradox .hot_tags-count,
+    #scheme-Paradox .sidebar_archives-count,
+    #scheme-Paradox .sidebar-colored .sidebar-header,
+    #scheme-Paradox .sidebar-colored .sidebar-badge{
+        background-color: #0097A7 !important
+    }
+    
+	/* Sidebar User Drop Down Menu Text Color */
+	#scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+    #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus{
+        color: #0097A7 !important
+    }
+    
+    #post_entry-right-info,
+    .sidebar-colored .sidebar-nav li:hover > a,
+    .sidebar-colored .sidebar-nav li:hover > a i,
+    .sidebar-colored .sidebar-nav li > a:hover,
+    .sidebar-colored .sidebar-nav li > a:hover i,
+    .sidebar-colored .sidebar-nav li > a:focus i,
+    .sidebar-colored .sidebar-nav > .open > a,
+    .sidebar-colored .sidebar-nav > .open > a:hover,
+    .sidebar-colored .sidebar-nav > .open > a:focus,
+    #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a{
+        color: #0097A7 !important
+    }
+    
+    .toTop{
+        background: #757575 !important
+    }
+		
+	.material-layout .material-post>.material-nav,
+	.material-layout .material-index>.material-nav,
+	.material-nav a{
+		color: #757575;
+	}
+		
+	#scheme-Paradox .MD-burger-layer {
+		background-color: #757575;
+	}
+
+	#scheme-Paradox #post-toc-trigger-btn{
+		color: #757575;
+	}
+	
+	.post-toc a:hover{
+		color: #00838F;
+		text-decoration: underline;
+	}
+</style>
+
+
+<!-- Theme Background Related-->
+
+	<style>
+		body{
+            background-image: url(https://api.i-meto.com/bing?null);
+        }
+	</style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+        .fade {
+            transition: all 800ms linear;
+            -webkit-transform: translate3d(0,0,0);
+            -moz-transform: translate3d(0,0,0);
+            -ms-transform: translate3d(0,0,0);
+            -o-transform: translate3d(0,0,0);
+            transform: translate3d(0,0,0);
+            opacity: 1;
+        }
+
+        .fade.out{
+            opacity: 0;
+        }
+    </style>
+
+	<script src="/js/jquery.min.js"></script>
+	
+	<link rel="stylesheet" href="/css/highlight/solarized-white.css">
+	
+	<!-- UC Browser Compatible-->
+	<script>
+		var agent = navigator.userAgent.toLowerCase();
+		if(agent.indexOf('ucbrowser')>0) {
+			document.write('<link rel="stylesheet" href="/css/uc.css">');
+		   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+		}
+	</script>
+    
+    <!-- Custom Head -->
+    
+</head>
+	
+	
+
+    <body id="scheme-Paradox">
+
+		
+        <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+				
+			
+			
+            <!-- Main Container -->
+            <main class="material-layout__content" id="main">
+				
+                <!-- Top Anchor -->
+                <div id="top"></div>
+				
+				
+                <!-- Hamburger Button -->
+                <button class="MD-burger-icon sidebar-toggle">
+                    <span class="MD-burger-layer"></span>
+                </button>
+				
+				
+                
+	<!-- Back Button -->
+<!--
+	<div class="material-back" id="backhome-div" tabindex="0">
+		<a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" href="#" onclick="window.history.back();return false;" target="_self" role="button" data-upgraded=",MaterialButton,MaterialRipple">
+			<i class="material-icons" role="presentation">arrow_back</i>
+			<span class="mdl-button__ripple-container">
+				<span class="mdl-ripple"></span>
+			</span>
+		</a>
+	</div>			
+-->
+	<!-- Left aligned menu below button -->
+	<button id="post-toc-trigger-btn"
+			class="mdl-button mdl-js-button mdl-button--icon">
+	  <i class="material-icons">format_list_numbered</i>
+	</button>
+
+	<ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
+		for="post-toc-trigger-btn">
+			
+			<ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#请求与响应"><span class="post-toc-number">1.</span> <span class="post-toc-text">请求与响应</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#请求对象"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">请求对象</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#状态码"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">状态码</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#在-URLs-中添加可选后缀"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">在 URLs 中添加可选后缀</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#再测试下我们的-API"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">再测试下我们的 API</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#可浏览性"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">可浏览性</span></a></li></ol></li></ol>
+		
+<!--			<li class="mdl-menu__item">Some Action</li>-->
+	</ul>
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+		
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+	<!-- Paradox Post Header -->
+	
+		
+			<!-- Random Thumbnail -->
+			<div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+				<script>
+    
+    var randomNum;
+    randomNum = Math.floor(Math.random() * 5 + 1);
+    
+    $(".post_thumbnail-random").css('background-image', 'url(' + '/img/random/' + randomNum + '.png' + ')');
+    
+</script>
+
+		
+	
+        <p class="article-headline-p">
+            Django REST Framework 2-请求和响应
+        </p>
+    </div>
+
+	
+
+				
+				
+					<!-- Paradox Post Info -->
+					<div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+    
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.jpg" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>LexusLee</strong>
+        <span>Apr 02, 2016</span>
+    </div>
+    
+    <div class="section-spacer"></div>
+	
+    <!-- Favorite -->
+<!--
+    <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+        <i class="material-icons" role="presentation">favorite</i>
+        <span class="visuallyhidden">favorites</span>
+    </button>
+-->
+    
+    <!-- Tags (bookmark) -->
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        
+    </ul>
+    
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+    
+    
+    
+    
+    <!-- Share Twitter -->
+    <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Django REST Framework 2-请求和响应&url=http://lexuslee.me//2016/04/02/2016-04-02-DRF-tutorial-2-request-and-response/index.html&via=LexusLee" target="_blank">
+        <li class="mdl-menu__item">
+            Share to Twitter
+        </li>
+    </a>
+    
+    <!-- Share Google+ -->
+    <a class="post_share-link" href="https://plus.google.com/share?url=http://lexuslee.me//2016/04/02/2016-04-02-DRF-tutorial-2-request-and-response/index.html" target="_blank">
+        <li class="mdl-menu__item">
+            Share to Google+
+        </li>
+    </a>
+    
+    <!-- Share Weibo -->
+    <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Django REST Framework 2-请求和响应&url=http://lexuslee.me//2016/04/02/2016-04-02-DRF-tutorial-2-request-and-response/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <li class="mdl-menu__item">
+            Share to Weibo
+        </li>
+    </a>
+</ul>
+</div>
+				
+
+                <!-- Post Content -->
+                <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+	
+		<h2 id="请求与响应"><a href="#请求与响应" class="headerlink" title="请求与响应"></a>请求与响应</h2><h3 id="请求对象"><a href="#请求对象" class="headerlink" title="请求对象"></a>请求对象</h3><p>DRF 提供了一个 <figure class="highlight plain"><figcaption><span>对象，它继承自 ```HttpRequest``` 并且提供了更丰富的对 request 的解析处理的方法。其中最核心的是 ```request``` 对象的 ```request.data``` 属性，它看起来和 Django 的```request.POST``` 相似，但是在处理 Web API 上更强大些。 </span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">```python</div><div class="line">request.POST  # Only handles form data.  Only works for &apos;POST&apos; method.</div><div class="line">request.data  # Handles arbitrary data.  Works for &apos;POST&apos;, &apos;PUT&apos; and &apos;PATCH&apos; methods.</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><figcaption><span>相比于 ```request.POST``` 能够处理 api 中的 「POST」、「PUT」、「PATCH」等请求。</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### 返回对象</div><div class="line"></div><div class="line">DRF 也提供了一个 ```response``` 对象，它能把未 render 的对象(数据)通过一定方式转化为正确的数据格式返回给客户端。</div><div class="line"></div><div class="line">```python</div><div class="line">return Response(data)  # Renders to content type as requested by the client.</div></pre></td></tr></table></figure>
+<h3 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h3><p>如果单独使用 Http 状态码的话代码会很难度，比如像我这种万年记不住几个很奇怪的状态码的人，在看到它们的时候还要 google 这就很伤！所以 DRF 提供了一个可读性更好的状态码标识，比如 <code>HTTP_400_BAD_REQUEST</code>  ，是不是一下就看出来这是 bad request 了。这些状态码都封装在了 <figure class="highlight plain"><figcaption><span>模块里，使用它们比使用纯数字的 Http 状态码更安逸。</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### 封装的 API views</div><div class="line"></div><div class="line">DRF 提供了两个封装好的 API views</div><div class="line"></div><div class="line">1.  `@api_view`  这个装饰器用于基于函数的视图 </div><div class="line">2.  `APIView`  这个类用于基于类的视图</div><div class="line"></div><div class="line">这两个 views 提供了一些函数如确保在视图中接收到 ```request``` 实例和自动在 ```response``` 对象中添加 context 使其能够被 render 。</div><div class="line"></div><div class="line">### 开始撸代码吧</div><div class="line"></div><div class="line">紧接着[上节的教程]()我们要在 views 中添加一些新功能</div><div class="line"></div><div class="line">先把 ```JSONResponse``` 扔掉，这东西太难用了，我们不再需要它。</div><div class="line"></div><div class="line">接着在 ```douban/views.py``` 中加入以下代码:</div><div class="line"></div><div class="line">```python</div><div class="line">#!/usr/bin/python</div><div class="line"># -*- coding: utf-8 -*-</div><div class="line"></div><div class="line">from rest_framework import status</div><div class="line">from rest_framework.decorators import api_view</div><div class="line">from rest_framework.response import Response</div><div class="line">from douban.models import Movies</div><div class="line">from douban.serializer import MoviesSerializer</div><div class="line"></div><div class="line">@api_view([&apos;GET&apos;, &apos;POST&apos;])</div><div class="line">def movies_list(request):</div><div class="line">    &quot;&quot;&quot;</div><div class="line">    罗列出所有的 Movies 或者 能新建一个 Movies</div><div class="line">    &quot;&quot;&quot;</div><div class="line">    if request.method == &apos;GET&apos;:</div><div class="line">        movies = Movies.objects.all()</div><div class="line">        serializer = MoviesSerializer(movies, many=True)</div><div class="line">        return Response(serializer.data)</div><div class="line"></div><div class="line">    elif request.method == &apos;POST&apos;:</div><div class="line">        serializer = MoviesSerializer(data=request.data)</div><div class="line">        if serializer.is_valid():</div><div class="line">            serializer.save()</div><div class="line">            return Response(serializer.data, status=status.HTTP_201_CREATED)</div><div class="line">        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)</div><div class="line"></div><div class="line">@api_view([&apos;GET&apos;, &apos;PUT&apos;, &apos;DELETE&apos;])</div><div class="line">def movies_detail(request, pk):</div><div class="line">    &quot;&quot;&quot;</div><div class="line">    展示\更新或删除一个 Movies</div><div class="line">    &quot;&quot;&quot;</div><div class="line">    try:</div><div class="line">        movies = Movies.objects.get(pk=pk)</div><div class="line">    except Movies.DoesNotExist:</div><div class="line">        return Response(status=status.HTTP_404_NOT_FOUND)</div><div class="line"></div><div class="line">    if request.method == &apos;GET&apos;:</div><div class="line">        serializer = MoviesSerializer(movies)</div><div class="line">        return Response(serializer.data)</div><div class="line"></div><div class="line">    elif request.method == &apos;PUT&apos;:</div><div class="line">        serializer = MoviesSerializer(movies, data=request.data)</div><div class="line">        if serializer.is_valid():</div><div class="line">            serializer.save()</div><div class="line">            return Response(serializer.data)</div><div class="line">        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)</div><div class="line"></div><div class="line">    elif request.method == &apos;DELETE&apos;:</div><div class="line">        movies.delete()</div><div class="line">        return Response(status=status.HTTP_204_NO_CONTENT)</div></pre></td></tr></table></figure></p>
+<p>用上了 @api_view 后代码比之前更简洁了。</p>
+<p>需要注意的是: 我们不再指明 request 和 response 中的内容类型。 request.DATA 即可用来处理 json 数据类型类型, 也可以处理 yaml 或其他数据类型。我们只需要在 response 中指定要返回的数据， DRF 能根据不同情况，自动在 response 中呈现正确的数据类型。</p>
+<h3 id="在-URLs-中添加可选后缀"><a href="#在-URLs-中添加可选后缀" class="headerlink" title="在 URLs 中添加可选后缀"></a>在 URLs 中添加可选后缀</h3><p>现在我们的 response 对象不是像教程1中的对数据类型进行强制要求了。</p>
+<p>并且对 url 也不是硬连接的。</p>
+<p>那么就可以定制可选的 url 后缀，如: </p>
+<p>通过 <a href="http://example.com/api/items/4/.json" target="_blank" rel="external">http://example.com/api/items/4/.json</a> 来访问 Web API。</p>
+<p>我们所需做的就是在 views 中添加 <figure class="highlight plain"><figcaption><span>关键字: </span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">```python</div><div class="line">def movies_list(request, format=None):</div></pre></td></tr></table></figure></p>
+<p>还有</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">movies_detail</span><span class="params">(request, pk, format=None)</span>:</span></div></pre></td></tr></table></figure>
+<p>然后在 <figure class="highlight plain"><figcaption><span>中加入 ```format_suffix_patterns``` :</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">```python</div><div class="line">#!/usr/bin/python</div><div class="line"># -*- coding: utf-8 -*-</div><div class="line"></div><div class="line">from django.conf.urls import url</div><div class="line">from rest_framework.urlpatterns import format_suffix_patterns</div><div class="line">from douban import views</div><div class="line"></div><div class="line">urlpatterns = [</div><div class="line">    url(r&apos;^dbmovies/$&apos;, views.movies_list),</div><div class="line">    url(r&apos;^dbmovies/(?P&lt;pk&gt;[0-9]+)/$&apos;, views.movies_detail),</div><div class="line">]</div><div class="line"></div><div class="line">urlpatterns = format_suffix_patterns(urlpatterns)</div></pre></td></tr></table></figure></p>
+<p>不过，一般情况下，我们耶不会用到那么奇葩的 url 访问方式，以上的例子只是说明了用奇葩的 url 方式也是可以访问的 ：D </p>
+<h3 id="再测试下我们的-API"><a href="#再测试下我们的-API" class="headerlink" title="再测试下我们的 API"></a>再测试下我们的 API</h3><p>在终端中输入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ python manage.py runserver</div></pre></td></tr></table></figure>
+<p>接着来浏览器中访问 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">![apitest2](http://7xse6j.com1.z0.glb.clouddn.com/apitest2.png)</div><div class="line"></div><div class="line">如果出现如图所示的 api 则说明 Web api 返回成功。</div><div class="line"></div><div class="line">然后我们可以在这个页面中 POST 一个新的 Movies :</div><div class="line"></div><div class="line">在表单中选择 Media type 为 json 格式并输入</div><div class="line"></div><div class="line">```json</div><div class="line">&#123;</div><div class="line">    &quot;id&quot;: 3,</div><div class="line">    &quot;title&quot;: &quot;Carol&quot;,</div><div class="line">    &quot;year&quot;: &quot;2015&quot;,</div><div class="line">    &quot;country&quot;: &quot;US&quot;,</div><div class="line">    &quot;type&quot;: &quot;Romance&quot;,</div><div class="line">    &quot;rating&quot;: &quot;8.3&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><img src="http://7xse6j.com1.z0.glb.clouddn.com/apitest3.png" alt="apipost"></p>
+<p>如果返回如下图所示，则说明 POST 成功！</p>
+<p><img src="http://7xse6j.com1.z0.glb.clouddn.com/apitest4.png" alt="postsuccess"></p>
+<p>你或许会注意到，每个访问这个页面的人都能 POST 一个新的 Movies ，这是不合理的，所以需要赋予权限，这个我们日后再说。</p>
+<h3 id="可浏览性"><a href="#可浏览性" class="headerlink" title="可浏览性"></a>可浏览性</h3><p>Because the API chooses the content type of the response based on the client request, it will, by default, return an HTML-formatted representation of the resource when that resource is requested by a web browser. This allows for the API to return a fully web-browsable HTML representation.</p>
+<p>Having a web-browsable API is a huge usability win, and makes developing and using your API much easier. It also dramatically lowers the barrier-to-entry for other developers wanting to inspect and work with your API.</p>
+<p>See the <a href="http://www.django-rest-framework.org/topics/browsable-api/" target="_blank" rel="external">browsable api</a> topic for more information about the browsable API feature and how to customize it.</p>
+
+	
+	
+	
+	
+</div>
+				
+				
+
+                <!-- Post Comments -->
+                
+
+
+    <!-- 使用 DISQUS -->
+	<div id="disqus-comment">
+		<div id="disqus_thread"></div>
+<script>
+	var disqus_config = function () {
+		this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+		this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+	};
+
+	(function() { // DON'T EDIT BELOW THIS LINE
+		var d = document, s = d.createElement('script');
+		s.src = '//thehackercat.disqus.com/embed.js';
+		s.setAttribute('data-timestamp', +new Date());
+		(d.head || d.body).appendChild(s);
+	})();
+</script>
+	</div>
+	<style>
+		#disqus-comment{
+			background-color:#eee;
+			padding:2pc;
+		}
+	</style>
+
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    
+    <!-- Prev Nav -->
+    
+        <a href="/2016/04/03/2016-04-03-DRF-tutorial-3-class-based-views/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Newer
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2016/04/01/2016-04-01-DRF-tutorial-1-serialization/" id="post_nav-older" class="next-content">
+            Older
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+        </div>
+    </div>
+
+				
+				
+					<!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay "></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored  sidebar-fixed-left" role="navigation">
+	<div id="sidebar-main">
+	    <!-- Sidebar Header -->
+		<div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+    <i class="material-icons">clear_all</i>
+    <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.jpg" alt="LexusLee's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        lexuscyborg103@email.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+		<!-- Sidebar Navigation  -->
+		<ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+			
+                <li>
+                    <a href="mailto:lexuscyborg103@gmail.com" target="_blank" title="Email Me">
+						<i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    <li id="sidebar-first-li">
+        <a href="/" target="_self">
+            <i class="material-icons sidebar-material-icons">home</i>
+             Home
+        </a>
+    </li>
+
+    <!-- I'm Feeling Lucky -->
+<!--
+    <li class="dropdown">
+        <a href="" target="_self">
+            <i class="material-icons sidebar-material-icons">explore</i>
+             sidebar.imlucky
+        </a>
+    </li>
+-->
+
+	
+    <!-- Archives  -->
+    <li class="dropdown">
+        <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+            <i class="material-icons sidebar-material-icons">inbox</i>
+             Archives
+            <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+            <li>
+            <a class="sidebar_archives-link" href="/archives/2016/07/">July 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">April 2016<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">March 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">February 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">December 2015<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">November 2015<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/05/">May 2015<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/04/">April 2015<span class="sidebar_archives-count">1</span></a>
+        </ul>
+    </li>
+
+    <!-- Divider -->
+    <li class="divider"></li>
+
+
+    <!-- Pages  -->
+	
+		<li>
+			<a href="/about" title="about">
+				about
+			</a>
+		</li>
+	
+
+    <!-- Article Numebr  -->
+    <li>
+        <a href="/archives">
+             Article Number
+             <span class="sidebar-badge">20</span>
+        </a>
+    </li>
+</ul>
+
+		<!-- Sidebar Divider -->
+		<div class="sidebar-divider"></div>
+
+		<!-- Sidebar Footer -->
+		<!-- 
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持。 :) 
+-->
+
+<!-- Theme Material -->
+<a href="https://github.com/viosey/hexo-theme-material"  class="sidebar-footer-text-a" target="_blank">
+	<div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+		Theme - Material
+		<span class="sidebar-badge badge-circle">i</span>
+	</div>
+</a>
+
+<!-- Help & Support -->
+<!--
+<a href="mailto:hiviosey@gmail.com" class="sidebar-footer-text-a">
+    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+		sidebar.help
+		<span class="mdl-button__ripple-container">
+			<span class="mdl-ripple"></span>
+		</span>
+	</div>
+</a>
+-->
+
+<!-- Feedback -->
+<!--
+<a href="https://github.com/viosey/hexo-theme-material/issues" target="_blank" class="sidebar-footer-text-a">
+    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+         sidebar.feedback
+                    <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+</a>
+-->
+
+<!-- Abount Theme -->
+<!--
+<a href="https://blog.viosey.com/index.php/Material.html" target="_blank" class="sidebar-footer-text-a">
+    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+         sidebar.about_theme
+        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+</a>-->
+
+	</div>
+    
+    <!-- Sidebar Sponsor -->
+    
+
+
+</aside>
+
+				
+				
+				
+					<!-- Footer Top Button -->
+					<div class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+				
+				
+				<!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+	
+	
+		<!-- Paradox Footer Left Section -->
+		<div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+    
+    
+    <!-- Facebook -->
+    
+    
+    
+    <!-- Google + -->
+    
+    
+
+    <!-- Weibo -->
+    
+    
+    
+    <!-- Instagram -->
+    
+    <a href="https://www.instagram.com/thehackercat" target="view_window"><button class="mdl-mini-footer--social-btn social-btn" style="background-image: url(/img/footer/footer_ico-instagram.png);">
+        <span class="visuallyhidden">Instagram</span>
+    </button></a>
+    
+    
+    <!-- Tumblr -->
+    
+    
+    
+    <!-- Github -->
+    
+    <a href="https://github.com/thehackercat" target="view_window"><button class="mdl-mini-footer--social-btn social-btn" style="background-image: url(/img/footer/footer_ico-github.png);">
+        <span class="visuallyhidden">Github</span>
+    </button></a>
+    
+
+    <!-- Douban -->
+    
+    <a href="https://www.douban.com/people/thehackercat" target="view_window"><button class="mdl-mini-footer--social-btn social-btn" style="background-image: url(/img/footer/footer_ico-douban.png);">
+        <span class="visuallyhidden">Douban</span>
+    </button></a>
+    
+</div>
+
+
+		<!--Copyright-->
+		<div id="copyright">Copyright&nbsp;©&nbsp;<script type="text/javascript">var fd = new Date();document.write(fd.getFullYear());</script>&nbsp;LexusLee's Blog</div>
+
+		<!-- Paradox Footer Right Section -->
+
+		<!-- 
+		I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+		It will not impact the appearance and can give developers a lot of support :)
+
+		很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+		它不会影响美观并可以给开发者很大的支持。 :) 
+		-->
+
+		<div class="mdl-mini-footer--right-section">
+			<div>
+				<div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+				<div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+			</div>
+		</div>
+	
+    
+</footer>
+                
+				<!-- Import File -->
+<script src="/js/highlight.min.js"></script>
+<script src="/js/js.min.js"></script>
+<script src="/js/nprogress.js"></script>
+
+<script type="text/javascript">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    
+    $('#nprogress .bar').css({
+        'background': '#FF4081'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #FF4081, 0 0 15px #FF4081'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#FF4081',
+        'border-left-color': '#FF4081'
+    });
+    
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+    <!-- Busuanzi -->
+    <script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+    <!-- 使用 DISQUS js 代码 -->
+	<script id="dsq-count-scr" src="//thehackercat.disqus.com/count.js" async></script>
+
+
+<!-- Swiftye -->
+
+
+<!-- Local Search-->
+
+
+<!-- Window Load-->
+<script>
+    $(window).load(function() {
+        // Post_Toc parent position fixed
+        $(".post-toc-wrap").parent(".mdl-menu__container").css("position", "fixed");
+    });
+</script>
+            </main>
+        </div>
+		
+    </body>
+		
+	
+</html>
