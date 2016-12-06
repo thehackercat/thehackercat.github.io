@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://lexuslee.me/"/>
-  <updated>2016-12-06T14:01:10.000Z</updated>
+  <updated>2016-12-06T16:27:36.000Z</updated>
   <id>http://lexuslee.me/</id>
   
   <author>
@@ -20,9 +20,11 @@
     <link href="http://lexuslee.me/2016/07/16/%E5%A6%82%E6%9E%9C%E5%A4%A7%E8%84%91%E6%9C%89%E4%B8%80%E5%A5%97%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F%E5%B0%B1%E5%A5%BD%E4%BA%86/"/>
     <id>http://lexuslee.me/2016/07/16/如果大脑有一套日志系统就好了/</id>
     <published>2016-07-16T08:33:33.000Z</published>
-    <updated>2016-12-06T14:01:10.000Z</updated>
+    <updated>2016-12-06T16:27:36.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="如果大脑有一套日志系统就好了"><a href="#如果大脑有一套日志系统就好了" class="headerlink" title="如果大脑有一套日志系统就好了"></a>如果大脑有一套日志系统就好了</h2><p><img src="http://img31.mtime.cn/pi/2016/07/08/101238.71445696_1000X1000.jpg" alt="大鱼海棠"></p>
+<center><br><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="http://music.163.com/outchain/player?type=2&id=28285910&auto=1&height=66"></iframe><br></center>
+
 <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>最近很健忘，今天下午撸代码的时候，基本上每执行一个模块就要将调用函数、执行结果、友好信息等记录到日志系统里。</p>
 <p>然后我突然想到，如果生物的大脑有一套日志系统就好了!</p>
 <a id="more"></a>
@@ -69,6 +71,8 @@
     <summary type="html">
     
       &lt;h2 id=&quot;如果大脑有一套日志系统就好了&quot;&gt;&lt;a href=&quot;#如果大脑有一套日志系统就好了&quot; class=&quot;headerlink&quot; title=&quot;如果大脑有一套日志系统就好了&quot;&gt;&lt;/a&gt;如果大脑有一套日志系统就好了&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;http://img31.mtime.cn/pi/2016/07/08/101238.71445696_1000X1000.jpg&quot; alt=&quot;大鱼海棠&quot;&gt;&lt;/p&gt;
+&lt;center&gt;&lt;br&gt;&lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=330 height=86 src=&quot;http://music.163.com/outchain/player?type=2&amp;id=28285910&amp;auto=1&amp;height=66&quot;&gt;&lt;/iframe&gt;&lt;br&gt;&lt;/center&gt;
+
 &lt;h3 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h3&gt;&lt;p&gt;最近很健忘，今天下午撸代码的时候，基本上每执行一个模块就要将调用函数、执行结果、友好信息等记录到日志系统里。&lt;/p&gt;
 &lt;p&gt;然后我突然想到，如果生物的大脑有一套日志系统就好了!&lt;/p&gt;
     
