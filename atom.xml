@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://lexuslee.me/"/>
-  <updated>2016-12-06T16:27:36.000Z</updated>
+  <updated>2016-12-08T09:31:06.000Z</updated>
   <id>http://lexuslee.me/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://lexuslee.me/2016/07/16/%E5%A6%82%E6%9E%9C%E5%A4%A7%E8%84%91%E6%9C%89%E4%B8%80%E5%A5%97%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F%E5%B0%B1%E5%A5%BD%E4%BA%86/"/>
     <id>http://lexuslee.me/2016/07/16/如果大脑有一套日志系统就好了/</id>
     <published>2016-07-16T08:33:33.000Z</published>
-    <updated>2016-12-06T16:27:36.000Z</updated>
+    <updated>2016-12-08T09:31:06.000Z</updated>
     
     <summary type="html">
     
@@ -32,7 +32,7 @@
     
     </summary>
     
-      <category term="Gossip" scheme="http://lexuslee.me/categories/Gossip/"/>
+      <category term="gossip" scheme="http://lexuslee.me/categories/gossip/"/>
     
     
   </entry>
@@ -359,7 +359,7 @@
     <link href="http://lexuslee.me/2015/05/16/2015-05-16-giraffe-man/"/>
     <id>http://lexuslee.me/2015/05/16/2015-05-16-giraffe-man/</id>
     <published>2015-05-15T18:01:33.000Z</published>
-    <updated>2016-12-08T09:27:17.000Z</updated>
+    <updated>2016-12-08T09:30:56.000Z</updated>
     
     <summary type="html">
     
@@ -368,7 +368,7 @@
     
     </summary>
     
-      <category term="Gossip" scheme="http://lexuslee.me/categories/Gossip/"/>
+      <category term="gossip" scheme="http://lexuslee.me/categories/gossip/"/>
     
     
   </entry>
@@ -378,7 +378,7 @@
     <link href="http://lexuslee.me/2015/04/02/2015-11-23-little-prince-and-bear/"/>
     <id>http://lexuslee.me/2015/04/02/2015-11-23-little-prince-and-bear/</id>
     <published>2015-04-01T17:40:54.000Z</published>
-    <updated>2016-12-06T13:28:02.000Z</updated>
+    <updated>2016-12-08T09:31:25.000Z</updated>
     
     <summary type="html">
     
@@ -390,7 +390,7 @@
     
     </summary>
     
-      <category term="Gossip" scheme="http://lexuslee.me/categories/Gossip/"/>
+      <category term="gossip" scheme="http://lexuslee.me/categories/gossip/"/>
     
     
   </entry>
