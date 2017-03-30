@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://lexuslee.me/"/>
-  <updated>2016-12-08T09:31:06.000Z</updated>
+  <updated>2017-03-30T08:21:05.000Z</updated>
   <id>http://lexuslee.me/</id>
   
   <author>
@@ -14,6 +14,24 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>终端配置总结</title>
+    <link href="http://lexuslee.me/2017/03/30/2017-3-30-terminal-config/"/>
+    <id>http://lexuslee.me/2017/03/30/2017-3-30-terminal-config/</id>
+    <published>2017-03-30T07:29:19.000Z</published>
+    <updated>2017-03-30T08:21:05.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;终端配置总结&quot;&gt;&lt;a href=&quot;#终端配置总结&quot; class=&quot;headerlink&quot; title=&quot;终端配置总结&quot;&gt;&lt;/a&gt;终端配置总结&lt;/h2&gt;&lt;h3 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://lexuslee.me/categories/Linux/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>如何大脑有一套日志系统就好了</title>
@@ -365,28 +383,6 @@
     
       &lt;p&gt;&lt;img src=&quot;http://ww1.sinaimg.cn/large/e05ea78cjw1es5gp39wftj20jg0ri75b.jpg&quot; alt=&quot;fly to the moon&quot;&gt;&lt;br&gt;&lt;strong&gt;从小，我就想做英雄大侠。&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;长着翅膀，穿梭云雾间如探囊取物的那种。&lt;/strong&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="gossip" scheme="http://lexuslee.me/categories/gossip/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>小王子与春天的熊</title>
-    <link href="http://lexuslee.me/2015/04/02/2015-11-23-little-prince-and-bear/"/>
-    <id>http://lexuslee.me/2015/04/02/2015-11-23-little-prince-and-bear/</id>
-    <published>2015-04-01T17:40:54.000Z</published>
-    <updated>2016-12-08T09:31:25.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://jokerwang-blogpic.stor.sinaapp.com/original/f777064f36fd2b901fadbed0d3e9efab.jpg&quot; alt=&quot;Litte prince&quot;&gt;&lt;/p&gt;
-&lt;p&gt;小王子的星球上忽然绽放了一朵娇艳的玫瑰花。&lt;/p&gt;
-&lt;p&gt;在我没长牙前，我就知道，草是绿的，花是红的，眼泪是咸的，口水是黏的，漂亮阿姨上厕所是不能偷看的。&lt;/p&gt;
-&lt;p&gt;在我长牙约莫拾几朵玫瑰花之后，我开始明白，玫瑰是不能摘的，春天是追不到的。&lt;/p&gt;
-&lt;p&gt;只能追，不能到！&lt;br&gt;
     
     </summary>
     
