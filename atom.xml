@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://lexuslee.me/"/>
-  <updated>2017-03-30T08:21:05.000Z</updated>
+  <updated>2017-03-30T08:29:51.000Z</updated>
   <id>http://lexuslee.me/</id>
   
   <author>
@@ -17,14 +17,14 @@
   
   <entry>
     <title>终端配置总结</title>
-    <link href="http://lexuslee.me/2017/03/30/2017-3-30-terminal-config/"/>
-    <id>http://lexuslee.me/2017/03/30/2017-3-30-terminal-config/</id>
+    <link href="http://lexuslee.me/2017/03/30/2017-03-30-terminal-config/"/>
+    <id>http://lexuslee.me/2017/03/30/2017-03-30-terminal-config/</id>
     <published>2017-03-30T07:29:19.000Z</published>
-    <updated>2017-03-30T08:21:05.000Z</updated>
+    <updated>2017-03-30T08:29:51.000Z</updated>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;终端配置总结&quot;&gt;&lt;a href=&quot;#终端配置总结&quot; class=&quot;headerlink&quot; title=&quot;终端配置总结&quot;&gt;&lt;/a&gt;终端配置总结&lt;/h2&gt;&lt;h3 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;
+      &lt;h2 id=&quot;终端配置总结&quot;&gt;&lt;a href=&quot;#终端配置总结&quot; class=&quot;headerlink&quot; title=&quot;终端配置总结&quot;&gt;&lt;/a&gt;终端配置总结&lt;/h2&gt;&lt;h3 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h3&gt;&lt;p&gt;最近公司新购置了好几台 Linux 服务器然后配置一些服务的时候很不习惯，估计是我平时自己的 zsh + oh-my-zsh 用多了，故想整理下 .bash_rc 和 .zshrc 我个人的一些配置，这些配置包含了一些 alias 快捷命令和命令行系统配置，可以让终端变得快捷易用，今晚再写个 shell 脚本实现快速修改 .bash_rc 的配置。&lt;br&gt;
     
     </summary>
     

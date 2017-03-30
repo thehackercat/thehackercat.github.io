@@ -5,8 +5,8 @@
     
     <entry>
       <title><![CDATA[终端配置总结]]></title>
-      <url>http://lexuslee.me/2017/03/30/2017-3-30-terminal-config/</url>
-      <content type="html"><![CDATA[<h2 id="终端配置总结"><a href="#终端配置总结" class="headerlink" title="终端配置总结"></a>终端配置总结</h2><h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>最近公司新购置了好几台 Linux 服务器然后配置一些服务的时候很不习惯，估计是我平时自己的 zsh + oh-my-zsh 用多了，故想整理下 .bash_rc 和 .zshrc 我个人的一些配置，这些配置包含了一些 alias 快捷命令和命令行系统配置，可以让终端变得快捷易用，今晚再写个 shell 脚本实现快速修改 .bash_rc 的配置。</p>
+      <url>http://lexuslee.me/2017/03/30/2017-03-30-terminal-config/</url>
+      <content type="html"><![CDATA[<h2 id="终端配置总结"><a href="#终端配置总结" class="headerlink" title="终端配置总结"></a>终端配置总结</h2><h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>最近公司新购置了好几台 Linux 服务器然后配置一些服务的时候很不习惯，估计是我平时自己的 zsh + oh-my-zsh 用多了，故想整理下 .bash_rc 和 .zshrc 我个人的一些配置，这些配置包含了一些 alias 快捷命令和命令行系统配置，可以让终端变得快捷易用，今晚再写个 shell 脚本实现快速修改 .bash_rc 的配置。<br><a id="more"></a></p>
 <h3 id="bash-rc-zshrc-配置汇总"><a href="#bash-rc-zshrc-配置汇总" class="headerlink" title=".bash_rc/.zshrc 配置汇总"></a>.bash_rc/.zshrc 配置汇总</h3><ul>
 <li><p>终端不自动执行命令</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># If not running interactively, don't do anything</span></div><div class="line"><span class="keyword">case</span> $- <span class="keyword">in</span></div><div class="line">    *i*) ;;</div><div class="line">      *) <span class="built_in">return</span>;;</div><div class="line"><span class="keyword">esac</span></div></pre></td></tr></table></figure>
