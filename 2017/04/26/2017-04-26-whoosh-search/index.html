@@ -4,7 +4,7 @@
     <!-- Title -->
     
     <title>
-         Django 学习笔记3-- Models  | LexusLee&#39;s Blog
+        Whoosh+jieba 中文检索 | LexusLee&#39;s Blog
     </title>
     
     <!-- Favicons -->
@@ -40,7 +40,7 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://lexuslee.me">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content=" Django 学习笔记3-- Models  | LexusLee&#39;s Blog">
+    <meta property="og:title" content="Whoosh+jieba 中文检索 | LexusLee&#39;s Blog">
     <meta property="og:description" content="Be the change you want to see in the world.">
     
      <!--[if lte IE 9]>
@@ -210,7 +210,7 @@
 	<ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
 		for="post-toc-trigger-btn">
 			
-			<ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MTV-vs-MVC"><span class="post-toc-number">1.</span> <span class="post-toc-text">MTV vs MVC</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#模型练手"><span class="post-toc-number">2.</span> <span class="post-toc-text">模型练手</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#疑惑"><span class="post-toc-number">3.</span> <span class="post-toc-text">疑惑</span></a></li></ol>
+			<ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Whoosh-jieba-中文检索"><span class="post-toc-number">1.</span> <span class="post-toc-text">Whoosh + jieba 中文检索</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#背景"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">背景</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#快速上手"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">快速上手</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#几个核心对象"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">几个核心对象</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#"><span class="post-toc-number">1.2.1.1.</span> <span class="post-toc-text">和 ```Schema``` 对象12345678 在使用 Whoosh 前，首先需要创建的就是 *index* 对象，*index* 对象是一个全局索引。在创建 *index* 对象前首先要声明 index 对象的一些属性，所以需要在创建一个用于包装这些属性的 *schema* 对象。*schema* 有很多 Fields(一个 Field 是 index 对象的一个信息块，即需要被我们检索的内容)举个栗子，以下代码创建了一个包含 "title" 和 "path" 和 "content" 三个 Fields 的 *schema* 对象```pythonfrom whoosh.fields import Schema, TEXT, IDschema = Schema(title=TEXT, path=ID, content=TEXT)</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#-1"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">对象1234567891011一旦有了 *index* 对象，我们就需要在 index 里写入需要被检索的信息，所以 ```IndexWriter``` 对象就是用来提供一个 ```add_document(**kwargs)``` 方法来在之前声明的各种 Fields 里写入数据```pythonwriter = idx.writer()  #IndexWriter对象writer.add_document(	title=u"Document Title",    path=u"/a",    content=u"Hello Whoosh")  # Field 和 schema 中声明的一致writer.commit()  # 保存以上document</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#-2"><span class="post-toc-number">1.2.2.1.</span> <span class="post-toc-text">对象12345在开始搜索索引之前，我们需要创建 *searcher* 对象```pythonsearcher = idx.sercher()</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#结合-jieba-分词使用"><span class="post-toc-number">1.2.3.</span> <span class="post-toc-text">结合 jieba 分词使用</span></a></li></ol></li></ol></li></ol>
 		
 <!--			<li class="mdl-menu__item">Some Action</li>-->
 	</ul>
@@ -243,7 +243,7 @@
 		
 	
         <p class="article-headline-p">
-             Django 学习笔记3-- Models 
+            Whoosh+jieba 中文检索
         </p>
     </div>
 
@@ -261,7 +261,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>LexusLee</strong>
-        <span>Nov 21, 2015</span>
+        <span>Apr 26, 2017</span>
     </div>
     
     <div class="section-spacer"></div>
@@ -281,7 +281,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        
+        <a class="post_tag-link" href="/tags/Whoosh/">Whoosh</a>
     </ul>
     
     <!-- Share -->
@@ -296,21 +296,21 @@
     
     
     <!-- Share Twitter -->
-    <a class="post_share-link" href="https://twitter.com/intent/tweet?text= Django 学习笔记3-- Models &url=http://lexuslee.me//2015/11/21/2015-11-21-django-learning3/index.html&via=LexusLee" target="_blank">
+    <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Whoosh+jieba 中文检索&url=http://lexuslee.me//2017/04/26/2017-04-26-whoosh-search/index.html&via=LexusLee" target="_blank">
         <li class="mdl-menu__item">
             Share to Twitter
         </li>
     </a>
     
     <!-- Share Google+ -->
-    <a class="post_share-link" href="https://plus.google.com/share?url=http://lexuslee.me//2015/11/21/2015-11-21-django-learning3/index.html" target="_blank">
+    <a class="post_share-link" href="https://plus.google.com/share?url=http://lexuslee.me//2017/04/26/2017-04-26-whoosh-search/index.html" target="_blank">
         <li class="mdl-menu__item">
             Share to Google+
         </li>
     </a>
     
     <!-- Share Weibo -->
-    <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title= Django 学习笔记3-- Models &url=http://lexuslee.me//2015/11/21/2015-11-21-django-learning3/index.html&pic=&searchPic=false&style=simple" target="_blank">
+    <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Whoosh+jieba 中文检索&url=http://lexuslee.me//2017/04/26/2017-04-26-whoosh-search/index.html&pic=&searchPic=false&style=simple" target="_blank">
         <li class="mdl-menu__item">
             Share to Weibo
         </li>
@@ -322,26 +322,30 @@
                 <!-- Post Content -->
                 <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
 	
-		<h2 id="MTV-vs-MVC"><a href="#MTV-vs-MVC" class="headerlink" title="MTV vs MVC"></a>MTV vs MVC</h2><p>正如在之前<a href="http://thehackercat.me/blog/2015/11/14/django-learning1/" target="_blank" rel="external">这篇文章</a>所提到的， 把数据存取逻辑、业务逻辑和表现逻辑组合在一起的概念有时被称为软件架构的 Model-View-Controller ( MVC )模式。 在这个模式中， Model 代表数据存取层，View 代表的是系统中选择显示什么和怎么显示的部分，Controller 指的是系统中根据用户输入并视需要访问模型，以决定使用哪个视图的那部分。</p>
-<a id="more"></a>
-<p>而 Django 使用的更多的则是模型( Model )、模板( Template )和视图( Views )的软件设计模式，称为 MTV 模式。我在 Stack Overflow 的<a href="http://stackoverflow.com/questions/6621653/django-vs-model-view-controller" target="_blank" rel="external">这个回答</a>里找到了对于 MTV vs MVC 两种设计模式间的微妙的差别。</p>
-<p>其中提到，不能简单的把 Django 视图认为是 MVC 控制器，把 Django 模板认为是 MVC 视图。</p>
-<p>两者之间的差别在于，在 Django 中，视图( Views )不处理用户输入，而是用来选择要展示的哪些数据，而不是要如何展示数据。而 Django 模板 仅仅决定如何展现Django视图指定的数据。</p>
-<p>或者说, Django 将 MVC 中的视图进一步分解为 Django 视图 和 Django 模板两个部分，分别决定 “展现哪些数据” 和 “如何展现”，使得 Django 的模板可以根据需要随时替换，而不仅仅限制于内置的模板。至于 MVC 控制器部分，由 Django 框架的 URLconf 来实现。</p>
-<h2 id="模型练手"><a href="#模型练手" class="headerlink" title="模型练手"></a>模型练手</h2><p>为了深入了解 Django Models 对数据的操作，我写了一个简单的博客模型作为练手。</p>
-<p>在新建模型时遇到了一个 App migrations 问题如下：</p>
-<p><img src="http://thehackercat-hackercat.stor.sinaapp.com/model%20error%201.png" alt="Model CommandError"></p>
-<p>后来发现是由于 Django 版本问题，在最近版本把 migrations 移出了所创建的 App 的根目录，只需要执行<figure class="highlight python"><figcaption><span>manage.py makemigration```接着再执行```python manage.py migrate```即可解决。</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">写了个简单的博客的增删改查，代码如下：</div><div class="line">``` python <span class="comment">#view.py </span></div><div class="line"><span class="comment">#!/usr/bin/python</span></div><div class="line"><span class="comment">#-*-coding:utf-8 -*-</span></div><div class="line"></div><div class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render</div><div class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponseRedirect</div><div class="line"><span class="keyword">from</span> blog.models <span class="keyword">import</span> Blog</div><div class="line"><span class="keyword">from</span> blog <span class="keyword">import</span> forms</div><div class="line"><span class="keyword">from</span> django.template <span class="keyword">import</span> RequestContext</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">blog_list</span><span class="params">(request)</span>:</span></div><div class="line">    blog_list = Blog.objects.all()</div><div class="line">    <span class="keyword">return</span> render(request,<span class="string">"blog_list.html"</span>,&#123;<span class="string">'blog_list'</span>:blog_list&#125;)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">blog_form</span><span class="params">(request)</span>:</span></div><div class="line">    <span class="keyword">if</span> request.method == <span class="string">'POST'</span>:</div><div class="line">        form = forms.BlogForm(request.POST)</div><div class="line"></div><div class="line">        <span class="keyword">if</span> form.is_valid():</div><div class="line">            data = form.cleaned_data</div><div class="line"></div><div class="line">            <span class="keyword">if</span> <span class="string">'id'</span> <span class="keyword">not</span> <span class="keyword">in</span> data:</div><div class="line">                blog = Blog(title=data[<span class="string">'title'</span>],author=data[<span class="string">'author'</span>],content=data[<span class="string">'content'</span>])</div><div class="line">                blog.save()</div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                blog = Blog.object.get(id=data.id)</div><div class="line">                blog.title = data[<span class="string">'title'</span>]</div><div class="line">                blog.author = date[<span class="string">'author'</span>]</div><div class="line">                blog.content = data[<span class="string">'content'</span>]</div><div class="line">                blog.save()</div><div class="line">            <span class="keyword">return</span> HttpResponseRedirect(<span class="string">'/blog/list'</span>)</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            form = forms.BlogForm()</div><div class="line">            <span class="keyword">return</span> render(request,<span class="string">"blog_form.html"</span>,context_instance=RequestContext(request))</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">blog_del</span><span class="params">(request)</span>:</span></div><div class="line">    errors = []</div><div class="line">    <span class="keyword">if</span> <span class="string">'id'</span> <span class="keyword">in</span> request.GET:</div><div class="line">        bid_ = request.GET[<span class="string">'id'</span>]</div><div class="line">        Blog.objects.fileter(id=bid_).delete()</div><div class="line">        <span class="keyword">return</span> HttpResponseRedirect(<span class="string">'/blog/list'</span>)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">blog_view</span><span class="params">(request)</span>:</span></div><div class="line">    <span class="keyword">if</span> <span class="string">'id'</span> <span class="keyword">in</span> request.GET:</div><div class="line">        bid_ = request.GET[<span class="string">'id'</span>]</div><div class="line">        blog = Blog.object.get(id=bid_)</div><div class="line">        form = forms.BlogForm(</div><div class="line">            initial = &#123;<span class="string">'id'</span>:blog.id,<span class="string">'title'</span>:blog.title,<span class="string">'author'</span>:blog.author,<span class="string">'content'</span>:blog.content&#125;</div><div class="line">        )</div><div class="line">        <span class="keyword">return</span> render(request,<span class="string">"blog_form.html"</span>,&#123;<span class="string">'form'</span>:form&#125;,context_instance=RequestContext(request))</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        errors.append(<span class="string">"参数异常请刷新后重试"</span>)</div><div class="line">        <span class="keyword">return</span> render(request,<span class="string">"blog_list.html"</span>,&#123;<span class="string">'errors'</span>:errors&#125;)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">blog_edit</span><span class="params">(request)</span>:</span></div><div class="line">    errors = []</div><div class="line">    <span class="keyword">if</span> <span class="string">'id'</span> <span class="keyword">in</span> request.GET:</div><div class="line">        bid_ = request.GET[<span class="string">'id'</span>]</div><div class="line">        blog = Blog.objects.get(id=bid_)</div><div class="line">        form = forms.BlogForm(</div><div class="line">                initial = &#123;<span class="string">'id'</span>:blog.id,<span class="string">'title'</span>:blog.title,<span class="string">'author'</span>:blog.author,<span class="string">'content'</span>:blog.content&#125;</div><div class="line">        )</div><div class="line">        <span class="keyword">return</span> render_to_response(<span class="string">"blog_form.html"</span>,&#123;<span class="string">'form'</span>:form&#125;,context_instance=RequestContext(request))</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        errors.append(<span class="string">"参数异常请刷新后重试"</span>)</div><div class="line">        <span class="keyword">return</span> render(request,<span class="string">"blog_list.html"</span>,&#123;<span class="string">'errors'</span>:errors&#125;)</div></pre></td></tr></table></figure></p>
-<figure class="highlight python"><figcaption><span>#form.py</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/python</span></div><div class="line"><span class="comment">#-*-coding:utf-8 -*-</span></div><div class="line"><span class="keyword">from</span> django <span class="keyword">import</span> forms</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BlogForm</span><span class="params">(forms.Form)</span>:</span></div><div class="line">    title =  forms.CharField(label=<span class="string">'标题'</span>)</div><div class="line">    author = forms.CharField(label=<span class="string">'作者'</span>)</div><div class="line">    content = forms.CharField(label=<span class="string">'正文'</span>,widget=forms.Textarea)</div></pre></td></tr></table></figure>
-<p>其中 CharField() 相当于赋予了 title 表段 varchar 的属性。</p>
-<p>object.all() 相当于执行了一条<code>select * from blog</code>的 sql 语句。</p>
-<p>object.get() 相当于执行了一条<code>select * from blog where id=&#39;bid_&#39;</code>的获取单个对象的 sql 语句。</p>
-<p>object.save() 相当于执行了<code>UPDATE blog SET ...</code>的 sql 语句。</p>
-<p>并用 errors[] 列表来捕捉错误信息，一般防止出现错误的 sql 语句时增加了 blog 表段中的 id 号而其余属性值为空的情况。</p>
-<p>感觉相比于 ThinkinPHP 操作表单 GET/POST 请求以及处理数据库方面要方便得多。</p>
-<h2 id="疑惑"><a href="#疑惑" class="headerlink" title="疑惑"></a>疑惑</h2><p>MVC 框架大大缩小了开发者对数据存储的直接操作，框架自动生成 sql 语句并空值数据的存取等。以后写 sql 感觉就跟 Excel 一样了，那应该怎么优化 sql 呢。</p>
-<p>顺便吐槽一下，最近 GitHub Repositorie 换新的布局，天热噜，怎么能这么丑！</p>
-<p><img src="http://thehackercat-hackercat.stor.sinaapp.com/dontstudyCS.jpg" alt="Dont learn CS"></p>
+		<h2 id="Whoosh-jieba-中文检索"><a href="#Whoosh-jieba-中文检索" class="headerlink" title="Whoosh + jieba 中文检索"></a>Whoosh + jieba 中文检索</h2><h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>最近项目要用到 <a href="https://whoosh.readthedocs.io/" target="_blank" rel="external">Whoosh</a> 一个 Python 编写的索引检索模块，发现比较少中文资料并且看了学长的代码也好多不懂，故自己照着官网文档撸了一遍，把我自己的理解和官网一些不太清楚的解释写下来。</p>
+<h3 id="快速上手"><a href="#快速上手" class="headerlink" title="快速上手"></a>快速上手</h3><h4 id="几个核心对象"><a href="#几个核心对象" class="headerlink" title="几个核心对象"></a>几个核心对象</h4><h5 id=""><a href="#" class="headerlink" title=""></a><figure class="highlight plain"><figcaption><span>和 ```Schema``` 对象</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"> 在使用 Whoosh 前，首先需要创建的就是 *index* 对象，*index* 对象是一个全局索引。在创建 *index* 对象前首先要声明 index 对象的一些属性，所以需要在创建一个用于包装这些属性的 *schema* 对象。*schema* 有很多 Fields(一个 Field 是 index 对象的一个信息块，即需要被我们检索的内容)</div><div class="line"></div><div class="line">举个栗子，以下代码创建了一个包含 &quot;title&quot; 和 &quot;path&quot; 和 &quot;content&quot; 三个 Fields 的 *schema* 对象</div><div class="line"></div><div class="line">```python</div><div class="line">from whoosh.fields import Schema, TEXT, ID</div><div class="line">schema = Schema(title=TEXT, path=ID, content=TEXT)</div></pre></td></tr></table></figure></h5><p>创建 <em>schema</em> 对象时需要用关键字来映射 Field name 和 Field type，如上的 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">一旦创建好了 *schema* 对象，接着就是使用 ```create_in``` 方法来创建 *schema* 的索引</div><div class="line"></div><div class="line">```python</div><div class="line">import os.path</div><div class="line">from whoosh.index import create_in</div><div class="line"></div><div class="line">if not os.path.exists(&quot;index&quot;):</div><div class="line">	os.mkdir(&quot;index&quot;)</div><div class="line">idx = create_in(&quot;index&quot;, schema)</div></pre></td></tr></table></figure></p>
+<p>接着可以用以下两种方法打开一个已创建的索引</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 方法一 使用FileStorage对象</span></div><div class="line"><span class="keyword">from</span> whoosh.filedb.filestore <span class="keyword">import</span> FileStorage</div><div class="line">storage = FileStorage(idx_path)  <span class="comment">#idx_path 为索引路径</span></div><div class="line">idx = storage.open_index(indexname=indexname, schema=schema)</div><div class="line"></div><div class="line"><span class="comment"># 方法二 使用open_dir函数</span></div><div class="line"><span class="keyword">from</span> whoosh.index <span class="keyword">import</span> open_dir</div><div class="line">idx = open_dir(indexname=indexname)  <span class="comment">#indexname 为索引名</span></div></pre></td></tr></table></figure>
+<h4 id="-1"><a href="#-1" class="headerlink" title=""></a><figure class="highlight plain"><figcaption><span>对象</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">一旦有了 *index* 对象，我们就需要在 index 里写入需要被检索的信息，所以 ```IndexWriter``` 对象就是用来提供一个 ```add_document(**kwargs)``` 方法来在之前声明的各种 Fields 里写入数据</div><div class="line"></div><div class="line">```python</div><div class="line">writer = idx.writer()  #IndexWriter对象</div><div class="line">writer.add_document(</div><div class="line">	title=u&quot;Document Title&quot;,</div><div class="line">    path=u&quot;/a&quot;,</div><div class="line">    content=u&quot;Hello Whoosh&quot;</div><div class="line">)  # Field 和 schema 中声明的一致</div><div class="line">writer.commit()  # 保存以上document</div></pre></td></tr></table></figure></h4><p>需要注意的是：</p>
+<ul>
+<li>不是每个 Field 都要赋值</li>
+<li>Field 传值一定是 unicode 类型的值</li>
+</ul>
+<p>如果有一个 Field 同时要被当做索引并保存之，那么可以用一个 unicode 值来做索引同时保存另一个对象</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">writer.add_document(title=<span class="string">u"Title to be indexed"</span>, _stored_title=<span class="string">u"Stored title"</span>)</div></pre></td></tr></table></figure>
+<p>如果需要异步处理可以创建异步的 IndexWriter 对象</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> whoosh.writing <span class="keyword">import</span> AsyncWriter</div><div class="line">writer = AsyncWriter(index=index)</div></pre></td></tr></table></figure>
+<p>如果需要Buffer进行处理可以创建 BufferedWriter 对象</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> whoosh.writing <span class="keyword">import</span> BufferedWriter</div><div class="line"><span class="comment"># period是多次commit的最大间隔时间，limit是需要缓存的最大数量</span></div><div class="line">writer = BufferedWriter(index=index, period=<span class="number">120</span>, limit=<span class="number">20</span>)</div></pre></td></tr></table></figure>
+<h5 id="-2"><a href="#-2" class="headerlink" title=""></a><figure class="highlight plain"><figcaption><span>对象</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">在开始搜索索引之前，我们需要创建 *searcher* 对象</div><div class="line"></div><div class="line">```python</div><div class="line">searcher = idx.sercher()</div></pre></td></tr></table></figure></h5><p>但是一般来说不会这么创建搜索器 <em>searcher</em> ，这样做没法来索引检索完成后关闭搜索器释放内存(只要知道 searcher 很吃内存就行)，我们一般用 <figure class="highlight plain"><figcaption><span>来创建 *searcher* 对象从来保证搜索器使用完毕后可以被正确关闭</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">```python</div><div class="line">with idx.sercher() as searcher:</div><div class="line">    ...</div></pre></td></tr></table></figure></p>
+<p>以上写法等同于</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">try</span>:</div><div class="line">	searcher = idx.searcher()</div><div class="line">	...</div><div class="line"><span class="keyword">finally</span>:</div><div class="line">	searcher.close()</div></pre></td></tr></table></figure>
+<p>搜索器的 <figure class="highlight plain"><figcaption><span>方法需要传入一个 *Query* 对象，我们可以直接构造一个 *Query* 对象或者使用 *query parser* 来解析一个查询字段</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">举个栗子</div><div class="line"></div><div class="line">```python</div><div class="line"># 直接构造查询对象</div><div class="line">from whoosh.query import *</div><div class="line">myquery = And([Term(&quot;content&quot;, u&quot;apple&quot;), Term(&quot;content&quot;, &quot;bear&quot;)])</div></pre></td></tr></table></figure></p>
+<p>默认的 <em>QueryParser</em> 允许使用查询原语 <figure class="highlight plain"><figcaption><span>和 ```OR``` 和 ```NOT``` 就像 SQL 一样简单！</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">```python</div><div class="line"># 使用解析器解析查询字段</div><div class="line">from whoosh.qparser import QueryParser</div><div class="line">parser = QueryParser(&quot;content&quot;, idx.schema)</div><div class="line">myquery = parser.parse(querystring)</div></pre></td></tr></table></figure></p>
+<p>构造完查询对象后，就可以使用搜索器的 <figure class="highlight plain"><figcaption><span>方法来进行检索</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">```python</div><div class="line">results = searcher.search(myquery)</div><div class="line">print(results[0])</div><div class="line">&#123;&quot;title&quot;: &quot;Document&quot;, &quot;content&quot;: &quot;Hello Whoosh&quot;&#125;</div></pre></td></tr></table></figure></p>
+<p>更通常的我们使用分页查询 <figure class="highlight plain"><figcaption><span>的方法</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">```python</div><div class="line">results = searcher.search_page(myquery, page_num, page_len)</div></pre></td></tr></table></figure></p>
+<h4 id="结合-jieba-分词使用"><a href="#结合-jieba-分词使用" class="headerlink" title="结合 jieba 分词使用"></a>结合 jieba 分词使用</h4><p>Whoosh 的基本用法如上，接着我要在 QueryString 中加入结巴分词分析模块</p>
+<p>pass</p>
 
 	
 	
@@ -369,9 +373,9 @@
 <div id="comments">
     <!-- 多说评论框 start -->
         <div class="ds-thread" 
-            data-thread-key="2015/11/21/2015-11-21-django-learning3/" 
-            data-url="http://lexuslee.me//2015/11/21/2015-11-21-django-learning3/index.html"
-            data-title=" Django 学习笔记3-- Models "></div>
+            data-thread-key="2017/04/26/2017-04-26-whoosh-search/" 
+            data-url="http://lexuslee.me//2017/04/26/2017-04-26-whoosh-search/index.html"
+            data-title="Whoosh+jieba 中文检索"></div>
     <!-- 多说评论框 end -->
 </div>
 
@@ -384,21 +388,13 @@
     
     <!-- Prev Nav -->
     
-        <a href="/2015/12/07/2015-12-07-python-decorator-learning/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            Newer
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
     
-        <a href="/2015/11/20/2015-11-20-blog-with-liquid/" id="post_nav-older" class="next-content">
+        <a href="/2017/03/30/2017-03-30-terminal-config/" id="post_nav-older" class="next-content">
             Older
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
