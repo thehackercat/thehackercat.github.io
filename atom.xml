@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://lexuslee.me/"/>
-  <updated>2017-04-25T19:35:24.000Z</updated>
+  <updated>2017-04-28T20:20:25.000Z</updated>
   <id>http://lexuslee.me/</id>
   
   <author>
@@ -20,11 +20,11 @@
     <link href="http://lexuslee.me/2017/04/26/2017-04-26-whoosh-search/"/>
     <id>http://lexuslee.me/2017/04/26/2017-04-26-whoosh-search/</id>
     <published>2017-04-25T19:33:27.000Z</published>
-    <updated>2017-04-25T19:35:24.000Z</updated>
+    <updated>2017-04-28T20:20:25.000Z</updated>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;Whoosh-jieba-中文检索&quot;&gt;&lt;a href=&quot;#Whoosh-jieba-中文检索&quot; class=&quot;headerlink&quot; title=&quot;Whoosh + jieba 中文检索&quot;&gt;&lt;/a&gt;Whoosh + jieba 中文检索&lt;/h2&gt;&lt;h3 id=&quot;背
+      &lt;h2 id=&quot;Whoosh-jieba-中文检索&quot;&gt;&lt;a href=&quot;#Whoosh-jieba-中文检索&quot; class=&quot;headerlink&quot; title=&quot;Whoosh + jieba 中文检索&quot;&gt;&lt;/a&gt;Whoosh + jieba 中文检索&lt;/h2&gt;&lt;h3 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h3&gt;&lt;p&gt;最近项目要用到 &lt;a href=&quot;https://whoosh.readthedocs.io/&quot;&gt;Whoosh&lt;/a&gt; 一个 Python 编写的索引检索模块，发现比较少中文资料并且看了学长的代码也好多不懂，故自己照着官网文档撸了一遍，把我自己的理解和官网一些不太清楚的解释写下来。&lt;/p&gt;
     
     </summary>
     
