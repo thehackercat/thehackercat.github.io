@@ -4,7 +4,7 @@
     <!-- Title -->
     
     <title>
-         Django 学习笔记1-- URLconf  | LexusLee&#39;s Blog
+        Category: Spark | LexusLee&#39;s Blog
     </title>
     
     <!-- Favicons -->
@@ -40,7 +40,7 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://lexuslee.me">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content=" Django 学习笔记1-- URLconf  | LexusLee&#39;s Blog">
+    <meta property="og:title" content="Category: Spark | LexusLee&#39;s Blog">
     <meta property="og:description" content="Be the change you want to see in the world.">
     
      <!--[if lte IE 9]>
@@ -189,238 +189,208 @@
                 </button>
 				
 				
-                
-	<!-- Back Button -->
-<!--
-	<div class="material-back" id="backhome-div" tabindex="0">
-		<a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" href="#" onclick="window.history.back();return false;" target="_self" role="button" data-upgraded=",MaterialButton,MaterialRipple">
-			<i class="material-icons" role="presentation">arrow_back</i>
-			<span class="mdl-button__ripple-container">
-				<span class="mdl-ripple"></span>
-			</span>
-		</a>
-	</div>			
--->
-	<!-- Left aligned menu below button -->
-	<button id="post-toc-trigger-btn"
-			class="mdl-button mdl-js-button mdl-button--icon">
-	  <i class="material-icons">format_list_numbered</i>
-	</button>
+                <!-- Index Module -->
+<div class="material-index mdl-grid">
+	
+		<!-- Paradox Header -->
+		<!-- Daily pic -->
+<div class="mdl-card daily-pic mdl-cell mdl-cell--8-col index-top-block">
+    
+    <!-- Pic & Slogan -->
+    <div class="mdl-card__media mdl-color-text--grey-50" style="background-image:url(/img/daily_pic.png)">
+        <p class="index-top-block-slogan"><a href="#">Hi, nice to meet you</a></p>
+    </div>
 
-	<ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
-		for="post-toc-trigger-btn">
+    <!-- Avatar & Name -->
+    <div class="mdl-card__supporting-text meta mdl-color-text--grey-600">
+        <!-- Author Avatar -->
+        <div id="author-avatar">
+            <img src="/img/avatar.jpg" width="32px" height="32px" alt="avatar">
+        </div>
+        <div>
+            <strong>LexusLee</strong>
+        </div>
+    </div>
+</div>
+
+		<!-- Blog info -->
+<div class="mdl-card something-else mdl-cell mdl-cell--8-col mdl-cell--4-col-desktop index-top-block">
+	
+    <!-- Search -->
+	
+
+
+
+
+	<!-- Local -->
+	<div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable" method="post" action="">
+		<label id="search-label" class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab mdl-color--accent mdl-shadow--4dp" for="search">
+			<i class="material-icons mdl-color-text--white" role="presentation">search</i>
+		</label>
+
+		<form id="search-form" class="mdl-textfield__expandable-holder">
+			<input type="text" id="search" class="form-control mdl-textfield__input search-input" name="q" results="0" placeholder=""/>
+			<label id="search-form-label" class="mdl-textfield__label" for="search"></label>
 			
-			<ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#简介"><span class="post-toc-number">1.</span> <span class="post-toc-text">简介</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#URLconf"><span class="post-toc-number">2.</span> <span class="post-toc-text">URLconf</span></a></li></ol>
+		</form>
+	</div>
+
+	<div id="local-search-result"></div>
+
+
+    <!-- LOGO -->
+    <div class="something-else-logo mdl-color--white mdl-color-text--grey-600">
+        <a href="null">
+            <img src="/img/logo.jpg" alt="logo" />
+        </a>
+    </div>
+
+    <!-- Infomation -->
+    <div class="mdl-card__supporting-text meta meta--fill mdl-color-text--grey-600">
+        <!-- Blog Title -->
+        <div>
+            <strong>LexusLee&#39;s Blog</strong>
+        </div>
+        <div class="section-spacer"></div>
+        
+        <!-- Pages -->
+        <button id="show-pages-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+            <i class="material-icons" role="presentation">view_carousel</i>
+            <span class="visuallyhidden">Pages</span>
+        </button>
+        <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right" for="show-pages-button">
+            
+                <a class="index_share-link" href="http://thehackercat.deercv.com/" title="About me">
+                    <l class="mdl-menu__item mdl-js-ripple-effect"i>
+                        About me
+                    </li>
+                </a>
+            
+        </ul>
+        
+        <!-- Menu -->
+        <button id="menubtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+            <i class="material-icons" role="presentation">more_vert</i>
+            <span class="visuallyhidden">show menu</span>
+        </button>
+        <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right" for="menubtn">
+            
+            <!-- All Site UV -->
+            <a class="index_share-link" href="#">
+                <li class="mdl-menu__item mdl-js-ripple-effect">
+                    <span id="busuanzi_container_site_uv">
+                        <span id="busuanzi_value_site_uv"></span>&nbsp;Views
+                    </span>
+                </li>
+            </a>
+            
+            <a class="index_share-link" href="atom.xml">
+                <li class="mdl-menu__item mdl-js-ripple-effect">
+                    Article RSS
+                </li>
+            </a>
+            <a class="index_share-link" href="https://twitter.com/intent/tweet?text=LexusLee&#39;s Blog&url=http://lexuslee.me/&via=LexusLee" target="_blank">
+                <li class="mdl-menu__item mdl-js-ripple-effect">
+                    Share to Twitter
+                </li>
+            </a>
+            <a class="index_share-link" href="https://plus.google.com/share?url=http://lexuslee.me/" target="_blank">
+                <li class="mdl-menu__item mdl-js-ripple-effect">
+                    Share to Google+
+                </li>
+            </a>
+            <a class="index_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=LexusLee&#39;s Blog&url=http://lexuslee.me/&pic=&searchPic=false&style=simple" target="_blank">
+                <li class="mdl-menu__item mdl-js-ripple-effect">
+                    Share to Weibo
+                </li>
+            </a>
+        </ul>
+    </div>
+</div>
+
+	
+    
+    
 		
-<!--			<li class="mdl-menu__item">Some Action</li>-->
-	</ul>
-
-
-<!-- Layouts -->
-
-    <!-- Post Module -->
-    <div class="material-post_container">
-		
-        <div class="material-post mdl-grid">
-            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
-
-                <!-- Post Header(Thumbnail & Title) -->
-                
-	<!-- Paradox Post Header -->
+			<!-- Paradox Thumbnail -->
+        	<div class="post_entry-module mdl-card mdl-cell mdl-cell--12-col fade out">
+    
+    <!-- Post Thumbnail -->
 	
 		
 			<!-- Random Thumbnail -->
 			<div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-				<script>
-    
-    var randomNum;
-    randomNum = Math.floor(Math.random() * 5 + 1);
-    
-    $(".post_thumbnail-random").css('background-image', 'url(' + '/img/random/' + randomNum + '.png' + ')');
-    
-</script>
-
 		
 	
-        <p class="article-headline-p">
-             Django 学习笔记1-- URLconf 
-        </p>
-    </div>
-
-	
-
 				
-				
-					<!-- Paradox Post Info -->
-					<div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
-    
-    <!-- Author Avatar -->
-    <div id="author-avatar">
-        <img src="/img/avatar.jpg" width="44px" height="44px" alt="Author Avatar"/>
-    </div>
-    <!-- Author Name & Date -->
-    <div>
-        <strong>LexusLee</strong>
-        <span>Nov 14, 2015</span>
-    </div>
-    
-    <div class="section-spacer"></div>
-	
-    <!-- Favorite -->
-<!--
-    <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
-        <i class="material-icons" role="presentation">favorite</i>
-        <span class="visuallyhidden">favorites</span>
-    </button>
--->
-    
-    <!-- Tags (bookmark) -->
-    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-        <i class="material-icons" role="presentation">bookmark</i>
-        <span class="visuallyhidden">bookmark</span>
-    </button>
-    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
-        <li class="mdl-menu__item">
-        
-    </ul>
-    
-    <!-- Share -->
-    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-    <i class="material-icons" role="presentation">share</i>
-    <span class="visuallyhidden">share</span>
-</button>
-<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
-    
-    
-    
-    
-    
-    <!-- Share Twitter -->
-    <a class="post_share-link" href="https://twitter.com/intent/tweet?text= Django 学习笔记1-- URLconf &url=http://lexuslee.me//2015/11/14/2015-11-14-django-learning1/index.html&via=LexusLee" target="_blank">
-        <li class="mdl-menu__item">
-            Share to Twitter
-        </li>
-    </a>
-    
-    <!-- Share Google+ -->
-    <a class="post_share-link" href="https://plus.google.com/share?url=http://lexuslee.me//2015/11/14/2015-11-14-django-learning1/index.html" target="_blank">
-        <li class="mdl-menu__item">
-            Share to Google+
-        </li>
-    </a>
-    
-    <!-- Share Weibo -->
-    <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title= Django 学习笔记1-- URLconf &url=http://lexuslee.me//2015/11/14/2015-11-14-django-learning1/index.html&pic=&searchPic=false&style=simple" target="_blank">
-        <li class="mdl-menu__item">
-            Share to Weibo
-        </li>
-    </a>
-</ul>
-</div>
-				
-
-                <!-- Post Content -->
-                <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
-	
-		<p><img src="https://scontent-nrt1-1.xx.fbcdn.net/hphotos-xfp1/t31.0-8/12186716_1082564598443763_5619412981167558277_o.jpg" alt="PRAY FOR PARIS "></p>
-<p>今天好像巴黎有点乱，希望明天太阳还会照常升起。</p>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Django 是一个由 Python 编写、开源并采用经典的 <a href="https://msdn.microsoft.com/en-us/library/ff649643.aspx" target="_blank" rel="external">MVC</a> 设计模式的 Web Full Stack 应用框架。</p>
-<p>在 Django 中，控制器接受用户输入的部分由框架自行处理，所以 Django 里关注更多在模型( Model )、模板( Template )和视图( Views )，称为 MTV 模式。他们各自的职责如下：<br><a id="more"></a></p>
-<ul>
-<li>模型( Model )，数据存取层：处理与数据相关的所有事务，即如何存取、如何验证有效性、包含哪些行为以及数据之间的关系等。</li>
-<li>模板( Template )，表现层：处理与表现相关的决定，即如何在页面或其他类型文档中进行显示。</li>
-<li>视图( View )，业务逻辑层：存取模型及调取恰当模板的相关逻辑。模型与模板之间的桥梁。</li>
-</ul>
-<p>而 Django 的编译方式比较特别，他的 MVC 控制器部分由 URLconf 来实现。</p>
-<h2 id="URLconf"><a href="#URLconf" class="headerlink" title="URLconf"></a>URLconf</h2><p>当我在 Django 中编写完视图要想将其路由要页面上时，我发现了 Django 的 URLconf 路由机制，他实现了为相应的视图函数路由到相应界面的映射功能，也就是说，当用户访问了 <figure class="highlight plain"><figcaption><span>时， Django 调用了视图 views.py 中的 hello () 函数。</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">``` python </div><div class="line">from django.conf.urls import include, url</div><div class="line">from mysite.views import hello,current_datetime,hours_ahead,letter</div><div class="line"></div><div class="line">urlpatterns = [</div><div class="line">url(r&apos;^hello/$&apos;, hello),</div><div class="line">url(r&apos;^time/$&apos;, current_datetime),</div><div class="line">url(r&apos;^time/plus/(\d&#123;1,2&#125;)/	$&apos;,hours_ahead),</div><div class="line">]</div><div class="line">```	</div><div class="line"></div><div class="line">可以看出， URLconf 的路由是通过正则表达式来匹配一个完整的 hello 的 URL ，这样的话就可以保证 诸如 /hello/foo/ 等 URL 不会被匹配到。</div><div class="line">为了更深入了解 URLconf 路由的机制，我找到了类似的 [tornado](https://github.com/tornadoweb/tornado) 框架来对比。</div><div class="line"></div><div class="line">注意到在其中 web.py 文件中的第2964行开始的如下代码：</div><div class="line"></div><div class="line">``` python </div><div class="line">application = tornado.web.Application([</div><div class="line">	(r&quot;/&quot;, MainHandler),</div><div class="line">])</div><div class="line">http_server = tornado.httpserver.HTTPServer(application)</div><div class="line">http_server.listen(options.port)</div><div class="line">tornado.ioloop.IOLoop.current( ).start( )</div><div class="line">``` </div><div class="line">    </div><div class="line">可以看出 torando 现把一个路由表作为一个参数，传给 Application 类的构造函数，接着创建了一个实例，然后再把这个实例传递给 http_server 。那么当客户端发起``` get / ```请求的时候, http server 接收到这个请求，在路由表中匹配 url pattern ，最后交给 MainHandler 去处理。</div><div class="line"></div><div class="line">这个机制跟 Django 的 URLconf 是类似的，都是通过在 pattern 中匹配好对应的 url 接着传给处理器来负责从路由表中检索并路由。</div><div class="line"></div><div class="line">这种方法**松耦合**了 http server 层和 web application 层，从而让开发者可以专注于 web 应用的逻辑层，很好！  ：D</div><div class="line"></div><div class="line">## Django 如何处理请求</div><div class="line"></div><div class="line">所以了解过了 Django 的 URLconf 机制后，我开始思考他是如何处理请求的。</div><div class="line"></div><div class="line">我开启服务器后在地址栏中输入 ``` http://127.0.0.1:8000/time/plus/20/</div></pre></td></tr></table></figure></p>
-<p><img src="http://thehackercat-hackercat.stor.sinaapp.com/urlconf1.png" alt="timeplus20"></p>
-<p>然后花现处理路线如下：</p>
-<ol>
-<li><p>进来的请求转入 /time/plus/20/ .</p>
-</li>
-<li><p>Django 通过在 ROOT_URLCONF 配置来决定根 URLconf .</p>
-</li>
-<li><p>Django 在 URLconf 中的所有 URL 模式中，查找第一个匹配 /time/plus/20/ 的条目。</p>
-</li>
-<li><p>如果找到匹配，将调用相应的视图函数</p>
-</li>
-<li><p>如果没找到匹配，则返回相应的 Http 状态码 (如图)</p>
-</li>
-<li><p>视图函数返回一个HttpResponse</p>
-</li>
-<li><p>Django 转换 HttpResponse 为一个适合的 HTTP response ，以 Web page 显示出来</p>
-</li>
-</ol>
-<p><img src="http://thehackercat-hackercat.stor.sinaapp.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-11-14%20%E4%B8%8B%E5%8D%889.27.45.png" alt="http_request"></p>
-
-	
-	
-	
-	
-</div>
-				
-				
-
-                <!-- Post Comments -->
-                
-
-
-    <!-- 使用 DISQUS -->
-	<div id="disqus-comment">
-		<div id="disqus_thread"></div>
-<script>
-	var disqus_config = function () {
-		this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-		this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-	};
-
-	(function() { // DON'T EDIT BELOW THIS LINE
-		var d = document, s = d.createElement('script');
-		s.src = '//thehackercat.disqus.com/embed.js';
-		s.setAttribute('data-timestamp', +new Date());
-		(d.head || d.body).appendChild(s);
-	})();
-</script>
+		<!-- Post Title -->
+		<p class="article-headline-p"><a href="/2017/05/09/spark-search-engine/">PySpark 词频统计搜索引擎的设计思路</a></p>
 	</div>
-	<style>
-		#disqus-comment{
-			background-color:#eee;
-			padding:2pc;
-		}
-	</style>
 
+    <!-- Post Excerpt -->
+    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
+        
+          PySpark 词频统计搜索引擎的设计思路记录下我的思路
+        
+        &nbsp;&nbsp;&nbsp;
+        <span>
+            <a href="/2017/05/09/spark-search-engine/" target="_self">Continue Reading</a>
+        </span>
+    </div>
+    <!-- Post_entry Info-->
+    <div id="post_entry-info">
+        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
+            <!-- Author Avatar -->
+            <div id="author-avatar">
+                <img src="/img/avatar.jpg" width="44px" height="44px" alt="LexusLee's avatar">
             </div>
-
-            <!-- Post Prev & Next Nav -->
-            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
-    
-    <!-- Prev Nav -->
-    
-        <a href="/2015/11/16/2015-11-16-django-learning2/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            Newer
-        </a>
-    
-
-    <!-- Section Spacer -->
-    <div class="section-spacer"></div>
-
-    <!-- Next Nav -->
-    
-        <a href="/2015/11/09/2015-11-09-fix-the-datetime-bug/" id="post_nav-older" class="next-content">
-            Older
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_forward</i>
-            </button>
-        </a>
-    
-</nav>
+            <div>
+                <strong>LexusLee</strong>
+                <span>May 09, 2017</span>
+            </div>
+        </div>
+        <div id="post_entry-right-info">
+            <!-- Category -->
+            <span class="post_entry-category">
+                <a class="post_category-link" href="/categories/Spark/">Spark</a>
+            </span>
+            
+            
+            
+            <!-- Post Views -->
+            <span class="post_entry-views">
+                
+            </span>
         </div>
     </div>
+            
+</div>
+
+		
+		
+    
+    
+	
+		<script>
+    
+    var randomNum;
+    
+    var locatePost = $(".something-else").next();
+    for(var i=0; i < 5; i++){
+        
+        randomNum = Math.floor(Math.random() * 5 + 1);
+        
+        locatePost.children(".post_thumbnail-random").attr('id', 'random_thumbnail-'+randomNum);
+        locatePost.children(".post_thumbnail-random").css('background-image', 'url(' + '/img/random/' + randomNum + '.png' + ')')
+        
+        locatePost = locatePost.next();
+    }
+    
+</script>
+
+	
+
+</div>
 
 				
 				

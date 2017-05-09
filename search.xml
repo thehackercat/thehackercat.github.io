@@ -4,6 +4,15 @@
   
     
     <entry>
+      <title><![CDATA[PySpark 词频统计搜索引擎的设计思路]]></title>
+      <url>http://lexuslee.me/2017/05/09/spark-search-engine/</url>
+      <content type="html"><![CDATA[<h2 id="PySpark-词频统计搜索引擎的设计思路"><a href="#PySpark-词频统计搜索引擎的设计思路" class="headerlink" title="PySpark 词频统计搜索引擎的设计思路"></a>PySpark 词频统计搜索引擎的设计思路</h2><p>记录下我的思路</p>
+<a id="more"></a>
+<p><img src="http://7xse6j.com1.z0.glb.clouddn.com/wordsegment.jpeg" alt="wordsegment"></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Whoosh+jieba 中文检索]]></title>
       <url>http://lexuslee.me/2017/04/26/2017-04-26-whoosh-search/</url>
       <content type="html"><![CDATA[<h2 id="Whoosh-jieba-中文检索"><a href="#Whoosh-jieba-中文检索" class="headerlink" title="Whoosh + jieba 中文检索"></a>Whoosh + jieba 中文检索</h2><h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>最近项目要用到 <a href="https://whoosh.readthedocs.io/" target="_blank" rel="external">Whoosh</a> 一个 Python 编写的索引检索模块，发现比较少中文资料并且看了学长的代码也好多不懂，故自己照着官网文档撸了一遍，把我自己的理解和官网一些不太清楚的解释写下来。</p>
