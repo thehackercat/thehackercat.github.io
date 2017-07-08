@@ -4,6 +4,84 @@
   
     
     <entry>
+      <title><![CDATA[Awesome Windows Apps]]></title>
+      <url>http://lexuslee.me/2017/07/08/awesome-windows-apps/</url>
+      <content type="html"><![CDATA[<div style="text-align: right">LexusLee</div>
+
+<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>很久不用 Windows 开发，最近刚入职开发环境在 Windows 上，故列举了一下我自己开发机上安装的一些实用 app ，方便以后直接按清单上整个世界。</p>
+<p>也算是一波安利了 ：D</p>
+<a id="more"></a>
+<h3 id="IDE"><a href="#IDE" class="headerlink" title="IDE"></a>IDE</h3><ul>
+<li>Pycharm (Python)</li>
+<li>PhpStorm (PHP)</li>
+<li>Webstorm (Javascript)</li>
+<li>Sublime + <a href="https://github.com/happypeter" target="_blank" rel="external">happypeter</a> Sublime Config (Front-end)</li>
+</ul>
+<h3 id="终端"><a href="#终端" class="headerlink" title="终端"></a>终端</h3><p>Windows 的终端和系统命令真是 real 难用，从 Linux 切换过来很不习惯，气死了！！！</p>
+<ul>
+<li>Rapid Environment Editor (Windows 环境变量配置工具，免去每次都到我的电脑里的繁杂操作)</li>
+</ul>
+<ul>
+<li><del>oh-my-zsh</del> (一开始发现有相关的 hack 但是发现只适用于 Win10 ，由于Win7没有Bash 故删除) </li>
+</ul>
+<ul>
+<li>Cmder + Powershell (Terminal集成)</li>
+<li>Chocolatey (类似于 apt-get / yum 这种的包管理工具)</li>
+<li>Xshell (SSH登录)</li>
+</ul>
+<h3 id="Python-Tool"><a href="#Python-Tool" class="headerlink" title="Python Tool"></a>Python Tool</h3><ul>
+<li>pip (第三方库管理)</li>
+<li>virtualenv (Python 环境隔离)</li>
+<li>supervisor (Python 进程控制, 搭配 Nginx 食用更佳！)</li>
+</ul>
+<h3 id="数据库工具"><a href="#数据库工具" class="headerlink" title="数据库工具"></a>数据库工具</h3><ul>
+<li>Navicat (一个GUI可同时管理MySQL, PgSQL 等主流数据库)</li>
+<li>DataGrip (JetBrains 的 SQL 神器，用来管理和编写 SQL )</li>
+</ul>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><ul>
+<li>Postman (测试接口神器，我的 Chrome 是自带了)</li>
+</ul>
+<h3 id="代码管理"><a href="#代码管理" class="headerlink" title="代码管理"></a>代码管理</h3><ul>
+<li>Git</li>
+<li>SourceTree (Git GUI)</li>
+<li>Beyond Compare(神器，对比查看文件修改)</li>
+</ul>
+<h3 id="GTD-管理"><a href="#GTD-管理" class="headerlink" title="GTD 管理"></a>GTD 管理</h3><p>我一直保持着 GTD 记录的习惯，所以蛮依赖这些 app 的，因人而异吧，有些人喜欢自己管理时间。</p>
+<ul>
+<li>momentum (一个轻便的 chrome 插件，每次打开新 Tab 标签都能看到今天制定的任务)、</li>
+<li>Doit.im (一个在线的 GTD 网站，免去多平台同步的麻烦，今年一直在用这个)</li>
+<li>Inkdrop (桌面便签提醒)</li>
+<li>Slack (主要用到我自己写的日程提醒 slack bot)</li>
+</ul>
+<h3 id="听歌"><a href="#听歌" class="headerlink" title="听歌"></a>听歌</h3><p>主要是解决版权问题，所以使用了两个客户端。</p>
+<ul>
+<li>网易云音乐 (国内)</li>
+<li>Spotify (国外)</li>
+<li>Pandora (国外, 解决 Spotify 地域限制问题)</li>
+</ul>
+<h3 id="视频"><a href="#视频" class="headerlink" title="视频"></a>视频</h3><ul>
+<li>VLC (开源垃圾桶 media app)</li>
+</ul>
+<h3 id="文档写作"><a href="#文档写作" class="headerlink" title="文档写作"></a>文档写作</h3><ul>
+<li>Typora (Markdown写作)</li>
+<li>印象笔记 (主要是用到它的多平台同步，用于和我自己的电脑同步文档)</li>
+</ul>
+<h3 id="让你的-Windows-体验更佳！"><a href="#让你的-Windows-体验更佳！" class="headerlink" title="让你的 Windows 体验更佳！"></a>让你的 Windows 体验更佳！</h3><p><strong>敲黑板！！</strong></p>
+<p>下面这些工具可能直接和开发工具不相关，但是可以提高开发速度和开发心情！感觉 Windows 搭配这些 app 用起来就和柯基的屁股一样滑。</p>
+<p>这里是我参照少数派上的一篇文章: <a href="https://sspai.com/post/34288" target="_blank" rel="external">这 8 款应用，让 Windows 也拥有 OS X 的优秀特性</a> 整理的我自己比较喜欢的第三方系统增强应用，让 Windows 用起来体验超爽！</p>
+<p>公司的内网自带科学上网，真是超级 Nice ！所以我就不说 <em>赛风 psiphon3</em>  (一个支持多平台的免费的科学上网工具)</p>
+<ul>
+<li>Wox + Everything (类似于Win10小娜和 MacOS 上的 Alfred，但是比小娜好处在于更准确的 Everything 的多磁盘检索，并且可以自定义插件，像我这种电影狂热分就很需要豆瓣电影的插件)</li>
+<li>Seer (按一下空格即可进行文件快速预览，在文件命名很杂乱时有用🏊)</li>
+<li>MacType (把 Windows 超难看的默认宋体字体改成了渲染后圆滑的 Console 字体)</li>
+<li>Virgo (虚拟桌面，仿 MacOS 分屏使用，当一个桌面应用多到放不下，就按下 <code>ALT+1/2/3/4</code> 轻松切屏 )</li>
+<li>AutoHotKey (用于自定义快捷键，把app里那些反人类的快捷键赶紧改了吧！)</li>
+<li>F.lux (自动调节屏幕亮度)</li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[PySpark 词频统计搜索引擎的设计思路]]></title>
       <url>http://lexuslee.me/2017/05/09/spark-search-engine/</url>
       <content type="html"><![CDATA[<h2 id="PySpark-词频统计搜索引擎的设计思路"><a href="#PySpark-词频统计搜索引擎的设计思路" class="headerlink" title="PySpark 词频统计搜索引擎的设计思路"></a>PySpark 词频统计搜索引擎的设计思路</h2><p>记录下我的思路</p>

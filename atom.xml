@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://lexuslee.me/"/>
-  <updated>2017-05-09T06:14:07.000Z</updated>
+  <updated>2017-07-08T03:37:35.000Z</updated>
   <id>http://lexuslee.me/</id>
   
   <author>
@@ -14,6 +14,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Awesome Windows Apps</title>
+    <link href="http://lexuslee.me/2017/07/08/awesome-windows-apps/"/>
+    <id>http://lexuslee.me/2017/07/08/awesome-windows-apps/</id>
+    <published>2017-07-08T03:34:12.000Z</published>
+    <updated>2017-07-08T03:37:35.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;div style=&quot;text-align: right&quot;&gt;LexusLee&lt;/div&gt;
+
+&lt;h3 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h3&gt;&lt;p&gt;很久不用 Windows 开发，最近刚入职开发环境在 Windows 上，故列举了一下我自己开发机上安装的一些实用 app ，方便以后直接按清单上整个世界。&lt;/p&gt;
+&lt;p&gt;也算是一波安利了 ：D&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Productivity" scheme="http://lexuslee.me/categories/Productivity/"/>
+    
+    
+      <category term="App" scheme="http://lexuslee.me/tags/App/"/>
+    
+  </entry>
   
   <entry>
     <title>PySpark 词频统计搜索引擎的设计思路</title>
@@ -360,27 +383,6 @@
     
       &lt;p&gt;虽然 Django 中 Html 可以直接硬编码到 Python 中，但是这种行为并不利于前端开发人员进行维护。所以 Django 有了&lt;a href=&quot;http://liquidmarkup.org/&quot;&gt;流模板&lt;/a&gt; ( Liquid Templates )。&lt;/p&gt;
 &lt;h2 id=&quot;流模板基础&quot;&gt;&lt;a href=&quot;#流模板基础&quot; class=&quot;headerlink&quot; title=&quot;流模板基础&quot;&gt;&lt;/a&gt;流模板基础&lt;/h2&gt;&lt;p&gt;举个例子，下面这个模板大致含括了 Django 模板的几个特性。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Django" scheme="http://lexuslee.me/categories/Django/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title> Django 学习笔记1-- URLconf </title>
-    <link href="http://lexuslee.me/2015/11/14/2015-11-14-django-learning1/"/>
-    <id>http://lexuslee.me/2015/11/14/2015-11-14-django-learning1/</id>
-    <published>2015-11-14T12:12:37.000Z</published>
-    <updated>2016-12-06T10:22:34.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;https://scontent-nrt1-1.xx.fbcdn.net/hphotos-xfp1/t31.0-8/12186716_1082564598443763_5619412981167558277_o.jpg&quot; alt=&quot;PRAY FOR PARIS &quot;&gt;&lt;/p&gt;
-&lt;p&gt;今天好像巴黎有点乱，希望明天太阳还会照常升起。&lt;/p&gt;
-&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;Django 是一个由 Python 编写、开源并采用经典的 &lt;a href=&quot;https://msdn.microsoft.com/en-us/library/ff649643.aspx&quot;&gt;MVC&lt;/a&gt; 设计模式的 Web Full Stack 应用框架。&lt;/p&gt;
-&lt;p&gt;在 Django 中，控制器接受用户输入的部分由框架自行处理，所以 Django 里关注更多在模型( Model )、模板( Template )和视图( Views )，称为 MTV 模式。他们各自的职责如下：&lt;br&gt;
     
     </summary>
     
