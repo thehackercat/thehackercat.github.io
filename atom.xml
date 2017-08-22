@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://lexuslee.me/"/>
-  <updated>2017-07-08T03:37:35.000Z</updated>
+  <updated>2017-08-22T12:05:54.000Z</updated>
   <id>http://lexuslee.me/</id>
   
   <author>
@@ -14,6 +14,24 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Sketch 锤子水箱图标仿制心得</title>
+    <link href="http://lexuslee.me/2017/08/22/2017-08-22-sketch-icon-design-understanding/"/>
+    <id>http://lexuslee.me/2017/08/22/2017-08-22-sketch-icon-design-understanding/</id>
+    <published>2017-08-22T11:54:44.000Z</published>
+    <updated>2017-08-22T12:05:54.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Sketch-锤子水箱图标仿制心得&quot;&gt;&lt;a href=&quot;#Sketch-锤子水箱图标仿制心得&quot; class=&quot;headerlink&quot; title=&quot;Sketch 锤子水箱图标仿制心得&quot;&gt;&lt;/a&gt;Sketch 锤子水箱图标仿制心得&lt;/h2&gt;&lt;h3 id=&quot;背景&quot;&gt;&lt;
+    
+    </summary>
+    
+      <category term="Design" scheme="http://lexuslee.me/categories/Design/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>Awesome Windows Apps</title>
@@ -368,25 +386,6 @@
     </summary>
     
       <category term="Octopress" scheme="http://lexuslee.me/categories/Octopress/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title> Django 学习笔记2-- Templates </title>
-    <link href="http://lexuslee.me/2015/11/16/2015-11-16-django-learning2/"/>
-    <id>http://lexuslee.me/2015/11/16/2015-11-16-django-learning2/</id>
-    <published>2015-11-16T07:15:55.000Z</published>
-    <updated>2016-12-06T10:43:06.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;虽然 Django 中 Html 可以直接硬编码到 Python 中，但是这种行为并不利于前端开发人员进行维护。所以 Django 有了&lt;a href=&quot;http://liquidmarkup.org/&quot;&gt;流模板&lt;/a&gt; ( Liquid Templates )。&lt;/p&gt;
-&lt;h2 id=&quot;流模板基础&quot;&gt;&lt;a href=&quot;#流模板基础&quot; class=&quot;headerlink&quot; title=&quot;流模板基础&quot;&gt;&lt;/a&gt;流模板基础&lt;/h2&gt;&lt;p&gt;举个例子，下面这个模板大致含括了 Django 模板的几个特性。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Django" scheme="http://lexuslee.me/categories/Django/"/>
     
     
   </entry>
