@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://lexuslee.me/"/>
-  <updated>2017-08-22T12:05:54.000Z</updated>
+  <updated>2017-09-06T12:48:50.000Z</updated>
   <id>http://lexuslee.me/</id>
   
   <author>
@@ -14,6 +14,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>关于关闭 Socket 的一些坑</title>
+    <link href="http://lexuslee.me/2017/09/06/close-socket/"/>
+    <id>http://lexuslee.me/2017/09/06/close-socket/</id>
+    <published>2017-09-06T12:36:51.000Z</published>
+    <updated>2017-09-06T12:48:50.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;关于关闭-Socket-的一些坑&quot;&gt;&lt;a href=&quot;#关于关闭-Socket-的一些坑&quot; class=&quot;headerlink&quot; title=&quot;关于关闭 Socket 的一些坑&quot;&gt;&lt;/a&gt;关于关闭 Socket 的一些坑&lt;/h2&gt;&lt;div style=&quot;text-align: right&quot;&gt;LexusLee&lt;/div&gt;
+
+&lt;h3 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h3&gt;&lt;p&gt;最近踩到一个 “Socket 连接持续处于 Fin_Wait2 和 Close_Wait 状态无法关闭” 的坑中。起因是在维护大量连接时调用 &lt;code&gt;socket.close()&lt;/code&gt; 时，看到部分连接并没有正常关闭，而是从 &lt;code&gt;ESTABLISHED&lt;/code&gt; 的状态变成 &lt;code&gt;FIN_WAIT2&lt;/code&gt; 并且连接状态没有后续迁移，而对端的连接状态则是从 &lt;code&gt;ESTABLISHED&lt;/code&gt; 变成了 &lt;code&gt;CLOSE_WAIT&lt;/code&gt; 。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://lexuslee.me/categories/Linux/"/>
+    
+    
+      <category term="Socket" scheme="http://lexuslee.me/tags/Socket/"/>
+    
+  </entry>
   
   <entry>
     <title>Sketch 锤子水箱图标仿制心得</title>
@@ -366,26 +388,6 @@
     </summary>
     
       <category term="Django" scheme="http://lexuslee.me/categories/Django/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>在 Octopress 中生成包含 liquid 语句的代码</title>
-    <link href="http://lexuslee.me/2015/11/20/2015-11-20-blog-with-liquid/"/>
-    <id>http://lexuslee.me/2015/11/20/2015-11-20-blog-with-liquid/</id>
-    <published>2015-11-20T08:32:12.000Z</published>
-    <updated>2016-12-06T13:25:45.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt;由于之前写 &lt;a href=&quot;http://thehackercat.me/blog/2015/11/16/django-learning2/&quot;&gt;Django – Templates&lt;/a&gt; 篇时要用到包含 Liquid 语法的示例代码，而 Octopress (Jekyll) 在后端使用 Liquid 来处理生成 Web Pages ，对于文章内部插入的原本用来作示例的 Liquid 代码会被解析成 Web Pages 生成语句而不是原本的内容。故苦恼了我一会儿 Q.Q &lt;/p&gt;
-&lt;p&gt;&lt;del&gt;不过这都不是事儿&lt;/del&gt;&lt;/p&gt;
-&lt;h2 id=&quot;解决方法&quot;&gt;&lt;a href=&quot;#解决方法&quot; class=&quot;headerlink&quot; title=&quot;解决方法&quot;&gt;&lt;/a&gt;解决方法&lt;/h2&gt;&lt;p&gt;比如，我之前写的&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Octopress" scheme="http://lexuslee.me/categories/Octopress/"/>
     
     
   </entry>
