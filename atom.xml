@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://lexuslee.me/"/>
-  <updated>2017-09-06T12:48:50.000Z</updated>
+  <updated>2017-09-24T17:53:59.000Z</updated>
   <id>http://lexuslee.me/</id>
   
   <author>
@@ -14,6 +14,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>《向阳处的她》浩介先生终于有猫啦！</title>
+    <link href="http://lexuslee.me/2017/09/25/2017-09-25-Girl-in-the-sunny-place/"/>
+    <id>http://lexuslee.me/2017/09/25/2017-09-25-Girl-in-the-sunny-place/</id>
+    <published>2017-09-24T17:45:45.000Z</published>
+    <updated>2017-09-24T17:53:59.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;《向阳处的她》浩介先生终于有猫啦！&quot;&gt;&lt;a href=&quot;#《向阳处的她》浩介先生终于有猫啦！&quot; class=&quot;headerlink&quot; title=&quot;《向阳处的她》浩介先生终于有猫啦！&quot;&gt;&lt;/a&gt;《向阳处的她》浩介先生终于有猫啦！&lt;/h2&gt;&lt;p&gt;有一年的搞笑诺贝尔物理学奖颁给了课题：&lt;/p&gt;
+&lt;p&gt;「一只猫能同时处于固体状态和液体状态吗？」&lt;/p&gt;
+&lt;p&gt;通过第三人称视角研究了猫的各种形态，《向阳处的她》这部电影就给研究了一个狠狠的耳光。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="gossip" scheme="http://lexuslee.me/categories/gossip/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>关于关闭 Socket 的一些坑</title>
@@ -370,24 +390,6 @@
     </summary>
     
       <category term="Python" scheme="http://lexuslee.me/categories/Python/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title> Django 学习笔记3-- Models </title>
-    <link href="http://lexuslee.me/2015/11/21/2015-11-21-django-learning3/"/>
-    <id>http://lexuslee.me/2015/11/21/2015-11-21-django-learning3/</id>
-    <published>2015-11-21T05:17:57.000Z</published>
-    <updated>2016-12-06T13:26:56.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;MTV-vs-MVC&quot;&gt;&lt;a href=&quot;#MTV-vs-MVC&quot; class=&quot;headerlink&quot; title=&quot;MTV vs MVC&quot;&gt;&lt;/a&gt;MTV vs MVC&lt;/h2&gt;&lt;p&gt;正如在之前&lt;a href=&quot;http://thehackercat.me/blog/2015/11/14/django-learning1/&quot;&gt;这篇文章&lt;/a&gt;所提到的， 把数据存取逻辑、业务逻辑和表现逻辑组合在一起的概念有时被称为软件架构的 Model-View-Controller ( MVC )模式。 在这个模式中， Model 代表数据存取层，View 代表的是系统中选择显示什么和怎么显示的部分，Controller 指的是系统中根据用户输入并视需要访问模型，以决定使用哪个视图的那部分。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Django" scheme="http://lexuslee.me/categories/Django/"/>
     
     
   </entry>
