@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://lexuslee.me/"/>
-  <updated>2018-02-01T15:58:52.303Z</updated>
+  <updated>2018-08-11T14:57:45.483Z</updated>
   <id>http://lexuslee.me/</id>
   
   <author>
@@ -14,6 +14,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>记一次 postgresql 斯嘉丽约翰逊攻击的排查</title>
+    <link href="http://lexuslee.me/2018/08/11/2018-08-11-scarlett-johansson-sql-attack/"/>
+    <id>http://lexuslee.me/2018/08/11/2018-08-11-scarlett-johansson-sql-attack/</id>
+    <published>2018-08-11T14:49:52.000Z</published>
+    <updated>2018-08-11T14:57:45.483Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h3&gt;&lt;p&gt;今天下午连续收到了腾讯云 CPU overload 报警&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xse6j.com1.z0.glb.clouddn.com/CPU%20Overload.png&quot; alt=&quot;CPU Usage&quot;&gt;&lt;/p&gt;
+&lt;p&gt;登服务器一看, 有个 postgres 账户跑的进程把 CPU 占满了，进程名特别奇怪。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xse6j.com1.z0.glb.clouddn.com/htopinfo.png&quot; alt=&quot;Htop info&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://lexuslee.me/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="http://lexuslee.me/tags/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title>坦率地讲 服务熔断 &amp; 服务降级</title>
@@ -374,24 +397,6 @@
     <summary type="html">
     
       &lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt;12月23号下午2：00参加了绿盟的 Web 后端开发实习生的面试。考官是个胖哥哥，也是科大的，人很温柔和蔼。先问了一些数据结构与算法的问题，接着问了计算机网络的一些基础问题，最后考察了下 Web 开发的一些知识。总得来说题目不难，但是自己也发挥不好，原来以为有了几次面经，但是在现场还是紧张得不行。 (真是给自己的心理素质跪了 ：P)&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Interview" scheme="http://lexuslee.me/categories/Interview/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>海豚浏览器 Python 实习面试心得</title>
-    <link href="http://lexuslee.me/2015/12/18/2015-12-18-dolphin-interview/"/>
-    <id>http://lexuslee.me/2015/12/18/2015-12-18-dolphin-interview/</id>
-    <published>2015-12-18T04:02:37.000Z</published>
-    <updated>2016-12-06T13:35:54.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt;12月11号下午4：30参加了海豚浏览器的 Python 后台开发实习生的电面，考官一开始先问了我一些 Python 基础的问题，接着问了些计网的经典面试题，最后考了2道算法题，然后开始扯皮一些之前做过的项目中的问题等，最后总结心得如下：&lt;br&gt;
     
     </summary>
     

