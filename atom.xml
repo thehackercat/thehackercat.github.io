@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://lexuslee.me/"/>
-  <updated>2018-08-11T14:57:45.483Z</updated>
+  <updated>2018-09-14T11:16:23.685Z</updated>
   <id>http://lexuslee.me/</id>
   
   <author>
@@ -14,6 +14,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>浅谈 k8s service&amp;kube-proxy</title>
+    <link href="http://lexuslee.me/2018/09/14/2018-09-14-k8s%20service&amp;endpoint/"/>
+    <id>http://lexuslee.me/2018/09/14/2018-09-14-k8s service&amp;endpoint/</id>
+    <published>2018-09-14T11:10:46.000Z</published>
+    <updated>2018-09-14T11:16:23.685Z</updated>
+    
+    <summary type="html">
+    
+      &lt;div style=&quot;text-align: right;&quot;&gt;Lexus Lee&lt;/div&gt;
+
+&lt;h3 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h3&gt;&lt;p&gt;最开始听到同事 k8s 分享时比较困惑我的一个问题是 k8s 怎么实现一个私有 ip(虚拟 ip，以下简称 vip)到另一个私有ip收发包的。&lt;/p&gt;
+&lt;p&gt;不过其实我想知道的应该是 k8s 通信机制，它是怎么实现服务发现的，新建的 pod 是怎么感知到的，万一有些 pod 节点变更 vip 变了 k8s 是如何感知的。&lt;/p&gt;
+&lt;p&gt;基于这个问题，做一下关于 k8s service&amp;amp;kube-proxy 的分享。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://lexuslee.me/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="http://lexuslee.me/tags/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title>记一次 postgresql 斯嘉丽约翰逊攻击的排查</title>
@@ -383,24 +407,6 @@
     </summary>
     
       <category term="Django" scheme="http://lexuslee.me/categories/Django/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>绿盟 Web 后端实习面试心得</title>
-    <link href="http://lexuslee.me/2015/12/23/2015-12-23-nsfocus-interview/"/>
-    <id>http://lexuslee.me/2015/12/23/2015-12-23-nsfocus-interview/</id>
-    <published>2015-12-23T13:37:16.000Z</published>
-    <updated>2016-12-06T13:36:16.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt;12月23号下午2：00参加了绿盟的 Web 后端开发实习生的面试。考官是个胖哥哥，也是科大的，人很温柔和蔼。先问了一些数据结构与算法的问题，接着问了计算机网络的一些基础问题，最后考察了下 Web 开发的一些知识。总得来说题目不难，但是自己也发挥不好，原来以为有了几次面经，但是在现场还是紧张得不行。 (真是给自己的心理素质跪了 ：P)&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Interview" scheme="http://lexuslee.me/categories/Interview/"/>
     
     
   </entry>
