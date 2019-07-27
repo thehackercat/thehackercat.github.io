@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://lexuslee.me/"/>
-  <updated>2018-09-14T11:16:23.685Z</updated>
+  <updated>2019-07-27T12:45:23.294Z</updated>
   <id>http://lexuslee.me/</id>
   
   <author>
@@ -14,6 +14,24 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>我想你也看到这朵云</title>
+    <link href="http://lexuslee.me/2019/07/27/2919-07-27-I-want-you-to-see-this-sky/"/>
+    <id>http://lexuslee.me/2019/07/27/2919-07-27-I-want-you-to-see-this-sky/</id>
+    <published>2019-07-27T12:43:04.000Z</published>
+    <updated>2019-07-27T12:45:23.294Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/1851232-2bbf3206381b3645.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240
+    
+    </summary>
+    
+      <category term="gossip" scheme="http://lexuslee.me/categories/gossip/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>浅谈 k8s service&amp;kube-proxy</title>
@@ -389,24 +407,6 @@
     </summary>
     
       <category term="Django-REST-Framework" scheme="http://lexuslee.me/categories/Django-REST-Framework/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>在 Ubuntu 下搭建 uWSGI + nginx + Django</title>
-    <link href="http://lexuslee.me/2016/02/27/2016-02-27-nginx-uwsgi-django/"/>
-    <id>http://lexuslee.me/2016/02/27/2016-02-27-nginx-uwsgi-django/</id>
-    <published>2016-02-27T13:04:07.000Z</published>
-    <updated>2016-03-29T03:36:07.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景 :&quot;&gt;&lt;/a&gt;背景 :&lt;/h3&gt;&lt;p&gt;公司要求用 Django 做些项目，之前按网上教程搭环境的时候就遇到很多问题，感觉有些教程都是有误的，今天用 uWSGI 开多线程的时候服务器报了 HTTP 500 的错( Internal Server Error )，然后就一直连不上去了。所以按&lt;a href=&quot;http://uwsgi-docs.readthedocs.org/en/latest/tutorials/Django_and_nginx.html&quot;&gt;官网的教程&lt;/a&gt;重新配置一遍，把出现的问题记录下来。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Django" scheme="http://lexuslee.me/categories/Django/"/>
     
     
   </entry>
