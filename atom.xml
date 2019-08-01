@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://lexuslee.me/"/>
-  <updated>2019-07-27T12:45:23.294Z</updated>
+  <updated>2019-08-01T12:22:10.971Z</updated>
   <id>http://lexuslee.me/</id>
   
   <author>
@@ -16,9 +16,31 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>大醋坛子熊猫侠</title>
+    <link href="http://lexuslee.me/2019/08/01/2019-08-01-Cutanzi-panda/"/>
+    <id>http://lexuslee.me/2019/08/01/2019-08-01-Cutanzi-panda/</id>
+    <published>2019-08-01T12:19:11.000Z</published>
+    <updated>2019-08-01T12:22:10.971Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;前天，我们吵架了，但主要是我一人暗暗生闷气。&lt;/p&gt;
+&lt;p&gt;在此之前，我总认为自己已经是不依附于任何情感的，也鲜有真正让我生气的事儿。&lt;/p&gt;
+&lt;p&gt;没想到在不经意间听到你提起那只臭猪的名字，忍不住暴跳如雷。&lt;/p&gt;
+&lt;p&gt;我是惶恐的，极其自私的，真的。&lt;/p&gt;
+&lt;p&gt;也许
+    
+    </summary>
+    
+      <category term="gossip" scheme="http://lexuslee.me/categories/gossip/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>我想你也看到这朵云</title>
-    <link href="http://lexuslee.me/2019/07/27/2919-07-27-I-want-you-to-see-this-sky/"/>
-    <id>http://lexuslee.me/2019/07/27/2919-07-27-I-want-you-to-see-this-sky/</id>
+    <link href="http://lexuslee.me/2019/07/27/2019-07-27-I-want-you-to-see-this-sky/"/>
+    <id>http://lexuslee.me/2019/07/27/2019-07-27-I-want-you-to-see-this-sky/</id>
     <published>2019-07-27T12:43:04.000Z</published>
     <updated>2019-07-27T12:45:23.294Z</updated>
     
@@ -384,25 +406,6 @@
     <summary type="html">
     
       &lt;h2 id=&quot;序列化&quot;&gt;&lt;a href=&quot;#序列化&quot; class=&quot;headerlink&quot; title=&quot;序列化&quot;&gt;&lt;/a&gt;序列化&lt;/h2&gt;&lt;h3 id=&quot;环境搭建&quot;&gt;&lt;a href=&quot;#环境搭建&quot; class=&quot;headerlink&quot; title=&quot;环境搭建&quot;&gt;&lt;/a&gt;环境搭
-    
-    </summary>
-    
-      <category term="Django-REST-Framework" scheme="http://lexuslee.me/categories/Django-REST-Framework/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Django REST Framework 快速上手</title>
-    <link href="http://lexuslee.me/2016/03/29/2016-03-29-django-rest-framework/"/>
-    <id>http://lexuslee.me/2016/03/29/2016-03-29-django-rest-framework/</id>
-    <published>2016-03-29T07:43:36.000Z</published>
-    <updated>2016-12-06T13:31:04.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;Django-REST-Framework-快速上手&quot;&gt;&lt;a href=&quot;#Django-REST-Framework-快速上手&quot; class=&quot;headerlink&quot; title=&quot;Django REST Framework 快速上手&quot;&gt;&lt;/a&gt;Django REST Framework 快速上手&lt;/h2&gt;&lt;h3 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h3&gt;&lt;p&gt;这几天正好在研究 RESTful 的方式来写 API，然后上手 Django REST 框架。&lt;/p&gt;
-&lt;p&gt;Django REST Framework (以下简称 DRF )是一个轻量级的库，熟悉 Django 的话可以很容易的用它来构建 Web API。&lt;br&gt;
     
     </summary>
     
