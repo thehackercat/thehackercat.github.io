@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://lexuslee.me/"/>
-  <updated>2019-08-01T12:22:10.971Z</updated>
+  <updated>2019-08-02T15:00:44.799Z</updated>
   <id>http://lexuslee.me/</id>
   
   <author>
@@ -14,6 +14,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>请你不要吃掉我</title>
+    <link href="http://lexuslee.me/2019/08/02/2019-08-02-Badly-wanted/"/>
+    <id>http://lexuslee.me/2019/08/02/2019-08-02-Badly-wanted/</id>
+    <published>2019-08-02T14:57:39.000Z</published>
+    <updated>2019-08-02T15:00:44.799Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;真想听一听见你的声音啊。&lt;/p&gt;
+&lt;p&gt;今晚倘若再不能见着你，我准睡不着。&lt;/p&gt;
+&lt;p&gt;已经三个夜晚你没有理我了，你是不是故意躲着我。&lt;/p&gt;
+&lt;p&gt;今天是星期五，我一点都开心不起来，一想到不能像前几个周末一样宅在小屋子里看《乐队的夏天》，我的灵魂就像被汲取干了一般。&lt;/
+    
+    </summary>
+    
+      <category term="gossip" scheme="http://lexuslee.me/categories/gossip/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>大醋坛子熊猫侠</title>
@@ -388,24 +409,6 @@
     <summary type="html">
     
       &lt;h2 id=&quot;请求与响应&quot;&gt;&lt;a href=&quot;#请求与响应&quot; class=&quot;headerlink&quot; title=&quot;请求与响应&quot;&gt;&lt;/a&gt;请求与响应&lt;/h2&gt;&lt;h3 id=&quot;请求对象&quot;&gt;&lt;a href=&quot;#请求对象&quot; class=&quot;headerlink&quot; title=&quot;请求对象&quot;
-    
-    </summary>
-    
-      <category term="Django-REST-Framework" scheme="http://lexuslee.me/categories/Django-REST-Framework/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Django REST Framework 1-序列化</title>
-    <link href="http://lexuslee.me/2016/04/01/2016-04-01-DRF-tutorial-1-serialization/"/>
-    <id>http://lexuslee.me/2016/04/01/2016-04-01-DRF-tutorial-1-serialization/</id>
-    <published>2016-03-31T18:01:33.000Z</published>
-    <updated>2016-12-06T13:47:07.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;序列化&quot;&gt;&lt;a href=&quot;#序列化&quot; class=&quot;headerlink&quot; title=&quot;序列化&quot;&gt;&lt;/a&gt;序列化&lt;/h2&gt;&lt;h3 id=&quot;环境搭建&quot;&gt;&lt;a href=&quot;#环境搭建&quot; class=&quot;headerlink&quot; title=&quot;环境搭建&quot;&gt;&lt;/a&gt;环境搭
     
     </summary>
     
