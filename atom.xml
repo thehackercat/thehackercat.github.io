@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://lexuslee.me/"/>
-  <updated>2019-08-02T15:00:44.799Z</updated>
+  <updated>2019-08-05T13:55:53.442Z</updated>
   <id>http://lexuslee.me/</id>
   
   <author>
@@ -14,6 +14,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>你就是我的灵光</title>
+    <link href="http://lexuslee.me/2019/08/05/2019-08-05-You-are-my-sunshine/"/>
+    <id>http://lexuslee.me/2019/08/05/2019-08-05-You-are-my-sunshine/</id>
+    <published>2019-08-05T13:54:03.000Z</published>
+    <updated>2019-08-05T13:55:53.442Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;你像个琢磨不透的妖精。&lt;/p&gt;
+&lt;p&gt;前一天晚上我们一起打游戏到深夜，今天我却变成了冷漠的『这一位』&lt;br&gt;这么说，你是不是没那么喜欢我。&lt;/p&gt;
+&lt;p&gt;每每至此，我就又开始瞎想些我们分离的日子。&lt;/p&gt;
+&lt;p&gt;我知道多疑是深植在我们的根性里，我对你却如此猜忌，我真是个坏家
+    
+    </summary>
+    
+      <category term="gossip" scheme="http://lexuslee.me/categories/gossip/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>请你不要吃掉我</title>
@@ -391,24 +412,6 @@
     <summary type="html">
     
       &lt;h2 id=&quot;基于类的视图&quot;&gt;&lt;a href=&quot;#基于类的视图&quot; class=&quot;headerlink&quot; title=&quot;基于类的视图&quot;&gt;&lt;/a&gt;基于类的视图&lt;/h2&gt;&lt;p&gt;基于类的视图比先前基于函数的视图的可重用性更强，可以更多快好省地 ( &lt;a href=&quot;http://en.
-    
-    </summary>
-    
-      <category term="Django-REST-Framework" scheme="http://lexuslee.me/categories/Django-REST-Framework/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Django REST Framework 2-请求和响应</title>
-    <link href="http://lexuslee.me/2016/04/02/2016-04-02-DRF-tutorial-2-request-and-response/"/>
-    <id>http://lexuslee.me/2016/04/02/2016-04-02-DRF-tutorial-2-request-and-response/</id>
-    <published>2016-04-01T18:01:33.000Z</published>
-    <updated>2016-12-06T13:47:15.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;请求与响应&quot;&gt;&lt;a href=&quot;#请求与响应&quot; class=&quot;headerlink&quot; title=&quot;请求与响应&quot;&gt;&lt;/a&gt;请求与响应&lt;/h2&gt;&lt;h3 id=&quot;请求对象&quot;&gt;&lt;a href=&quot;#请求对象&quot; class=&quot;headerlink&quot; title=&quot;请求对象&quot;
     
     </summary>
     
