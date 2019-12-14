@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://lexuslee.me/"/>
-  <updated>2019-08-05T13:55:53.442Z</updated>
+  <updated>2019-12-14T08:24:07.969Z</updated>
   <id>http://lexuslee.me/</id>
   
   <author>
@@ -14,6 +14,24 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Talk about Kubernetes cronJob controller</title>
+    <link href="http://lexuslee.me/2019/12/14/2019-12-14-Talk-about-kubernetes-cronjob/"/>
+    <id>http://lexuslee.me/2019/12/14/2019-12-14-Talk-about-kubernetes-cronjob/</id>
+    <published>2019-12-14T05:57:32.000Z</published>
+    <updated>2019-12-14T08:24:07.969Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h3&gt;&lt;p&gt;之前一段时间正好接触到 kubernetes cronjob, 在接入时遇上了在一定量级下 cronjob schedule delay 的
+    
+    </summary>
+    
+    
+      <category term="kubernetes" scheme="http://lexuslee.me/tags/kubernetes/"/>
+    
+  </entry>
   
   <entry>
     <title>你就是我的灵光</title>
@@ -394,24 +412,6 @@
     <summary type="html">
     
       &lt;h2 id=&quot;验证与授权&quot;&gt;&lt;a href=&quot;#验证与授权&quot; class=&quot;headerlink&quot; title=&quot;验证与授权&quot;&gt;&lt;/a&gt;验证与授权&lt;/h2&gt;&lt;p&gt;目前来看，我们的 API 并没有权限上的限制(即任何人都可以编辑或删除我们的 Movies )，这不是我们想要的。所
-    
-    </summary>
-    
-      <category term="Django-REST-Framework" scheme="http://lexuslee.me/categories/Django-REST-Framework/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Django REST Framework 3-基于类的视图</title>
-    <link href="http://lexuslee.me/2016/04/03/2016-04-03-DRF-tutorial-3-class-based-views/"/>
-    <id>http://lexuslee.me/2016/04/03/2016-04-03-DRF-tutorial-3-class-based-views/</id>
-    <published>2016-04-02T18:01:33.000Z</published>
-    <updated>2016-12-06T13:47:22.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;基于类的视图&quot;&gt;&lt;a href=&quot;#基于类的视图&quot; class=&quot;headerlink&quot; title=&quot;基于类的视图&quot;&gt;&lt;/a&gt;基于类的视图&lt;/h2&gt;&lt;p&gt;基于类的视图比先前基于函数的视图的可重用性更强，可以更多快好省地 ( &lt;a href=&quot;http://en.
     
     </summary>
     
