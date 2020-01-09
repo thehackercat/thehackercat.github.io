@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://lexuslee.me/"/>
-  <updated>2019-12-15T09:32:31.844Z</updated>
+  <updated>2020-01-09T12:21:45.605Z</updated>
   <id>http://lexuslee.me/</id>
   
   <author>
@@ -14,6 +14,25 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>阿芙罗狄忒你不要哭泣</title>
+    <link href="http://lexuslee.me/2020/01/09/2020-01-09-Dont-cry-Aphrodite/"/>
+    <id>http://lexuslee.me/2020/01/09/2020-01-09-Dont-cry-Aphrodite/</id>
+    <published>2020-01-09T12:20:28.000Z</published>
+    <updated>2020-01-09T12:21:45.605Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这些日子隐隐觉得你并不开心, 我十分自责, 总觉得是那天妖精们藏起了星星。&lt;/p&gt;
+&lt;p&gt;北京的天总是阴沉沉的，有时候好像是要开启一场庭审，让我紧张得四肢发麻，不知道你会不会也因此闷闷不乐。这样的日子，可真叫人腻味，我沮丧得想睡觉。唯独那天看着你把脸藏在被子里沉沉地入睡，我
+    
+    </summary>
+    
+      <category term="gossip" scheme="http://lexuslee.me/categories/gossip/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>Talk about Kubernetes cronJob controller</title>
@@ -394,24 +413,6 @@
     <summary type="html">
     
       &lt;h2 id=&quot;关联性和超链接&quot;&gt;&lt;a href=&quot;#关联性和超链接&quot; class=&quot;headerlink&quot; title=&quot;关联性和超链接&quot;&gt;&lt;/a&gt;关联性和超链接&lt;/h2&gt;&lt;p&gt;之前我们的 api 都是用外键关联，然而实际上用超链接的方式更符合 RESTful 的思想。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Django-REST-Framework" scheme="http://lexuslee.me/categories/Django-REST-Framework/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Django REST Framework 4-验证和授权</title>
-    <link href="http://lexuslee.me/2016/04/04/2016-04-04-DRF-tutorial-4-authentication/"/>
-    <id>http://lexuslee.me/2016/04/04/2016-04-04-DRF-tutorial-4-authentication/</id>
-    <published>2016-04-03T18:01:33.000Z</published>
-    <updated>2016-12-06T13:47:33.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;验证与授权&quot;&gt;&lt;a href=&quot;#验证与授权&quot; class=&quot;headerlink&quot; title=&quot;验证与授权&quot;&gt;&lt;/a&gt;验证与授权&lt;/h2&gt;&lt;p&gt;目前来看，我们的 API 并没有权限上的限制(即任何人都可以编辑或删除我们的 Movies )，这不是我们想要的。所
     
     </summary>
     
