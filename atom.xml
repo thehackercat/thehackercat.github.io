@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://lexuslee.me/"/>
-  <updated>2020-01-09T12:21:45.605Z</updated>
+  <updated>2020-01-13T10:28:54.898Z</updated>
   <id>http://lexuslee.me/</id>
   
   <author>
@@ -14,6 +14,24 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>eBPF learning 01</title>
+    <link href="http://lexuslee.me/2020/01/13/2020-01-13-eBPF-learning-01/"/>
+    <id>http://lexuslee.me/2020/01/13/2020-01-13-eBPF-learning-01/</id>
+    <published>2020-01-13T10:26:09.000Z</published>
+    <updated>2020-01-13T10:28:54.898Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;译-eBPF-Tracing-简明教程与示例&quot;&gt;&lt;a href=&quot;#译-eBPF-Tracing-简明教程与示例&quot; class=&quot;headerlink&quot; title=&quot;(译) eBPF Tracing 简明教程与示例&quot;&gt;&lt;/a&gt;(译) eBPF Tracing 简
+    
+    </summary>
+    
+    
+      <category term="Linux, eBPF" scheme="http://lexuslee.me/tags/Linux-eBPF/"/>
+    
+  </entry>
   
   <entry>
     <title>阿芙罗狄忒你不要哭泣</title>
@@ -399,24 +417,6 @@
     </summary>
     
       <category term="Python" scheme="http://lexuslee.me/categories/Python/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Django REST Framework 5-关联性和超链接</title>
-    <link href="http://lexuslee.me/2016/04/06/2016-04-06-DRF-tutorial-5-relations/"/>
-    <id>http://lexuslee.me/2016/04/06/2016-04-06-DRF-tutorial-5-relations/</id>
-    <published>2016-04-05T18:01:33.000Z</published>
-    <updated>2016-12-06T13:47:40.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;关联性和超链接&quot;&gt;&lt;a href=&quot;#关联性和超链接&quot; class=&quot;headerlink&quot; title=&quot;关联性和超链接&quot;&gt;&lt;/a&gt;关联性和超链接&lt;/h2&gt;&lt;p&gt;之前我们的 api 都是用外键关联，然而实际上用超链接的方式更符合 RESTful 的思想。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Django-REST-Framework" scheme="http://lexuslee.me/categories/Django-REST-Framework/"/>
     
     
   </entry>
