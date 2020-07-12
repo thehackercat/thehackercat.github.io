@@ -1,5 +1,5 @@
 ---
-title: "关于 LoveIt"
+title: "关于我"
 date: 2019-08-02T11:04:49+08:00
 draft: false
 
@@ -10,108 +10,55 @@ math:
 ---
 
 {{< style "img { height: 1.25rem; }" >}}
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/dillonzq/LoveIt?style=flat-square)](https://github.com/dillonzq/LoveIt/releases)
+<!-- [![GitHub release (latest by date)](https://img.shields.io/github/v/release/dillonzq/LoveIt?style=flat-square)](https://github.com/dillonzq/LoveIt/releases)
 [![Hugo](https://img.shields.io/badge/Hugo-%5E0.62.0-ff4088?style=flat-square&logo=hugo)](https://gohugo.io/)
 [![License](https://img.shields.io/github/license/dillonzq/LoveIt?style=flat-square)](https://github.com/dillonzq/LoveIt/blob/master/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/dillonzq/LoveIt?style=social)](https://github.com/dillonzq/LoveIt)
-[![GitHub forks](https://img.shields.io/github/forks/dillonzq/LoveIt?style=social)](https://github.com/dillonzq/LoveIt/fork)
+[![GitHub forks](https://img.shields.io/github/forks/dillonzq/LoveIt?style=social)](https://github.com/dillonzq/LoveIt/fork) -->
 {{< /style >}}
 
-> [:(far fa-kiss-wink-heart fa-fw): LoveIt](https://github.com/dillonzq/LoveIt) 是一个由 [Dillon](https://dillonzq.com) 开发的**简洁**、**优雅**且**高效**的 [Hugo](https://gohugo.io/) 博客主题。
+> 是清晨轻抚你脸庞的清风，
 >
-> 它的原型基于 [LeaveIt 主题](https://github.com/liuzc/LeaveIt) 和 [KeepIt 主题](https://github.com/Fastbyte01/KeepIt)。
+> 是夜里执剑走江湖的熊猫侠。
 
-![Hugo 主题 LoveIt](/images/Apple-Devices-Preview.png "Hugo 主题 LoveIt")
+#### 简述
 
-### 特性
+我，是一个比较中二的程序员。
 
-#### 性能和 SEO
+平时喜欢逛技术论坛 HackerNews、乌云 、InfoQ 等，同时还是 sae 认证的初级独立开发者. 早些年在乌云上提过漏洞, 折腾过网络安全.
 
-* :(fas fa-rocket fa-fw): **性能**优化：在 [Google PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights) 中， [99]/[100] 的移动设备得分和 [100]/[100] 的桌面设备得分
-* :(fab fa-searchengin fa-fw): 使用基于 JSON-LD 格式 的 **SEO SCHEMA** 文件进行 SEO 优化
-* :(fab fa-google fa-fw): 支持 **[Google Analytics](https://analytics.google.com/analytics)**
-* :(far fa-chart-bar fa-fw): 支持 **[Fathom Analytics](https://usefathom.com/)**
-* :(fas fa-search fa-fw): 支持搜索引擎的**网站验证** (Google, Bind, Yandex and Baidu)
-* :(fas fa-tachometer-alt fa-fw): 支持所有第三方库的 **CDN**
-* :(fas fa-cloud-download-alt fa-fw): 基于 [lazysizes](https://github.com/aFarkas/lazysizes) 自动转换图片为**懒加载**
+目前技术栈集中在云平台开发，主要用到的语言是 Python/Golang，Python 吸引我在于他语法简洁语法糖易用，常被诟病的Python速度慢也在 Python3.6 之后的async出现后逐渐改善.不过在处理 CPU bound 任务时表现比较差, 这部分 Golang 则更好地解决了.
 
-#### 外观和布局
+在编程之外，我还喜欢刷些 Dribbble 、 Pinterest 等设计师论坛，对其中精妙的设计十分着迷，对交互设计也有极大的兴趣，感觉一个 app 是为人服务的，应该贴切人类的使用习惯并遵循人类优质的审美风格。
 
-* [:(fas fa-desktop):]/[:(fas fa-mobile):] **响应式**布局
-* [:(fas fa-sun):]/[:(fas fa-moon):] **[浅色]/[深色]** 主题模式
-* :(fas fa-layer-group fa-fw): 全局一致的**设计语言**
-* :(fas fa-ellipsis-h fa-fw): 支持**分页**
-* :(far fa-list-alt fa-fw): 易用和自动展开的**文章目录**
-* :(fas fa-language fa-fw): 支持**多语言**和国际化
-* :(fab fa-css3-alt fa-fw): 美观的 **CSS 动画**
+在逛论坛之外，我还是这个星球上为数不多会说 :(fas fa-rocket fa-fw): [小黄人](https://en.wikipedia.org/wiki/Minions_(film))语的少年，喜欢荒诞却有逻辑的事务，眼里所有的风车，都是条巨龙。
 
-#### 社交和评论系统
+同时，我还是漫威巨粉，对一切超级英雄有着不切实际的幻想，喜欢追逐他们风中飘忽不定的脸。
 
-* :(far fa-user fa-fw): 支持 **[Gravatar](https://gravatar.com)** 头像
-* :(fas fa-user-circle fa-fw): 支持本地**头像**
-* :(far fa-id-card fa-fw): 支持多达 **64** 种社交链接
-* :(fas fa-share-square fa-fw): 支持多达 **28** 种网站分享
-* :(far fa-comment fa-fw): 支持 **[Disqus](https://disqus.com)** 评论系统
-* :(far fa-comment-dots fa-fw): 支持 **[Gitalk](https://github.com/gitalk/gitalk)** 评论系统
-* :(far fa-comment-alt fa-fw): 支持 **[Valine](https://valine.js.org/)** 评论系统
-* :(far fa-comments fa-fw): 支持 **[Facebook](https://developers.facebook.com/docs/plugins/comments/) 评论**系统
-* :(fas fa-comment fa-fw): 支持 **[Telegram comments](https://comments.app/) 评论**系统
-* :(fas fa-comment-dots fa-fw): 支持 **[Commento](https://commento.io/)** 评论系统
-* :(far fa-comment-alt fa-fw): 支持 **[Utterances](https://utteranc.es/)** 评论系统
+#### 为什么写博客
 
-#### 扩展功能
+写博客一是记录我的生活, 等老去时能留下一些念想
 
-* :(fas fa-search fa-fw): 支持基于 [Lunr.js](https://lunrjs.com/) 或 [algolia](https://www.algolia.com/) 的**搜索**
-* :(far fa-grin-tongue-wink fa-fw): 支持 **Twemoji**
-* :(fas fa-code fa-fw): 支持**代码高亮**
-* :(far fa-copy fa-fw): 一键**复制代码**到剪贴板
-* :(far fa-images fa-fw): 支持基于 [lightgallery.js](https://github.com/sachinchoolur/lightgallery.js) 的**图片画廊**
-* :(fab fa-font-awesome fa-fw): 支持 **[Font Awesome](https://fontawesome.com/) 图标**的扩展 Markdown 语法
-* :(far fa-sticky-note fa-fw): 支持**上标注释**的扩展 Markdown 语法
-* :(fas fa-percentage fa-fw): 支持**分数**的扩展 Markdown 语法
-* :(fas fa-square-root-alt fa-fw): 支持基于 [$ \KaTeX $](https://katex.org/) 的**数学公式**
-* :(fas fa-project-diagram fa-fw): 支持基于 [mermaid](https://github.com/knsv/mermaid) 的**图表** shortcode
-* :(fas fa-chart-pie fa-fw): 支持基于 [ECharts](https://echarts.apache.org/) 的**交互式数据可视化** shortcode
-* :(fas fa-map-marked-alt fa-fw): 支持基于 [Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js) 的 **Mapbox** shortcode
-* :(fas fa-music fa-fw): 支持基于 [APlayer](https://github.com/MoePlayer/APlayer) 和 [MetingJS](https://github.com/metowolf/MetingJS) 的**音乐播放器** shortcode
-* :(fas fa-video fa-fw): 支持 **Bilibili 视频** shortcode
-* :(far fa-bell fa-fw): 支持多种**注释**的 shortcode
-* :(fas fa-align-left fa-fw): 支持**自定义样式**的 shortcode
-* :(fab fa-js-square fa-fw): 支持**自定义脚本**的 shortcode
-* :(fas fa-i-cursor fa-fw): 支持基于 [TypeIt](https://typeitjs.com/) 的**打字动画** shortcode
-* :(fas fa-arrow-down fa-fw): 支持基于 [Smooth Scroll](https://github.com/cferdinandi/smooth-scroll) 的**滚动动画**
-* :(fas fa-cookie-bite fa-fw): 支持基于 [cookieconsent](https://github.com/osano/cookieconsent) 的 **Cookie 许可横幅**
-* ...
+二是技术上记录下我踩过的一些坑, 防止未来第二次掉入
 
-### 许可协议
+**希望这些我自己揣摩的东西能够真正对你产生帮助, 我也以次获取肯定, 一定会非常开心**
 
-LoveIt 根据 **MIT** 许可协议授权。
+当然了, 写的文章受限于时间和我对一些原理浅薄的揣摩, 难免有错, 也望指正
 
-更多信息请查看 [LICENSE 文件](https://github.com/dillonzq/LoveIt/blob/master/LICENSE)。
+可以在评论中交流, 或通过 :(fas fa-share-square fa-fw): [邮件](mailto://lexuscyborg103@gmail.com), :(fas fa-comment-dots fa-fw): [LexusLee@Twitter](https://twitter.com/lexuscyborg103) 我.
 
-LoveIt 主题中用到了以下项目，感谢它们的作者：
+#### 我去过的电影节
 
-* [normalize.css](https://github.com/necolas/normalize.css)
-* [Font Awesome](https://fontawesome.com/)
-* [Simple Icons](https://github.com/simple-icons/simple-icons)
-* [Animate.css](https://daneden.github.io/animate.css/)
-* [Smooth Scroll](https://github.com/cferdinandi/smooth-scroll)
-* [autocomplete.js](https://github.com/algolia/autocomplete.js)
-* [Lunr.js](https://lunrjs.com/)
-* [algoliasearch](https://github.com/algolia/algoliasearch-client-javascript)
-* [lazysizes](https://github.com/aFarkas/lazysizes)
-* [object-fit-images](https://github.com/fregante/object-fit-images)
-* [Twemoji](https://github.com/twitter/twemoji)
-* [lightgallery.js](https://github.com/sachinchoolur/lightgallery.js)
-* [clipboard.js](https://github.com/zenorocha/clipboard.js)
-* [Sharer.js](https://github.com/ellisonleao/sharer.js)
-* [TypeIt](https://typeitjs.com/)
-* [$ \KaTeX $](https://katex.org/)
-* [mermaid](https://github.com/knsv/mermaid)
-* [ECharts](https://echarts.apache.org/)
-* [Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js)
-* [APlayer](https://github.com/MoePlayer/APlayer)
-* [MetingJS](https://github.com/metowolf/MetingJS)
-* [Gitalk](https://github.com/gitalk/gitalk)
-* [Valine](https://valine.js.org/)
-* [cookieconsent](https://github.com/osano/cookieconsent)
+* :(fas fa-video fa-fw): 2018 北京国际电影节
+* :(fas fa-video fa-fw): 2019 北京国际电影节
+* :(fas fa-video fa-fw): 2019 上海国际电影节
+* :(fas fa-video fa-fw): 2019 台北电影节
+
+#### 想做的事
+
+* 30 岁前看过 > 3000 部电影
+* 当一次超级英雄
+* 让风停下来 🌪
+* 接触过一次 👽
+* 去过一趟西西里
+* 看一次极光
