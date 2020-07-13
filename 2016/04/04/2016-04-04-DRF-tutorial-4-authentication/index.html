@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <!-- Title -->
+    
+    <title>
+        Django REST Framework 4-验证和授权 | LexusLee&#39;s Blog
+    </title>
+    
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" sizes="192x192" href="/img/favicon.png">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+    
+    <!-- Meta & INfo -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0097A7">
+    <meta name="author" content="LexusLee">
+    <meta name="description" content="Be the change you want to see in the world.">
+    <meta name="keywords" content="Lexus">
+    
+    <!--iOS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-title" content="Title">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="480">
+    
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="LexusLee&#39;s Blog">
+    
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://lexuslee.me">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="Django REST Framework 4-验证和授权 | LexusLee&#39;s Blog">
+    <meta property="og:description" content="Be the change you want to see in the world.">
+    
+     <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+        
+        
+            <script src="/js/ie-blocker.en.js"></script>
+        
+    <![endif]-->
+    
+    <!-- Import CSS -->
+    <link rel="stylesheet" href="/css/material.min.css">
+    <link rel="stylesheet" href="/css/style.min.css">
+    <!-- Config CSS -->
+
+
+<!-- Other Styles -->
+<style>
+	body, html{
+		font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+	}
+	
+    a{
+        color: #00838F
+    }
+    
+    .mdl-card__media,
+    #search-label,
+    #search-form-label:after,
+    #scheme-Paradox .hot_tags-count,
+    #scheme-Paradox .sidebar_archives-count,
+    #scheme-Paradox .sidebar-colored .sidebar-header,
+    #scheme-Paradox .sidebar-colored .sidebar-badge{
+        background-color: #0097A7 !important
+    }
+    
+	/* Sidebar User Drop Down Menu Text Color */
+	#scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+    #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus{
+        color: #0097A7 !important
+    }
+    
+    #post_entry-right-info,
+    .sidebar-colored .sidebar-nav li:hover > a,
+    .sidebar-colored .sidebar-nav li:hover > a i,
+    .sidebar-colored .sidebar-nav li > a:hover,
+    .sidebar-colored .sidebar-nav li > a:hover i,
+    .sidebar-colored .sidebar-nav li > a:focus i,
+    .sidebar-colored .sidebar-nav > .open > a,
+    .sidebar-colored .sidebar-nav > .open > a:hover,
+    .sidebar-colored .sidebar-nav > .open > a:focus,
+    #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a{
+        color: #0097A7 !important
+    }
+    
+    .toTop{
+        background: #757575 !important
+    }
+		
+	.material-layout .material-post>.material-nav,
+	.material-layout .material-index>.material-nav,
+	.material-nav a{
+		color: #757575;
+	}
+		
+	#scheme-Paradox .MD-burger-layer {
+		background-color: #757575;
+	}
+
+	#scheme-Paradox #post-toc-trigger-btn{
+		color: #757575;
+	}
+	
+	.post-toc a:hover{
+		color: #00838F;
+		text-decoration: underline;
+	}
+</style>
+
+
+<!-- Theme Background Related-->
+
+	<style>
+		body{
+            background-image: url(https://api.i-meto.com/bing?null);
+        }
+	</style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+        .fade {
+            transition: all 800ms linear;
+            -webkit-transform: translate3d(0,0,0);
+            -moz-transform: translate3d(0,0,0);
+            -ms-transform: translate3d(0,0,0);
+            -o-transform: translate3d(0,0,0);
+            transform: translate3d(0,0,0);
+            opacity: 1;
+        }
+
+        .fade.out{
+            opacity: 0;
+        }
+    </style>
+
+	<script src="/js/jquery.min.js"></script>
+	
+	<link rel="stylesheet" href="/css/highlight/solarized-white.css">
+	
+	<!-- UC Browser Compatible-->
+	<script>
+		var agent = navigator.userAgent.toLowerCase();
+		if(agent.indexOf('ucbrowser')>0) {
+			document.write('<link rel="stylesheet" href="/css/uc.css">');
+		   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+		}
+	</script>
+    
+    <!-- Custom Head -->
+    
+</head>
+	
+	
+
+    <body id="scheme-Paradox">
+
+		
+        <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+				
+			
+			
+            <!-- Main Container -->
+            <main class="material-layout__content" id="main">
+				
+                <!-- Top Anchor -->
+                <div id="top"></div>
+				
+				
+                <!-- Hamburger Button -->
+                <button class="MD-burger-icon sidebar-toggle">
+                    <span class="MD-burger-layer"></span>
+                </button>
+				
+				
+                
+	<!-- Back Button -->
+<!--
+	<div class="material-back" id="backhome-div" tabindex="0">
+		<a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" href="#" onclick="window.history.back();return false;" target="_self" role="button" data-upgraded=",MaterialButton,MaterialRipple">
+			<i class="material-icons" role="presentation">arrow_back</i>
+			<span class="mdl-button__ripple-container">
+				<span class="mdl-ripple"></span>
+			</span>
+		</a>
+	</div>			
+-->
+	<!-- Left aligned menu below button -->
+	<button id="post-toc-trigger-btn"
+			class="mdl-button mdl-js-button mdl-button--icon">
+	  <i class="material-icons">format_list_numbered</i>
+	</button>
+
+	<ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
+		for="post-toc-trigger-btn">
+			
+			<ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#验证与授权"><span class="post-toc-number">1.</span> <span class="post-toc-text">验证与授权</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#在-models-中增加以下信息"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">在 models 中增加以下信息</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#把-Movies-和-Director-、-User-关联起来"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">把 Movies 和 Director 、 User 关联起来</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#添加可浏览的授权-api"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">添加可浏览的授权 api</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#对象级权限"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">对象级权限</span></a></li></ol></li></ol>
+		
+<!--			<li class="mdl-menu__item">Some Action</li>-->
+	</ul>
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+		
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+	<!-- Paradox Post Header -->
+	
+		
+			<!-- Random Thumbnail -->
+			<div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+				<script>
+    
+    var randomNum;
+    randomNum = Math.floor(Math.random() * 5 + 1);
+    
+    $(".post_thumbnail-random").css('background-image', 'url(' + '/img/random/' + randomNum + '.png' + ')');
+    
+</script>
+
+		
+	
+        <p class="article-headline-p">
+            Django REST Framework 4-验证和授权
+        </p>
+    </div>
+
+	
+
+				
+				
+					<!-- Paradox Post Info -->
+					<div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+    
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.jpg" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>LexusLee</strong>
+        <span>Apr 04, 2016</span>
+    </div>
+    
+    <div class="section-spacer"></div>
+	
+    <!-- Favorite -->
+<!--
+    <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+        <i class="material-icons" role="presentation">favorite</i>
+        <span class="visuallyhidden">favorites</span>
+    </button>
+-->
+    
+    <!-- Tags (bookmark) -->
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        
+    </ul>
+    
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+    
+    
+    
+    
+    <!-- Share Twitter -->
+    <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Django REST Framework 4-验证和授权&url=http://lexuslee.me//2016/04/04/2016-04-04-DRF-tutorial-4-authentication/index.html&via=LexusLee" target="_blank">
+        <li class="mdl-menu__item">
+            Share to Twitter
+        </li>
+    </a>
+    
+    <!-- Share Google+ -->
+    <a class="post_share-link" href="https://plus.google.com/share?url=http://lexuslee.me//2016/04/04/2016-04-04-DRF-tutorial-4-authentication/index.html" target="_blank">
+        <li class="mdl-menu__item">
+            Share to Google+
+        </li>
+    </a>
+    
+    <!-- Share Weibo -->
+    <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Django REST Framework 4-验证和授权&url=http://lexuslee.me//2016/04/04/2016-04-04-DRF-tutorial-4-authentication/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <li class="mdl-menu__item">
+            Share to Weibo
+        </li>
+    </a>
+</ul>
+</div>
+				
+
+                <!-- Post Content -->
+                <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+	
+		<h2 id="验证与授权"><a href="#验证与授权" class="headerlink" title="验证与授权"></a>验证与授权</h2><p>目前来看，我们的 API 并没有权限上的限制(即任何人都可以编辑或删除我们的 Movies )，这不是我们想要的。所以我们需要在 API 上做些限制以确保:</p>
+<ul>
+<li>Movies 与 Users 关联起来。</li>
+<li>只有授权了的用户才能创建新的 Movies。</li>
+<li>只有 Movies 的创建者才可以更新或删除它。</li>
+<li>未授权的用户只能进行查看。</li>
+</ul>
+<h3 id="在-models-中增加以下信息"><a href="#在-models-中增加以下信息" class="headerlink" title="在 models 中增加以下信息"></a>在 models 中增加以下信息</h3><p>我们先把之前注释掉的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">director = models.ForeignKey(<span class="string">'celebrity'</span>, related_name=<span class="string">'Movies'</span>)</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">celebrity</span><span class="params">(models.Model)</span>:</span></div><div class="line">    name = models.CharField(max_length=<span class="number">100</span>, blank=<span class="keyword">True</span>, default=<span class="string">''</span>)</div><div class="line">    age = models.IntegerField()</div><div class="line">    gender = models.CharField(choices=GENDER_CHOICES, default=<span class="string">'male'</span>, max_length=<span class="number">20</span>)</div></pre></td></tr></table></figure>
+<p>关联导演类的注释解开，来看看多张表在生成的 api 里的关联性。</p>
+<p>接着在 <figure class="highlight plain"><figcaption><span>中的 Movies 类中加入以下代码来确定 Movies 的创建者:</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">```python</div><div class="line">owner = models.ForeignKey(&apos;auth.User&apos;, related_name=&apos;Movies&apos;)</div></pre></td></tr></table></figure></p>
+<p>最后 <figure class="highlight plain"><figcaption><span>代码为:</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">```python</div><div class="line">#!/usr/bin/python</div><div class="line"># -*- coding: utf-8 -*-</div><div class="line"></div><div class="line">from django.db import models</div><div class="line"></div><div class="line"># 举个栗子</div><div class="line">COUNTRY_CHOICES = (</div><div class="line">    (&apos;US&apos;, &apos;US&apos;),</div><div class="line">    (&apos;Asia&apos;, &apos;Asia&apos;),</div><div class="line">    (&apos;CN&apos;, &apos;CN&apos;),</div><div class="line">    (&apos;TW&apos;, &apos;TW&apos;),</div><div class="line">)</div><div class="line">TYPE_CHOICES = (</div><div class="line">    (&apos;Drama&apos;, &apos;Drama&apos;),</div><div class="line">    (&apos;Thriller&apos;, &apos;Thriller&apos;),</div><div class="line">    (&apos;Sci-Fi&apos;, &apos;Sci-Fi&apos;),</div><div class="line">    (&apos;Romance&apos;, &apos;Romance&apos;),</div><div class="line">    (&apos;Comedy&apos;, &apos;Comedy&apos;)</div><div class="line">)</div><div class="line">GENDER_CHOICES = (</div><div class="line">    (&apos;male&apos;, &apos;male&apos;),</div><div class="line">    (&apos;female&apos;, &apos;female&apos;)</div><div class="line">)</div><div class="line"></div><div class="line">class Movies(models.Model):</div><div class="line">    title = models.CharField(max_length=100, blank=True, default=&apos;&apos;)</div><div class="line">    year = models.CharField(max_length=20)</div><div class="line">    # 在 director 关联了 Movies 类 和 celecrity 类, 在第4章会用到 celebrity 类</div><div class="line">    director = models.ForeignKey(&apos;celebrity&apos;, related_name=&apos;movies&apos;)</div><div class="line">    # 关联 User 类来确定 Movies 的创建者</div><div class="line">    owner = models.ForeignKey(&apos;auth.User&apos;, related_name=&apos;movies&apos;)</div><div class="line">    country = models.CharField(choices=COUNTRY_CHOICES, default=&apos;US&apos;, max_length=20)</div><div class="line">    type = models.CharField(choices=TYPE_CHOICES, default=&apos;Romance&apos;, max_length=20)</div><div class="line">    rating = models.DecimalField(max_digits=3, decimal_places=1)</div><div class="line">    created = models.DateTimeField(auto_now_add=True)</div><div class="line"></div><div class="line">    class Meta:</div><div class="line">        ordering = (&apos;created&apos;,)</div><div class="line"></div><div class="line">class celebrity(models.Model):</div><div class="line">    name = models.CharField(max_length=100, blank=True, default=&apos;&apos;)</div><div class="line">    age = models.IntegerField()</div><div class="line">    gender = models.CharField(choices=GENDER_CHOICES, default=&apos;male&apos;, max_length=20)</div></pre></td></tr></table></figure></p>
+<p>修改完了模型，我们需要更新一下数据表。</p>
+<p>通常来讲，我们会创建一个数据库 migration 来更新数据表，但是为了图省事儿，宝宝我索性删了整张 Movies 表直接重建！</p>
+<p>在数据库中删除 douban_movies 表后在终端中执行以下命令:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ python manage.py syncdb</div></pre></td></tr></table></figure>
+<p>接着我们可能会需要多个 User 来测试 API ，如果之前你没有创建 Django Super User 的话，用以下命令创建: </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ python manage.py createsuperuser</div></pre></td></tr></table></figure>
+<p>然后进入 <figure class="highlight plain"><figcaption><span>界面，登录并找到  ```/user/``` 表，然后在里面手动创建 user 并赋予权限。</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### 为新增的模型增加 endpoints</div><div class="line"></div><div class="line">既然现在我们已经有了 users 模型和 celebrity 模型，那么现在需要做的就是在 ```serializer.py``` 中让他们在 API 中展现出来，加入以下代码:</div><div class="line"></div><div class="line">```python</div><div class="line">class UserSerializer(serializers.ModelSerializer):</div><div class="line">    movies = serializers.PrimaryKeyRelatedField(many=True, queryset=Movies.objects.all())</div><div class="line"></div><div class="line">    class Meta:</div><div class="line">        model = User</div><div class="line">        fields = (&apos;id&apos;, &apos;username&apos;, &apos;movies&apos;)</div><div class="line"></div><div class="line">class DirectorSerializer(serializers.ModelSerializer):</div><div class="line">    movies = serializers.PrimaryKeyRelatedField(many=True, queryset=Movies.objects.all())</div><div class="line"></div><div class="line">    class Meta:</div><div class="line">        model = celebrity</div><div class="line">        fields = (&apos;id&apos;, &apos;name&apos;, &apos;age&apos;, &apos;gender&apos;, &apos;movies&apos;)</div></pre></td></tr></table></figure></p>
+<p>因为我们之前在 <figure class="highlight plain"><figcaption><span>中添加了 ```owner = models.ForeignKey('auth.User', related_name='movies')``` 其中 ```related_name``` 设置了可以通过 User.movies 来逆向访问到 movies 表。所以在 ```ModelSerializer``` 类中我们需要在 fields 中添加一个 ```movies``` 来实现逆向访问。同理 ```DirectorSerializer``` 类中也进行相应修改。</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">接着，我们还需要在 ```views.py``` 中添加相应的视图。</div><div class="line"></div><div class="line">为 User 添加只读 API ，使用 ```ListAPIView``` 和 ```RetrieveAPIView``` </div><div class="line"></div><div class="line">为 Director 添加读写 API ，使用 ```ListCreateAPIView``` 和 ```RetrieveUpdateDestroyAPIView</div></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserList</span><span class="params">(generics.ListAPIView)</span>:</span></div><div class="line">    queryset = User.objects.all()</div><div class="line">    serializer_class = UserSerializer</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserDetail</span><span class="params">(generics.RetrieveAPIView)</span>:</span></div><div class="line">    queryset = User.objects.all()</div><div class="line">    serializer_class = UserSerializer</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">DirectorList</span><span class="params">(generics.ListCreateAPIView)</span>:</span></div><div class="line">    queryset = celebrity.objects.all()</div><div class="line">    serializer_class = DirectorSerializer</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">DirectorDetail</span><span class="params">(generics.RetrieveUpdateDestroyAPIView)</span>:</span></div><div class="line">    queryset = celebrity.objects.all()</div><div class="line">    serializer_class = DirectorSerializer</div></pre></td></tr></table></figure>
+<p>最后，修改 <figure class="highlight plain"><figcaption><span>把视图关联起来，在 ```urlpatterns``` 中加入以下4个 patterns: </span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">```python</div><div class="line">urlpatterns = [</div><div class="line">    url(r&apos;^users/$&apos;, views.UserList.as_view()),</div><div class="line">    url(r&apos;^users/(?P&lt;pk&gt;[0-9]+)/$&apos;, views.UserDetail.as_view()),</div><div class="line">    url(r&apos;^directors/$&apos;, views.DirectorList.as_view()),</div><div class="line">    url(r&apos;^directors/(?P&lt;pk&gt;[0-9]+)/$&apos;, views.DirectorDetail.as_view()),</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<h3 id="把-Movies-和-Director-、-User-关联起来"><a href="#把-Movies-和-Director-、-User-关联起来" class="headerlink" title="把 Movies 和 Director 、 User 关联起来"></a>把 Movies 和 Director 、 User 关联起来</h3><p>现在，如果我们新建一部 movie ，那它和 director 还有 user 是没有关联的，因为 director 和 user 信息是通过 request 接收到的，而不是通过序列器接收的，这意味着，数据库中收到 director 和 user 信息是没有(和 movies 存在)外键关系的。</p>
+<p>而要让他们发生关系 ，我们的做法是在视图中重写 <figure class="highlight plain"><figcaption><span>方法。</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">```.perform_create()``` 方法允许我们处理 request 或 requested URL 中的任何信息。</div><div class="line"></div><div class="line">在 ```MoviesList``` 和 ```MoviesDetail``` 中添加以下代码:</div><div class="line"></div><div class="line">```python</div><div class="line">def perform_create(self, serializer):</div><div class="line">    serializer.save(owner=self.request.user)</div></pre></td></tr></table></figure></p>
+<p>这样 <figure class="highlight plain"><figcaption><span>方法就能够在接收到 request.data 时将其传回给序列器里的 owner 和 director 了。</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### 更新序列器</div><div class="line"></div><div class="line">在视图中重写了 ```.perform_create()``` 方法后还需要更新下序列器才能实现他们之间的关联，在 ```serializer.py``` 中的 ```MoviesSerializer``` 类添加以下代码: </div><div class="line"></div><div class="line">```python</div><div class="line">owner = serializers.ReadOnlyField(source=&apos;owner.username&apos;)</div><div class="line">director = serializers.CharField(source=&apos;celebrity.name&apos;)</div></pre></td></tr></table></figure></p>
+<p>接着在 <figure class="highlight plain"><figcaption><span>Meta``` 的 fields 中加入 owner 和 director :</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">```python</div><div class="line">class Meta:</div><div class="line">	model = Movies</div><div class="line">    fields = (&apos;id&apos;, &apos;title&apos;, &apos;director&apos;, &apos;year&apos;, &apos;country&apos;, &apos;type&apos;, &apos;rating&apos;, &apos;owner&apos;)</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><figcaption><span>关键字负责控制在 fields 中展现的数据的源，它可以指向这个序列器实例的任意一个属性。</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">对 owner 属性，我们用的是 ```ReadOnlyField``` 在确保它始终是只读的，我们也可以用 ```CharField(read_only=True)``` 来等效替代，但是我嫌它太长了，其余的 Field 还有诸如 ```CharField``` 、 ```BooleanField``` 等，你可以在 [「这里」](http://www.django-rest-framework.org/api-guide/fields/)查到。</div><div class="line"></div><div class="line">### 添加权限</div><div class="line"></div><div class="line">我们希望授权的用户才能新建、更新和删除 movies，所以需要添加权限管理的功能。</div><div class="line"></div><div class="line">DRF 包含了一系列的 permission 类来实现权限管理，你可以在[「这里」](http://www.django-rest-framework.org/api-guide/permissions/) 查到。</div><div class="line"></div><div class="line">在这个栗子中，我们使用  `IsAuthenticatedOrReadOnly` 来确保授权的请求得到读写的权限，未授权的请求只有只读权限。</div><div class="line"></div><div class="line">首先，在 ```views.py``` 中 import 以下模块:</div><div class="line"></div><div class="line">```python</div><div class="line">from rest_framework import permissions</div></pre></td></tr></table></figure>
+<p>接着，在 <figure class="highlight plain"><figcaption><span>和 ```MoviesDetail``` 中加入以下代码: </span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">```python</div><div class="line">permission_classes = (permissions.IsAuthenticatedOrReadOnly,)</div></pre></td></tr></table></figure></p>
+<h3 id="添加可浏览的授权-api"><a href="#添加可浏览的授权-api" class="headerlink" title="添加可浏览的授权 api"></a>添加可浏览的授权 api</h3><p>如果你在浏览器中访问我们的 api Web 界面，你会发现我们没法创建新的 movies 了，因为在上一步我们设置了权限管理。</p>
+<p>所以我需要在浏览器中添加用户登录来实现带界面的权限管理。(之所以说带界面是因为可以在终端中直接使用 httpie 来访问 api )</p>
+<p>在 <figure class="highlight plain"><figcaption><span>中加入以下代码: </span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">```python</div><div class="line">urlpatterns += [</div><div class="line">    url(r&apos;^api-auth/&apos;, include(&apos;rest_framework.urls&apos;,</div><div class="line">                               namespace=&apos;rest_framework&apos;)),</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<p>这样通过在浏览器中访问 Web api 界面就能在右上角发现一个登录按钮，进行登录授权了。</p>
+<h3 id="对象级权限"><a href="#对象级权限" class="headerlink" title="对象级权限"></a>对象级权限</h3><p>之前提到要使 movies 可以被任何人访问，但是只能被创建者编辑，所以需要赋予其游客访问的权限以及创建者编辑权限。</p>
+<p>下面我们新建一个 <figure class="highlight plain"><figcaption><span>来详细解决这个权限问题: </span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">```python</div><div class="line">#!/usr/bin/python</div><div class="line"># -*- coding: utf-8 -*-</div><div class="line">from rest_framework import permissions</div><div class="line"></div><div class="line"></div><div class="line">class IsOwnerOrReadOnly(permissions.BasePermission):</div><div class="line">    &quot;&quot;&quot;</div><div class="line">    游客访问权限及创建者编辑权限</div><div class="line">    &quot;&quot;&quot;</div><div class="line"></div><div class="line">    def has_object_permission(self, request, view, obj):</div><div class="line">        # 游客权限</div><div class="line">        if request.method in permissions.SAFE_METHODS:</div><div class="line">            return True</div><div class="line"></div><div class="line">        # 编辑权限</div><div class="line">        return obj.owner == request.user</div></pre></td></tr></table></figure></p>
+<p>修改 <figure class="highlight plain"><figcaption><span>中 ```MoviesDetail``` 的 ```permission_class``` : </span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">```python</div><div class="line">from douban.permissions import IsOwnerOrReadOnly</div><div class="line"></div><div class="line">permission_classes = (permissions.IsAuthenticatedOrReadOnly,</div><div class="line">                      IsOwnerOrReadOnly,)</div></pre></td></tr></table></figure></p>
+<p>终于，我们完成了整个 api 授权的过程！</p>
+
+	
+	
+	
+	
+</div>
+				
+				
+
+                <!-- Post Comments -->
+                
+
+
+    <!-- 使用 DISQUS -->
+	<div id="disqus-comment">
+		<div id="disqus_thread"></div>
+<script>
+	var disqus_config = function () {
+		this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+		this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+	};
+
+	(function() { // DON'T EDIT BELOW THIS LINE
+		var d = document, s = d.createElement('script');
+		s.src = '//thehackercat.disqus.com/embed.js';
+		s.setAttribute('data-timestamp', +new Date());
+		(d.head || d.body).appendChild(s);
+	})();
+</script>
+	</div>
+	<style>
+		#disqus-comment{
+			background-color:#eee;
+			padding:2pc;
+		}
+	</style>
+
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    
+    <!-- Prev Nav -->
+    
+        <a href="/2016/04/06/2016-04-06-DRF-tutorial-5-relations/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Newer
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2016/04/03/2016-04-03-DRF-tutorial-3-class-based-views/" id="post_nav-older" class="next-content">
+            Older
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+        </div>
+    </div>
+
+				
+				
+					<!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay "></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored  sidebar-fixed-left" role="navigation">
+	<div id="sidebar-main">
+	    <!-- Sidebar Header -->
+		<div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+    <i class="material-icons">clear_all</i>
+    <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.jpg" alt="LexusLee's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        lexuscyborg103@email.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+		<!-- Sidebar Navigation  -->
+		<ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+			
+                <li>
+                    <a href="mailto:lexuscyborg103@gmail.com" target="_blank" title="Email Me">
+						<i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    <li id="sidebar-first-li">
+        <a href="/" target="_self">
+            <i class="material-icons sidebar-material-icons">home</i>
+             Home
+        </a>
+    </li>
+
+    <!-- I'm Feeling Lucky -->
+<!--
+    <li class="dropdown">
+        <a href="" target="_self">
+            <i class="material-icons sidebar-material-icons">explore</i>
+             sidebar.imlucky
+        </a>
+    </li>
+-->
+
+	
+    <!-- Archives  -->
+    <li class="dropdown">
+        <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+            <i class="material-icons sidebar-material-icons">inbox</i>
+             Archives
+            <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+            <li>
+            <a class="sidebar_archives-link" href="/archives/2020/01/">January 2020<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/12/">December 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/08/">August 2019<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">July 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">September 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">August 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/02/">February 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">December 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">September 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">August 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">July 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">May 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">April 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">March 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">July 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">April 2016<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">March 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">February 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">December 2015<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">November 2015<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/05/">May 2015<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/04/">April 2015<span class="sidebar_archives-count">1</span></a>
+        </ul>
+    </li>
+
+    <!-- Divider -->
+    <li class="divider"></li>
+
+
+    <!-- Pages  -->
+	
+		<li>
+			<a href="http://thehackercat.deercv.com/" title="About me">
+				About me
+			</a>
+		</li>
+	
+
+    <!-- Article Numebr  -->
+    <li>
+        <a href="/archives">
+             Article Number
+             <span class="sidebar-badge">38</span>
+        </a>
+    </li>
+</ul>
+
+		<!-- Sidebar Divider -->
+		<div class="sidebar-divider"></div>
+
+		<!-- Sidebar Footer -->
+		<!-- 
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持。 :) 
+-->
+
+<!-- Theme Material -->
+<a href="https://github.com/viosey/hexo-theme-material"  class="sidebar-footer-text-a" target="_blank">
+	<div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+		Theme - Material
+		<span class="sidebar-badge badge-circle">i</span>
+	</div>
+</a>
+
+<!-- Help & Support -->
+<!--
+<a href="mailto:hiviosey@gmail.com" class="sidebar-footer-text-a">
+    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+		sidebar.help
+		<span class="mdl-button__ripple-container">
+			<span class="mdl-ripple"></span>
+		</span>
+	</div>
+</a>
+-->
+
+<!-- Feedback -->
+<!--
+<a href="https://github.com/viosey/hexo-theme-material/issues" target="_blank" class="sidebar-footer-text-a">
+    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+         sidebar.feedback
+                    <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+</a>
+-->
+
+<!-- Abount Theme -->
+<!--
+<a href="https://blog.viosey.com/index.php/Material.html" target="_blank" class="sidebar-footer-text-a">
+    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+         sidebar.about_theme
+        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+</a>-->
+
+	</div>
+    
+    <!-- Sidebar Sponsor -->
+    
+
+
+</aside>
+
+				
+				
+				
+					<!-- Footer Top Button -->
+					<div class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+				
+				
+				<!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+	
+	
+		<!-- Paradox Footer Left Section -->
+		<div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+    
+    
+    <!-- Facebook -->
+    
+    
+    
+    <!-- Google + -->
+    
+    
+
+    <!-- Weibo -->
+    
+    
+    
+    <!-- Instagram -->
+    
+    <a href="https://www.instagram.com/thehackercat" target="view_window"><button class="mdl-mini-footer--social-btn social-btn" style="background-image: url(/img/footer/footer_ico-instagram.png);">
+        <span class="visuallyhidden">Instagram</span>
+    </button></a>
+    
+    
+    <!-- Tumblr -->
+    
+    
+    
+    <!-- Github -->
+    
+    <a href="https://github.com/thehackercat" target="view_window"><button class="mdl-mini-footer--social-btn social-btn" style="background-image: url(/img/footer/footer_ico-github.png);">
+        <span class="visuallyhidden">Github</span>
+    </button></a>
+    
+
+    <!-- Douban -->
+    
+    <a href="https://www.douban.com/people/thehackercat" target="view_window"><button class="mdl-mini-footer--social-btn social-btn" style="background-image: url(/img/footer/footer_ico-douban.png);">
+        <span class="visuallyhidden">Douban</span>
+    </button></a>
+    
+</div>
+
+
+		<!--Copyright-->
+		<div id="copyright">Copyright&nbsp;©&nbsp;<script type="text/javascript">var fd = new Date();document.write(fd.getFullYear());</script>&nbsp;LexusLee's Blog</div>
+
+		<!-- Paradox Footer Right Section -->
+
+		<!-- 
+		I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+		It will not impact the appearance and can give developers a lot of support :)
+
+		很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+		它不会影响美观并可以给开发者很大的支持。 :) 
+		-->
+
+		<div class="mdl-mini-footer--right-section">
+			<div>
+				<div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+				<div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+			</div>
+		</div>
+	
+    
+</footer>
+                
+				<!-- Import File -->
+<script src="/js/highlight.min.js"></script>
+<script src="/js/js.min.js"></script>
+<script src="/js/nprogress.js"></script>
+
+<script type="text/javascript">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    
+    $('#nprogress .bar').css({
+        'background': '#FF4081'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #FF4081, 0 0 15px #FF4081'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#FF4081',
+        'border-left-color': '#FF4081'
+    });
+    
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+    <!-- Busuanzi -->
+    <script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+    <!-- 使用 DISQUS js 代码 -->
+	<script id="dsq-count-scr" src="//thehackercat.disqus.com/count.js" async></script>
+
+
+<!-- Swiftye -->
+
+
+<!-- Local Search-->
+
+	<script>
+	var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length <= 0) {
+                    return;
+                }
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        str += "<li><a href='"+ data_url +"' class='search-result-title' target='_blank'>"+ data_title;
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out characters
+                            var start = first_occur - 6;
+                            var end = first_occur + 6;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 10;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substr(start, end); 
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<em class=\"search-keyword\">"+keyword+"</em>");
+                            })
+                            str += "<p class=\"search-result\">" + match_content +"...</p>" +"</a>";
+                        }
+                    }
+                })
+                $resultContent.innerHTML = str;
+            })
+        }
+    })
+}
+</script>
+
+	<script>
+        var inputArea = document.querySelector("#search");
+        var getSearchFile = function(){
+            var path = "search.xml";
+            searchFunc(path, 'search', 'local-search-result');
+        }
+
+        inputArea.onfocus = function(){ getSearchFile() }
+	</script>
+
+
+<!-- Window Load-->
+<script>
+    $(window).load(function() {
+        // Post_Toc parent position fixed
+        $(".post-toc-wrap").parent(".mdl-menu__container").css("position", "fixed");
+    });
+</script>
+            </main>
+        </div>
+		
+    </body>
+		
+	
+</html>
