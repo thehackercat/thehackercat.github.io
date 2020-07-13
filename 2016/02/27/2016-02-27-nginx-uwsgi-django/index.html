@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <!-- Title -->
+    
+    <title>
+        在 Ubuntu 下搭建 uWSGI + nginx + Django | LexusLee&#39;s Blog
+    </title>
+    
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" sizes="192x192" href="/img/favicon.png">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+    
+    <!-- Meta & INfo -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0097A7">
+    <meta name="author" content="LexusLee">
+    <meta name="description" content="Be the change you want to see in the world.">
+    <meta name="keywords" content="Lexus">
+    
+    <!--iOS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-title" content="Title">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="480">
+    
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="LexusLee&#39;s Blog">
+    
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://lexuslee.me">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="在 Ubuntu 下搭建 uWSGI + nginx + Django | LexusLee&#39;s Blog">
+    <meta property="og:description" content="Be the change you want to see in the world.">
+    
+     <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+        
+        
+            <script src="/js/ie-blocker.en.js"></script>
+        
+    <![endif]-->
+    
+    <!-- Import CSS -->
+    <link rel="stylesheet" href="/css/material.min.css">
+    <link rel="stylesheet" href="/css/style.min.css">
+    <!-- Config CSS -->
+
+
+<!-- Other Styles -->
+<style>
+	body, html{
+		font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+	}
+	
+    a{
+        color: #00838F
+    }
+    
+    .mdl-card__media,
+    #search-label,
+    #search-form-label:after,
+    #scheme-Paradox .hot_tags-count,
+    #scheme-Paradox .sidebar_archives-count,
+    #scheme-Paradox .sidebar-colored .sidebar-header,
+    #scheme-Paradox .sidebar-colored .sidebar-badge{
+        background-color: #0097A7 !important
+    }
+    
+	/* Sidebar User Drop Down Menu Text Color */
+	#scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+    #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus{
+        color: #0097A7 !important
+    }
+    
+    #post_entry-right-info,
+    .sidebar-colored .sidebar-nav li:hover > a,
+    .sidebar-colored .sidebar-nav li:hover > a i,
+    .sidebar-colored .sidebar-nav li > a:hover,
+    .sidebar-colored .sidebar-nav li > a:hover i,
+    .sidebar-colored .sidebar-nav li > a:focus i,
+    .sidebar-colored .sidebar-nav > .open > a,
+    .sidebar-colored .sidebar-nav > .open > a:hover,
+    .sidebar-colored .sidebar-nav > .open > a:focus,
+    #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a{
+        color: #0097A7 !important
+    }
+    
+    .toTop{
+        background: #757575 !important
+    }
+		
+	.material-layout .material-post>.material-nav,
+	.material-layout .material-index>.material-nav,
+	.material-nav a{
+		color: #757575;
+	}
+		
+	#scheme-Paradox .MD-burger-layer {
+		background-color: #757575;
+	}
+
+	#scheme-Paradox #post-toc-trigger-btn{
+		color: #757575;
+	}
+	
+	.post-toc a:hover{
+		color: #00838F;
+		text-decoration: underline;
+	}
+</style>
+
+
+<!-- Theme Background Related-->
+
+	<style>
+		body{
+            background-image: url(https://api.i-meto.com/bing?null);
+        }
+	</style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+        .fade {
+            transition: all 800ms linear;
+            -webkit-transform: translate3d(0,0,0);
+            -moz-transform: translate3d(0,0,0);
+            -ms-transform: translate3d(0,0,0);
+            -o-transform: translate3d(0,0,0);
+            transform: translate3d(0,0,0);
+            opacity: 1;
+        }
+
+        .fade.out{
+            opacity: 0;
+        }
+    </style>
+
+	<script src="/js/jquery.min.js"></script>
+	
+	<link rel="stylesheet" href="/css/highlight/solarized-white.css">
+	
+	<!-- UC Browser Compatible-->
+	<script>
+		var agent = navigator.userAgent.toLowerCase();
+		if(agent.indexOf('ucbrowser')>0) {
+			document.write('<link rel="stylesheet" href="/css/uc.css">');
+		   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+		}
+	</script>
+    
+    <!-- Custom Head -->
+    
+</head>
+	
+	
+
+    <body id="scheme-Paradox">
+
+		
+        <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+				
+			
+			
+            <!-- Main Container -->
+            <main class="material-layout__content" id="main">
+				
+                <!-- Top Anchor -->
+                <div id="top"></div>
+				
+				
+                <!-- Hamburger Button -->
+                <button class="MD-burger-icon sidebar-toggle">
+                    <span class="MD-burger-layer"></span>
+                </button>
+				
+				
+                
+	<!-- Back Button -->
+<!--
+	<div class="material-back" id="backhome-div" tabindex="0">
+		<a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" href="#" onclick="window.history.back();return false;" target="_self" role="button" data-upgraded=",MaterialButton,MaterialRipple">
+			<i class="material-icons" role="presentation">arrow_back</i>
+			<span class="mdl-button__ripple-container">
+				<span class="mdl-ripple"></span>
+			</span>
+		</a>
+	</div>			
+-->
+	<!-- Left aligned menu below button -->
+	<button id="post-toc-trigger-btn"
+			class="mdl-button mdl-js-button mdl-button--icon">
+	  <i class="material-icons">format_list_numbered</i>
+	</button>
+
+	<ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
+		for="post-toc-trigger-btn">
+			
+			<ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#背景"><span class="post-toc-number">1.</span> <span class="post-toc-text">背景 :</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#准备工作"><span class="post-toc-number">2.</span> <span class="post-toc-text">准备工作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#概况"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">概况</span></a></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#mysite-nginx-conf"><span class="post-toc-number"></span> <span class="post-toc-text">mysite_nginx.conf</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#the-upstream-component-nginx-needs-to-connect-to"><span class="post-toc-number"></span> <span class="post-toc-text">the upstream component nginx needs to connect to</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#configuration-of-the-server"><span class="post-toc-number"></span> <span class="post-toc-text">configuration of the server</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#server-127-0-0-1-8001-for-a-web-port-socket-we’ll-use-this-first"><span class="post-toc-number"></span> <span class="post-toc-text">server 127.0.0.1:8001; # for a web port socket (we’ll use this first)</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Django-related-settings"><span class="post-toc-number"></span> <span class="post-toc-text">Django-related settings</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#the-base-directory-full-path"><span class="post-toc-number"></span> <span class="post-toc-text">the base directory (full path)</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Django’s-wsgi-file"><span class="post-toc-number"></span> <span class="post-toc-text">Django’s wsgi file</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#the-virtualenv-full-path-如果你没有装-virtualenv-就把下面这行用注释掉"><span class="post-toc-number"></span> <span class="post-toc-text">the virtualenv (full path) 如果你没有装 virtualenv 就把下面这行用注释掉</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#process-related-settings"><span class="post-toc-number"></span> <span class="post-toc-text">process-related settings</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#master"><span class="post-toc-number"></span> <span class="post-toc-text">master</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#maximum-number-of-worker-processes"><span class="post-toc-number"></span> <span class="post-toc-text">maximum number of worker processes</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#the-socket-use-the-full-path-to-be-safe"><span class="post-toc-number"></span> <span class="post-toc-text">the socket (use the full path to be safe</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#…-with-appropriate-permissions-may-be-needed"><span class="post-toc-number"></span> <span class="post-toc-text">… with appropriate permissions - may be needed</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#clear-environment-on-exit"><span class="post-toc-number"></span> <span class="post-toc-text">clear environment on exit</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#参考文档"><span class="post-toc-number">0.1.</span> <span class="post-toc-text">参考文档</span></a></li></ol></li></ol>
+		
+<!--			<li class="mdl-menu__item">Some Action</li>-->
+	</ul>
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+		
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+	<!-- Paradox Post Header -->
+	
+		
+			<!-- Random Thumbnail -->
+			<div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+				<script>
+    
+    var randomNum;
+    randomNum = Math.floor(Math.random() * 5 + 1);
+    
+    $(".post_thumbnail-random").css('background-image', 'url(' + '/img/random/' + randomNum + '.png' + ')');
+    
+</script>
+
+		
+	
+        <p class="article-headline-p">
+            在 Ubuntu 下搭建 uWSGI + nginx + Django
+        </p>
+    </div>
+
+	
+
+				
+				
+					<!-- Paradox Post Info -->
+					<div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+    
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.jpg" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>LexusLee</strong>
+        <span>Feb 27, 2016</span>
+    </div>
+    
+    <div class="section-spacer"></div>
+	
+    <!-- Favorite -->
+<!--
+    <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+        <i class="material-icons" role="presentation">favorite</i>
+        <span class="visuallyhidden">favorites</span>
+    </button>
+-->
+    
+    <!-- Tags (bookmark) -->
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        
+    </ul>
+    
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+    
+    
+    
+    
+    <!-- Share Twitter -->
+    <a class="post_share-link" href="https://twitter.com/intent/tweet?text=在 Ubuntu 下搭建 uWSGI + nginx + Django&url=http://lexuslee.me//2016/02/27/2016-02-27-nginx-uwsgi-django/index.html&via=LexusLee" target="_blank">
+        <li class="mdl-menu__item">
+            Share to Twitter
+        </li>
+    </a>
+    
+    <!-- Share Google+ -->
+    <a class="post_share-link" href="https://plus.google.com/share?url=http://lexuslee.me//2016/02/27/2016-02-27-nginx-uwsgi-django/index.html" target="_blank">
+        <li class="mdl-menu__item">
+            Share to Google+
+        </li>
+    </a>
+    
+    <!-- Share Weibo -->
+    <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=在 Ubuntu 下搭建 uWSGI + nginx + Django&url=http://lexuslee.me//2016/02/27/2016-02-27-nginx-uwsgi-django/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <li class="mdl-menu__item">
+            Share to Weibo
+        </li>
+    </a>
+</ul>
+</div>
+				
+
+                <!-- Post Content -->
+                <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+	
+		<h3 id="背景"><a href="#背景" class="headerlink" title="背景 :"></a>背景 :</h3><p>公司要求用 Django 做些项目，之前按网上教程搭环境的时候就遇到很多问题，感觉有些教程都是有误的，今天用 uWSGI 开多线程的时候服务器报了 HTTP 500 的错( Internal Server Error )，然后就一直连不上去了。所以按<a href="http://uwsgi-docs.readthedocs.org/en/latest/tutorials/Django_and_nginx.html" target="_blank" rel="external">官网的教程</a>重新配置一遍，把出现的问题记录下来。<br><a id="more"></a></p>
+<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><h4 id="概况"><a href="#概况" class="headerlink" title="概况"></a>概况</h4><p>一个 Web 服务器能加载 ( Html , images , CSS 等静态文件)，但是它不能直接跑 Django 应用 (对于动态的请求无法处理) ，它需要某些工具来支持 Django 应用的运行，从而使 服务器能够接受客户端的请求，处理，并返回请求。s</p>
+<p>这时，我们就需要一个服务器网关接口 – WSGI ! WSGI 是一种Web服务器网关接口。它是一个 Web 服务器（如 nginx）与应用服务器（如 uWSGI 服务器）通信的一种规范</p>
+<p>而 uWSGI 是一个Web服务器，它实现了 WSGI 协议、 uwsgi 、 http 等协议。</p>
+<p>nginx 中 <figure class="highlight plain"><figcaption><span>的作用是与 uWSGI 服务器进行数据交换。</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">所以这套配置的实现原理是将 nginx 作为服务器最前端，它将接收 Web 的所有请求，统一管理请求。nginx 把所有静态请求自己来处理（这是 Nginx 的强项）。然后，Nginx 将所有非静态请求通过 uwsgi 传递给 Django ，由 Django 来进行处理，从而完成一次 Web 请求。</div><div class="line"></div><div class="line">配置 uWSGI + nginx + Django 即实现以下4个链接，在下文，我们会一步步进行链接。</div></pre></td></tr></table></figure></p>
+<p>the web client &lt;-&gt; the web server &lt;-&gt; the socket &lt;-&gt; uwsgi &lt;-&gt; Django<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#### Python</div><div class="line">Ubuntu 14.04 自带了 Python2.7.6</div><div class="line"></div><div class="line">你也可以通过</div></pre></td></tr></table></figure></p>
+<p>sudo apt-get install python2.7 python2.7-dev<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">来安装最新版本的 Python2.7.11</div><div class="line">#### Python-pip</div><div class="line">pip 是 Python 的包管理工具，建议 Python 的包都用  pip 进行管理。</div><div class="line"></div><div class="line">通过以下命令安装  pip  :</div></pre></td></tr></table></figure></p>
+<p>sudo apt-get install python-pip<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#### Django</div><div class="line">通过以下命令安装 Django 并创建一个新的项目，然后进入到项目根目录 :</div></pre></td></tr></table></figure></p>
+<p>sudo pip install Django<br>django-admin.py startproject mysite<br>cd mysite<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#### 关于域名和端口</div><div class="line">在这篇 blog 中，我们把调试域名定为 127.0.0.1，你可以用自己的域名或本机 ip 地址来替代它。</div><div class="line"></div><div class="line">并且，我们用 8000 端口作为 web 调试地址端口，这个端口与大部分 web 服务器的端口不重叠，当然你也可以自行修改调试地址的端口。</div><div class="line"></div><div class="line">### 安装配置 uWSGI</div><div class="line">#### 安装</div></pre></td></tr></table></figure></p>
+<p>sudo pip install uwsgi<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">用 ```pip``` 安装 uwsgi 最为方便，因为如果你用 ```apt-get install``` 来安装 uwsgi 的话，你需要在 Python 搜索路径中添加入 uwsgi 模块。</div><div class="line"></div><div class="line">#### 测试 uwsgi</div><div class="line">在刚刚的 mysite 目录下新建一个 Python 文件 ```test.py``` :</div><div class="line"></div><div class="line">``` python</div><div class="line"># test.py</div><div class="line">def application(env, start_response):</div><div class="line">    start_response(&apos;200 OK&apos;, [(&apos;Content-Type&apos;,&apos;text/html&apos;)])</div><div class="line">    return [b&quot;Hello World&quot;] # python3</div><div class="line">	#return [&quot;Hello World&quot;] # python2</div></pre></td></tr></table></figure></p>
+<p>接着运行 uWSGI 命令:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">uwsgi --http :8000 --wsgi-file test.py</div></pre></td></tr></table></figure>
+<p>注意：在 <figure class="highlight plain"><figcaption><span>与 ```:8000``` 之间有一个空格！</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">参数含义：</div><div class="line"></div><div class="line">- ```http :8000```：使用 http 协议，8000端口</div><div class="line">- ```wsgi-file test.py``` : 加载指定文件 test.py</div><div class="line"></div><div class="line">接着在浏览器中输入以下 url :</div></pre></td></tr></table></figure></p>
+<p><a href="http://127.0.0.1:8000" target="_blank" rel="external">http://127.0.0.1:8000</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">如果出现了 &apos;Hello World!&apos; 那说明 uWSGI 安装成功，以下链接是成功的 :</div></pre></td></tr></table></figure></p>
+<p>the web client &lt;-&gt; uWSGI &lt;-&gt; Django<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#### 测试 Django 项目</div><div class="line">现在我们用 uWSGI 来跑 Django 网站试试。</div><div class="line"></div><div class="line">首先进入 Django 项目根目录，即之前的 /mysite/ 运行</div></pre></td></tr></table></figure></p>
+<p>python manage.py runserver 127.0.0.1:8888<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">在浏览器中访问该 url ，如果出现如下界面则说明你的 mysite 项目是可运行的 :</div><div class="line"></div><div class="line">![django_test](http://thehackercat-hackercat.stor.sinaapp.com/django_test1.png)</div><div class="line"></div><div class="line">接着运行 uWSGI :</div></pre></td></tr></table></figure></p>
+<p>uwsgi –http :8000 –module mysite.wsgi<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- ```module mysite.wsgi``` : 读取特定的 wsgi 模块</div><div class="line"></div><div class="line">如果出现同样的界面，说明你的 uWSGI 已经可以搭载你的 Django 应用惹，所以以下的链接是成功的 :</div></pre></td></tr></table></figure></p>
+<p>the web client &lt;-&gt; uWSGI &lt;-&gt; Django<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### 安装配置 nginx</div><div class="line">#### 安装 nginx</div></pre></td></tr></table></figure></p>
+<p>sudo apt-get install nginx<br>sudo /etc/init.d/nginx start    # 开启 nginx 服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">现在到浏览器中输入 ```http://127.0.0.1``` ，如果你看到以下信息 : “Welcome to nginx!”那么说明 nginx 服务器运行成功，以下链接成功 :</div></pre></td></tr></table></figure></p>
+<p>the web client &lt;-&gt; the web server<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#### 配置 nginx</div><div class="line">首先，你需要一个 uwsgi_params 文件。</div><div class="line"></div><div class="line">- 将 uwsgi_params 文件拷贝到项目文件夹下(即 /mysite/ )。uwsgi_params文件在/etc/nginx/目录下，也可以从这个[页面下载](https://github.com/nginx/nginx/blob/master/conf/uwsgi_params)</div><div class="line">- 在项目文件夹下创建文件 mysite_nginx.conf ,填入并修改下面内容：</div></pre></td></tr></table></figure></p>
+<h1 id="mysite-nginx-conf"><a href="#mysite-nginx-conf" class="headerlink" title="mysite_nginx.conf"></a>mysite_nginx.conf</h1><h1 id="the-upstream-component-nginx-needs-to-connect-to"><a href="#the-upstream-component-nginx-needs-to-connect-to" class="headerlink" title="the upstream component nginx needs to connect to"></a>the upstream component nginx needs to connect to</h1><p>upstream django {</p>
+<pre><code># server unix:///path/to/your/mysite/mysite.sock; # for a file socket
+server 127.0.0.1:8001; # for a web port socket (we&apos;ll use this first)
+</code></pre><p>}</p>
+<h1 id="configuration-of-the-server"><a href="#configuration-of-the-server" class="headerlink" title="configuration of the server"></a>configuration of the server</h1><p>server {</p>
+<pre><code># the port your site will be served on
+listen      8000;
+# the domain name it will serve for
+server_name 127.0.0.1; # substitute your machine&apos;s IP address or FQDN
+charset     utf-8;
+
+# max upload size
+client_max_body_size 75M;   # adjust to taste
+
+# Django media
+location /media  {
+    alias /path/to/your/mysite/media;  # your Django project&apos;s media files - amend as required
+}
+
+location /static {
+    alias /path/to/your/mysite/static; # your Django project&apos;s static files - amend as required
+}
+
+# Finally, send all non-media requests to the Django server.
+location / {
+    uwsgi_pass  django;
+    include     /path/to/your/mysite/uwsgi_params; # the uwsgi_params file you installed
+}
+</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">在终端中进入之前的 /mysite/ 项目文件夹，输入 ``pwd``` ，复制下该路径，将 mysite_nginx.conf 中的 /path/to/your/mysite 全部替换掉。</div><div class="line"></div><div class="line">在/etc/nginx/sites-enabled目录下创建本文件的连接，使nginx能够使用它 :</div></pre></td></tr></table></figure></p>
+<p>sudo ln -s ~/path/to/your/mysite/mysite_nginx.conf /etc/nginx/sites-enabled/<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">注意：记得检查 /etc/nginx/sites-enabled/ 下的软链接是否成功，因为之前我就遇到了路径出错的问题。</div><div class="line"></div><div class="line">#### 部署静态文件</div><div class="line">在运行 nginx 前，你还需要把 Django 的所有静态文件全部整理到之前的 static 文件夹里，在 /mysite/mysite/settings.py 中添加以下内容 :</div></pre></td></tr></table></figure></p>
+<p>STATIC_ROOT = os.path.join(BASE_DIR, “static/“)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">接着运行</div></pre></td></tr></table></figure></p>
+<p>python manage.py collectstatic<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">现在你发现 Django 所有的静态文件都被整理到了 /mysite/static/ 文件夹里了。</div><div class="line"></div><div class="line">#### 测试 nginx </div><div class="line">首先重启 ngxin 服务 :</div></pre></td></tr></table></figure></p>
+<p>sudo /etc/init.d/nginx restart<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">在 /mysite/mysite/media/ 文件夹中添加一个 ```media.png``` 文件。</div><div class="line"></div><div class="line">在浏览器中打开 :```http://127.0.0.1:8000/media/media.png</div></pre></td></tr></table></figure></p>
+<p>如果显示出了图片，说明 nginx 服务已经正确运行惹。</p>
+<p>注意在从浏览器中请求图片信息时，在 uwsgi 里是没有输出信息的，而请求一个其他的动态网页时，则会输出类似<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[pid: 1952|app: 0|req: 3/3] 127.0.0.1 () &#123;36 vars in 599 bytes&#125; [Wed Mar 18 08:43:27 2015] GET /time/ =&gt; generated 63 bytes in 1 msecs (HTTP/1.1 200) 2 headers in 88 bytes (1 switches on core 0)</div><div class="line">``` </div><div class="line">这样的信息。</div><div class="line"></div><div class="line">也就是缩，当你在浏览器中请求 media.png 时， nginx 会检查这个地址 /media/ ，接着它会在 mysite_nginx.conf 文件中看到这段代码:</div></pre></td></tr></table></figure></p>
+<p>location /media  {<br>        alias /home/thehackercat/Dev/mysite/mysite/media;  # your Django project’s media files - amend as required<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">它会直接从这个路径下去寻找图片，找到了就显示粗来，没找着就报 404 错误。</div><div class="line"></div><div class="line">#### nginx and uWSGI and test.py</div><div class="line">现在进入 /mysite/ 文件夹 输入以下命令 ：</div></pre></td></tr></table></figure></p>
+<p>uwsgi –socket :8001 –wsgi-file test.py<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">在浏览器中访问 ```http://127.0.0.1:8000 ``` 如果出现 &apos;Hello World!&apos; 则说明以下链接是成功的 :</div></pre></td></tr></table></figure></p>
+<p>the web client &lt;-&gt; the web server &lt;-&gt; the socket &lt;-&gt; uWSGI &lt;-&gt; Python<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### 用 UNIX socket 取代 TCP port</div><div class="line">在 mysite/ 文件夹下创建一个新文件 mysite.sock （空文本文档即可）。</div><div class="line"></div><div class="line">然后对 ```mysite_nginx.conf``` 做以下修改 :</div></pre></td></tr></table></figure></p>
+<p>server unix:///path/to/your/mysite/mysite.sock; # for a file socket</p>
+<h1 id="server-127-0-0-1-8001-for-a-web-port-socket-we’ll-use-this-first"><a href="#server-127-0-0-1-8001-for-a-web-port-socket-we’ll-use-this-first" class="headerlink" title="server 127.0.0.1:8001; # for a web port socket (we’ll use this first)"></a>server 127.0.0.1:8001; # for a web port socket (we’ll use this first)</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">运行 :</div></pre></td></tr></table></figure>
+<p>sudo /etc/init.d/nginx restart<br>uwsgi –socket mysite.sock –wsgi-file test.py<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">打开 ```http://127.0.0.1:8000``` 结果报错了，出现了这个错误</div></pre></td></tr></table></figure></p>
+<p>[crit] 4133#0: *1 connect() to unix:/home/thehackercat/Dev/mysite/mysite.sock failed (13: Permission denied) while connecting to upstream, client: 127.0.0.1, server: 127.0.0.1, request: “GET / HTTP/1.1”, upstream: “uwsgi://unix:/home/thehackercat/Dev/mysite/mysite.sock:”, host: “127.0.0.1:8000”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">发现原来是权限的问题，于是在命令中加入这一段 :</div></pre></td></tr></table></figure></p>
+<p>uwsgi –socket mysite.sock –wsgi-file test.py –chmod-socket=666<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">然后就成功了！</div><div class="line"></div><div class="line">#### 用 uswgi 和 nginx 跑 Django 应用</div><div class="line">如果上面一切都运行正常，则输入下面命令可以跑 Django 应用 :</div></pre></td></tr></table></figure></p>
+<p>uwsgi –socket mysite.sock –module mysite.wsgi –chmod-socket=666<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### 配置 uWSGI 便捷开启服务器</div><div class="line">如果每次都按上述命令来跑 Django 应用实在麻烦，所以使用 .ini 文件来简化工作，便捷开启服务器，方法如下 : </div><div class="line"></div><div class="line">在 /mysite/ 文件夹下创建文件 mysite_uwsgi.ini ，并填写修改下面内容 :</div></pre></td></tr></table></figure></p>
+<p>mysite_uwsgi.ini file<br>[uwsgi]</p>
+<h1 id="Django-related-settings"><a href="#Django-related-settings" class="headerlink" title="Django-related settings"></a>Django-related settings</h1><h1 id="the-base-directory-full-path"><a href="#the-base-directory-full-path" class="headerlink" title="the base directory (full path)"></a>the base directory (full path)</h1><p>chdir = /home/thehackercat/Dev/mysite</p>
+<h1 id="Django’s-wsgi-file"><a href="#Django’s-wsgi-file" class="headerlink" title="Django’s wsgi file"></a>Django’s wsgi file</h1><p>module = mysite.wsgi</p>
+<h1 id="the-virtualenv-full-path-如果你没有装-virtualenv-就把下面这行用注释掉"><a href="#the-virtualenv-full-path-如果你没有装-virtualenv-就把下面这行用注释掉" class="headerlink" title="the virtualenv (full path) 如果你没有装 virtualenv 就把下面这行用注释掉"></a>the virtualenv (full path) 如果你没有装 virtualenv 就把下面这行用注释掉</h1><p>home = /usr/bin/virtualenv</p>
+<h1 id="process-related-settings"><a href="#process-related-settings" class="headerlink" title="process-related settings"></a>process-related settings</h1><h1 id="master"><a href="#master" class="headerlink" title="master"></a>master</h1><p>master = true</p>
+<h1 id="maximum-number-of-worker-processes"><a href="#maximum-number-of-worker-processes" class="headerlink" title="maximum number of worker processes"></a>maximum number of worker processes</h1><p>processes = 10</p>
+<h1 id="the-socket-use-the-full-path-to-be-safe"><a href="#the-socket-use-the-full-path-to-be-safe" class="headerlink" title="the socket (use the full path to be safe"></a>the socket (use the full path to be safe</h1><p>socket = /home/thehackercat/Dev/mysite/mysite.sock</p>
+<h1 id="…-with-appropriate-permissions-may-be-needed"><a href="#…-with-appropriate-permissions-may-be-needed" class="headerlink" title="… with appropriate permissions - may be needed"></a>… with appropriate permissions - may be needed</h1><p>chmod-socket = 666</p>
+<h1 id="clear-environment-on-exit"><a href="#clear-environment-on-exit" class="headerlink" title="clear environment on exit"></a>clear environment on exit</h1><p>vacuum = true<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">现在，只要运行以下命令，就可以跑 Django 应用了 :</div></pre></td></tr></table></figure></p>
+<p>uwsgi –ini mysite_uwsgi.ini<br>```</p>
+<p>到这里，如果你在浏览器中访问<code>http://127.0.0.1:8000</code> 可以看到正常的 Django 页面，则说明 uWSGI + nginx + Django 配置成功！</p>
+<h4 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h4><ol>
+<li><a href="http://www.jianshu.com/p/32dbe2537b78" target="_blank" rel="external">nginx与Django不可不说的秘密</a></li>
+<li><a href="http://uwsgi-docs.readthedocs.org/en/latest/tutorials/Django_and_nginx.html" target="_blank" rel="external">Setting up Django and your web server with uWSGI and nginx</a></li>
+</ol>
+<p>有些同学一定会被网上各种教程的 Django 目录结构搞得头大，其实这个目录是可自定义的，下面是我的目录结构 : </p>
+<p><img src="http://thehackercat-hackercat.stor.sinaapp.com/django_test4.png" alt="django_menu"></p>
+
+	
+	
+	
+	
+</div>
+				
+				
+
+                <!-- Post Comments -->
+                
+
+
+    <!-- 使用 DISQUS -->
+	<div id="disqus-comment">
+		<div id="disqus_thread"></div>
+<script>
+	var disqus_config = function () {
+		this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+		this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+	};
+
+	(function() { // DON'T EDIT BELOW THIS LINE
+		var d = document, s = d.createElement('script');
+		s.src = '//thehackercat.disqus.com/embed.js';
+		s.setAttribute('data-timestamp', +new Date());
+		(d.head || d.body).appendChild(s);
+	})();
+</script>
+	</div>
+	<style>
+		#disqus-comment{
+			background-color:#eee;
+			padding:2pc;
+		}
+	</style>
+
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    
+    <!-- Prev Nav -->
+    
+        <a href="/2016/03/29/2016-03-29-django-rest-framework/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Newer
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2015/12/23/2015-12-23-nsfocus-interview/" id="post_nav-older" class="next-content">
+            Older
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+        </div>
+    </div>
+
+				
+				
+					<!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay "></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored  sidebar-fixed-left" role="navigation">
+	<div id="sidebar-main">
+	    <!-- Sidebar Header -->
+		<div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+    <i class="material-icons">clear_all</i>
+    <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.jpg" alt="LexusLee's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        lexuscyborg103@email.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+		<!-- Sidebar Navigation  -->
+		<ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+			
+                <li>
+                    <a href="mailto:lexuscyborg103@gmail.com" target="_blank" title="Email Me">
+						<i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    <li id="sidebar-first-li">
+        <a href="/" target="_self">
+            <i class="material-icons sidebar-material-icons">home</i>
+             Home
+        </a>
+    </li>
+
+    <!-- I'm Feeling Lucky -->
+<!--
+    <li class="dropdown">
+        <a href="" target="_self">
+            <i class="material-icons sidebar-material-icons">explore</i>
+             sidebar.imlucky
+        </a>
+    </li>
+-->
+
+	
+    <!-- Archives  -->
+    <li class="dropdown">
+        <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+            <i class="material-icons sidebar-material-icons">inbox</i>
+             Archives
+            <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+            <li>
+            <a class="sidebar_archives-link" href="/archives/2020/01/">January 2020<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/12/">December 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/08/">August 2019<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2019/07/">July 2019<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/09/">September 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/08/">August 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/02/">February 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">December 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/09/">September 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/08/">August 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/07/">July 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/05/">May 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">April 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">March 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/07/">July 2016<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/04/">April 2016<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/03/">March 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/02/">February 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/12/">December 2015<span class="sidebar_archives-count">4</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/11/">November 2015<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/05/">May 2015<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2015/04/">April 2015<span class="sidebar_archives-count">1</span></a>
+        </ul>
+    </li>
+
+    <!-- Divider -->
+    <li class="divider"></li>
+
+
+    <!-- Pages  -->
+	
+		<li>
+			<a href="http://thehackercat.deercv.com/" title="About me">
+				About me
+			</a>
+		</li>
+	
+
+    <!-- Article Numebr  -->
+    <li>
+        <a href="/archives">
+             Article Number
+             <span class="sidebar-badge">38</span>
+        </a>
+    </li>
+</ul>
+
+		<!-- Sidebar Divider -->
+		<div class="sidebar-divider"></div>
+
+		<!-- Sidebar Footer -->
+		<!-- 
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持。 :) 
+-->
+
+<!-- Theme Material -->
+<a href="https://github.com/viosey/hexo-theme-material"  class="sidebar-footer-text-a" target="_blank">
+	<div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+		Theme - Material
+		<span class="sidebar-badge badge-circle">i</span>
+	</div>
+</a>
+
+<!-- Help & Support -->
+<!--
+<a href="mailto:hiviosey@gmail.com" class="sidebar-footer-text-a">
+    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+		sidebar.help
+		<span class="mdl-button__ripple-container">
+			<span class="mdl-ripple"></span>
+		</span>
+	</div>
+</a>
+-->
+
+<!-- Feedback -->
+<!--
+<a href="https://github.com/viosey/hexo-theme-material/issues" target="_blank" class="sidebar-footer-text-a">
+    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+         sidebar.feedback
+                    <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+</a>
+-->
+
+<!-- Abount Theme -->
+<!--
+<a href="https://blog.viosey.com/index.php/Material.html" target="_blank" class="sidebar-footer-text-a">
+    <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+         sidebar.about_theme
+        <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></div>
+</a>-->
+
+	</div>
+    
+    <!-- Sidebar Sponsor -->
+    
+
+
+</aside>
+
+				
+				
+				
+					<!-- Footer Top Button -->
+					<div class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+				
+				
+				<!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+	
+	
+		<!-- Paradox Footer Left Section -->
+		<div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+    
+    
+    <!-- Facebook -->
+    
+    
+    
+    <!-- Google + -->
+    
+    
+
+    <!-- Weibo -->
+    
+    
+    
+    <!-- Instagram -->
+    
+    <a href="https://www.instagram.com/thehackercat" target="view_window"><button class="mdl-mini-footer--social-btn social-btn" style="background-image: url(/img/footer/footer_ico-instagram.png);">
+        <span class="visuallyhidden">Instagram</span>
+    </button></a>
+    
+    
+    <!-- Tumblr -->
+    
+    
+    
+    <!-- Github -->
+    
+    <a href="https://github.com/thehackercat" target="view_window"><button class="mdl-mini-footer--social-btn social-btn" style="background-image: url(/img/footer/footer_ico-github.png);">
+        <span class="visuallyhidden">Github</span>
+    </button></a>
+    
+
+    <!-- Douban -->
+    
+    <a href="https://www.douban.com/people/thehackercat" target="view_window"><button class="mdl-mini-footer--social-btn social-btn" style="background-image: url(/img/footer/footer_ico-douban.png);">
+        <span class="visuallyhidden">Douban</span>
+    </button></a>
+    
+</div>
+
+
+		<!--Copyright-->
+		<div id="copyright">Copyright&nbsp;©&nbsp;<script type="text/javascript">var fd = new Date();document.write(fd.getFullYear());</script>&nbsp;LexusLee's Blog</div>
+
+		<!-- Paradox Footer Right Section -->
+
+		<!-- 
+		I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+		It will not impact the appearance and can give developers a lot of support :)
+
+		很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+		它不会影响美观并可以给开发者很大的支持。 :) 
+		-->
+
+		<div class="mdl-mini-footer--right-section">
+			<div>
+				<div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+				<div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+			</div>
+		</div>
+	
+    
+</footer>
+                
+				<!-- Import File -->
+<script src="/js/highlight.min.js"></script>
+<script src="/js/js.min.js"></script>
+<script src="/js/nprogress.js"></script>
+
+<script type="text/javascript">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    
+    $('#nprogress .bar').css({
+        'background': '#FF4081'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #FF4081, 0 0 15px #FF4081'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#FF4081',
+        'border-left-color': '#FF4081'
+    });
+    
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+    <!-- Busuanzi -->
+    <script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+    <!-- 使用 DISQUS js 代码 -->
+	<script id="dsq-count-scr" src="//thehackercat.disqus.com/count.js" async></script>
+
+
+<!-- Swiftye -->
+
+
+<!-- Local Search-->
+
+	<script>
+	var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length <= 0) {
+                    return;
+                }
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        str += "<li><a href='"+ data_url +"' class='search-result-title' target='_blank'>"+ data_title;
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out characters
+                            var start = first_occur - 6;
+                            var end = first_occur + 6;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 10;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substr(start, end); 
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<em class=\"search-keyword\">"+keyword+"</em>");
+                            })
+                            str += "<p class=\"search-result\">" + match_content +"...</p>" +"</a>";
+                        }
+                    }
+                })
+                $resultContent.innerHTML = str;
+            })
+        }
+    })
+}
+</script>
+
+	<script>
+        var inputArea = document.querySelector("#search");
+        var getSearchFile = function(){
+            var path = "search.xml";
+            searchFunc(path, 'search', 'local-search-result');
+        }
+
+        inputArea.onfocus = function(){ getSearchFile() }
+	</script>
+
+
+<!-- Window Load-->
+<script>
+    $(window).load(function() {
+        // Post_Toc parent position fixed
+        $(".post-toc-wrap").parent(".mdl-menu__container").css("position", "fixed");
+    });
+</script>
+            </main>
+        </div>
+		
+    </body>
+		
+	
+</html>
