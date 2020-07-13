@@ -10,108 +10,55 @@ math:
 ---
 
 {{< style "img { height: 1.25rem; }" >}}
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/dillonzq/LoveIt?style=flat-square)](https://github.com/dillonzq/LoveIt/releases)
+<!-- [![GitHub release (latest by date)](https://img.shields.io/github/v/release/dillonzq/LoveIt?style=flat-square)](https://github.com/dillonzq/LoveIt/releases)
 [![Hugo](https://img.shields.io/badge/Hugo-%5E0.62.0-ff4088?style=flat-square&logo=hugo)](https://gohugo.io/)
 [![License](https://img.shields.io/github/license/dillonzq/LoveIt?style=flat-square)](https://github.com/dillonzq/LoveIt/blob/master/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/dillonzq/LoveIt?style=social)](https://github.com/dillonzq/LoveIt)
-[![GitHub forks](https://img.shields.io/github/forks/dillonzq/LoveIt?style=social)](https://github.com/dillonzq/LoveIt/fork)
+[![GitHub forks](https://img.shields.io/github/forks/dillonzq/LoveIt?style=social)](https://github.com/dillonzq/LoveIt/fork) -->
 {{< /style >}}
 
-> [:(far fa-kiss-wink-heart fa-fw): LoveIt](https://github.com/dillonzq/LoveIt) is a **clean**, **elegant** but **advanced** blog theme for [Hugo](https://gohugo.io/) developed by [Dillon](https://dillonzq.com).
+> It's the morning breeze that caresses your face.
 >
-> It is based on the original [LeaveIt Theme](https://github.com/liuzc/LeaveIt) and [KeepIt Theme](https://github.com/Fastbyte01/KeepIt).
+> It's the Panda Man who walks the lakes at night with a sword.
 
-![Hugo Theme LoveIt](/images/Apple-Devices-Preview.png "Hugo Theme LoveIt")
+#### Sketch
 
-### Features
+Hi, I am a programmer.
 
-#### Performance and SEO
+I usually like to dive into technical forums HackerNews, Wooyun, InfoQ, etc., and also Honoured as SAE Certified Junior Indie Developer. I've mentioned vulnerabilities, tossed around network security in the early years on Wooyun.
 
-* :(fas fa-rocket fa-fw): Optimized for **performance**: [99]/[100] on mobile and [100]/[100] on desktop in [Google PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights)
-* :(fab fa-searchengin fa-fw): Optimized SEO performance with a correct **SEO SCHEMA** based on JSON-LD
-* :(fab fa-google fa-fw): **[Google Analytics](https://analytics.google.com/analytics)** supported
-* :(far fa-chart-bar fa-fw): **[Fathom Analytics](https://usefathom.com/)** supported
-* :(fas fa-search fa-fw): Search engine **verification** supported (Google, Bind, Yandex and Baidu)
-* :(fas fa-tachometer-alt fa-fw): **CDN** for third-party libraries supported
-* :(fas fa-cloud-download-alt fa-fw): Automatically converted images with **Lazy Load** by [lazysizes](https://github.com/aFarkas/lazysizes)
+Currently my technology stack is focusing on cloud platform development, basically Kubernetes stuffs. The main languages I used mostly are Python/Golang. What Python attracts me is it has simple syntax sugar and very easy to use, the most often criticized defect of Python, slow interpreter, is getting well After Python 3.6 async came along, it gradually improved. However, when dealing with CPU-bound tasks, Golang performs better, I found out.
 
-#### Appearance and Layout
+Also I have a strong passion for interaction design. I feel that an app is for people, and should be relevant to human habits and follow a high-quality human aesthetic.
 
-* [:(fas fa-desktop):]/[:(fas fa-mobile):] **Responsive** layout
-* [:(fas fa-sun):]/[:(fas fa-moon):] **[Light]/[Dark]** mode
-* :(fas fa-layer-group fa-fw): Globally consistent **design language**
-* :(fas fa-ellipsis-h fa-fw): **Pagination** supported
-* :(far fa-list-alt fa-fw): Easy-to-use and self-expanding **table of contents**
-* :(fas fa-language fa-fw): **Multilanguage** supported and i18n ready
-* :(fab fa-css3-alt fa-fw): Beautiful **CSS animation**
+Outside of forums, I'm one of the few teenagers on the planet who speaks the language, :(fas fa-rocket fa-fw): [minions](https://en.wikipedia.org/wiki/Minions_(film)). likes absurd yet logical things, and sees all windmills as dragons.
 
-#### Social and Comment Systems
+At the same time, I'm also a huge fan of Marvel, with unrealistic visions of all things superhero and love chasing their faces in the wind.
 
-* :(far fa-user fa-fw): **Gravatar** supported by [Gravatar](https://gravatar.com)
-* :(fas fa-user-circle fa-fw): Local **Avatar** supported
-* :(far fa-id-card fa-fw): Up to **64** social links supported
-* :(fas fa-share-square fa-fw): Up to **28** share sites supported
-* :(far fa-comment fa-fw): **Disqus** comment system supported by [Disqus](https://disqus.com)
-* :(far fa-comment-dots fa-fw): **Gitalk** comment system supported by [Gitalk](https://github.com/gitalk/gitalk)
-* :(far fa-comment-alt fa-fw): **Valine** comment system supported by [Valine](https://valine.js.org/)
-* :(far fa-comments fa-fw): **Facebook comments** system supported by [Facebook](https://developers.facebook.com/docs/plugins/comments/)
-* :(fas fa-comment fa-fw): **Telegram comments** system supported by [Comments](https://comments.app/)
-* :(fas fa-comment-dots fa-fw): **Commento** comment system supported by [Commento](https://commento.io/)
-* :(fas fa-comment-alt fa-fw): **Utterances** comment system supported by [Utterances](https://utteranc.es/)
+#### Why Blogging
 
-#### Extended Features
+I'm blogging to record my life, to have something to think about when I get older.
 
-* :(fas fa-search fa-fw): **Search** supported by [Lunr.js](https://lunrjs.com/) or [algolia](https://www.algolia.com/)
-* :(far fa-grin-tongue-wink fa-fw): **Twemoji** supported
-* :(fas fa-code fa-fw): Automatically **highlighting** code
-* :(far fa-copy fa-fw): **Copy code** to clipboard with one click
-* :(far fa-images fa-fw): **Images gallery** supported by [lightgallery.js](https://github.com/sachinchoolur/lightgallery.js)
-* :(fab fa-font-awesome fa-fw): Extended Markdown syntax for **[Font Awesome](https://fontawesome.com/) icons**
-* :(far fa-sticky-note fa-fw): Extended Markdown syntax for **ruby annotation**
-* :(fas fa-percentage fa-fw): Extended Markdown syntax for **fraction**
-* :(fas fa-square-root-alt fa-fw): **Mathematical formula** supported by [$ \KaTeX $](https://katex.org/)
-* :(fas fa-project-diagram fa-fw): **Diagrams** shortcode supported by [mermaid](https://github.com/knsv/mermaid)
-* :(fas fa-chart-pie fa-fw): **Interactive data visualization** shortcode supported by [ECharts](https://echarts.apache.org/)
-* :(fas fa-map-marked-alt fa-fw): **Mapbox** shortcode supported by [Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js)
-* :(fas fa-music fa-fw): **Music player** shortcode supported by [APlayer](https://github.com/MoePlayer/APlayer) and [MetingJS](https://github.com/metowolf/MetingJS)
-* :(fas fa-video fa-fw): **Bilibili player** shortcode
-* :(far fa-bell fa-fw): Kinds of **admonitions** shortcode
-* :(fas fa-align-left fa-fw): **Custom style** shortcode
-* :(fab fa-js-square fa-fw): **Custom script** shortcode
-* :(fas fa-i-cursor fa-fw): **Animated typing** supported by [TypeIt](https://typeitjs.com/)
-* :(fas fa-arrow-down fa-fw): **Dynamic scroll** supported by [Smooth Scroll](https://github.com/cferdinandi/smooth-scroll)
-* :(fas fa-cookie-bite fa-fw): **Cookie consent banner** supported by [cookieconsent](https://github.com/osano/cookieconsent)
-* ...
+The second is to make a technical note of some of the holes I've stepped in, to prevent me from falling into them again in the future.
 
-### License
+**I hope this stuff I'm trying to figure out on my own will really help you, and I'll be very happy to get some recognition this time!**
 
-LoveIt is licensed under the **MIT** license.
+Of course, the article is limited by time and my superficial understanding of some of the principles, inevitably there are errors, please correct me.
 
-Check the [LICENSE file](https://github.com/dillonzq/LoveIt/blob/master/LICENSE) for details.
+You can share in the comments, or contact me by :(fas fa-share-square fa-fw): [email](mailto://lexuscyborg103@gmail.com) or :(fas fa-comment-dots fa-fw): [Twitter](https://twitter.com/lexuscyborg103).
 
-Thanks to the authors of following resources included in the theme:
+#### Film Festival
 
-* [normalize.css](https://github.com/necolas/normalize.css)
-* [Font Awesome](https://fontawesome.com/)
-* [Simple Icons](https://github.com/simple-icons/simple-icons)
-* [Animate.css](https://daneden.github.io/animate.css/)
-* [Smooth Scroll](https://github.com/cferdinandi/smooth-scroll)
-* [autocomplete.js](https://github.com/algolia/autocomplete.js)
-* [Lunr.js](https://lunrjs.com/)
-* [algoliasearch](https://github.com/algolia/algoliasearch-client-javascript)
-* [lazysizes](https://github.com/aFarkas/lazysizes)
-* [object-fit-images](https://github.com/fregante/object-fit-images)
-* [Twemoji](https://github.com/twitter/twemoji)
-* [lightgallery.js](https://github.com/sachinchoolur/lightgallery.js)
-* [clipboard.js](https://github.com/zenorocha/clipboard.js)
-* [Sharer.js](https://github.com/ellisonleao/sharer.js)
-* [TypeIt](https://typeitjs.com/)
-* [$ \KaTeX $](https://katex.org/)
-* [mermaid](https://github.com/knsv/mermaid)
-* [ECharts](https://echarts.apache.org/)
-* [Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js)
-* [APlayer](https://github.com/MoePlayer/APlayer)
-* [MetingJS](https://github.com/metowolf/MetingJS)
-* [Gitalk](https://github.com/gitalk/gitalk)
-* [Valine](https://valine.js.org/)
-* [cookieconsent](https://github.com/osano/cookieconsent)
+* :(fas fa-video fa-fw): 2018 Beijing International Film Festival
+* :(fas fa-video fa-fw): 2019 Beijing International Film Festival
+* :(fas fa-video fa-fw): 2019 Shanghai International Film Festival
+* :(fas fa-video fa-fw): 2019 Taibei Film Festival
+
+#### TODO List
+
+* Seen 3,000 movies before 30 years old.
+* Being a superhero for once.
+* Let the wind stop. 🌪
+* Contact with aliens once. 👽
+* Been to Sicily.
+* See the aurora borealis once.
