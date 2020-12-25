@@ -28,7 +28,7 @@ Ref https://github.com/kubernetes/kubernetes/issues/75482#issuecomment-511476698
 并且 dockerd 拉起来后, 有些 daemonsets 由于 ingress 自身 livenessProbe 等原因在 dockerd 升级期间持续 crashLoopbackoff 了, 一个原因是仍然 mount 一份旧的 docker overlay. 在 delete pod 重启后恢复. 故需要一个手段在升级后重启 ingress pods.
 Ref https://github.com/kubernetes/kubernetes/issues/75482#issuecomment-511476698"/>
 <meta name="application-name" content="Nice to meet you">
-<meta name="apple-mobile-web-app-title" content="Nice to meet you"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/images/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://example.com/upgrade-dockerd-in-k8s/" /><link rel="prev" href="https://example.com/alert-convergence/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="Nice to meet you"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/images/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://example.com/upgrade-dockerd-in-k8s/" /><link rel="prev" href="https://example.com/alert-convergence/" /><link rel="next" href="https://example.com/apps-liat-for-macbook/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -176,7 +176,7 @@ Ref https://github.com/kubernetes/kubernetes/issues/75482#issuecomment-511476698
                             <a class="link-to-markdown" href="/upgrade-dockerd-in-k8s/index.md" target="_blank">Read Markdown</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://example.com/upgrade-dockerd-in-k8s/" data-title="升级 k8s 集群 docker" data-via="lexuscyborg103" data-hashtags="Kubernetes,Docker"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://example.com/upgrade-dockerd-in-k8s/" data-title="升级 k8s 集群 docker" data-ralateuid="thehackercat"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="Share on Evernote" data-sharer="evernote" data-url="https://example.com/upgrade-dockerd-in-k8s/" data-title="升级 k8s 集群 docker"><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://example.com/upgrade-dockerd-in-k8s/" data-title="升级 k8s 集群 docker" data-via="lexuscyborg103" data-hashtags="Kubernetes,Docker"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://example.com/upgrade-dockerd-in-k8s/" data-title="升级 k8s 集群 docker"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="Share on Evernote" data-sharer="evernote" data-url="https://example.com/upgrade-dockerd-in-k8s/" data-title="升级 k8s 集群 docker"><i class="fab fa-evernote fa-fw"></i></a></span>
             </div>
         </div>
     </div>
@@ -188,7 +188,8 @@ Ref https://github.com/kubernetes/kubernetes/issues/75482#issuecomment-511476698
         </section>
     </div>
 
-    <div class="post-nav"><a href="/alert-convergence/" class="prev" rel="prev" title="告警收敛设计"><i class="fas fa-angle-left fa-fw"></i>告警收敛设计</a></div>
+    <div class="post-nav"><a href="/alert-convergence/" class="prev" rel="prev" title="告警收敛设计"><i class="fas fa-angle-left fa-fw"></i>告警收敛设计</a>
+            <a href="/apps-liat-for-macbook/" class="next" rel="next" title="Awesome macOS apps list for developer">Awesome macOS apps list for developer<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 </article></div>
             </main><footer class="footer">

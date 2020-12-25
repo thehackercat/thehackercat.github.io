@@ -18,7 +18,7 @@
 <meta name="twitter:title" content="升级 k8s 集群 docker"/>
 <meta name="twitter:description" content="背景 最近需要给 k8s 集群升级 docker, 预期升到 19.03.x. 遇到一些问题, 记录下 调试期间遇到的问题: 集群中的 ingress 是以 daemonsets 方式部署, 通过 node-selector 选择节点定死. 而 kubectl drain node 并不 evict daemonset pods."/>
 <meta name="application-name" content="LexusLee&#39;s blog">
-<meta name="apple-mobile-web-app-title" content="LexusLee&#39;s blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/images/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://example.com/zh-cn/upgrade-dockerd-in-k8s/" /><link rel="prev" href="https://example.com/zh-cn/alert-convergence/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="LexusLee&#39;s blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/images/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://example.com/zh-cn/upgrade-dockerd-in-k8s/" /><link rel="prev" href="https://example.com/zh-cn/alert-convergence/" /><link rel="next" href="https://example.com/zh-cn/apps-liat-for-macbook/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -166,7 +166,7 @@
                             <a class="link-to-markdown" href="/zh-cn/upgrade-dockerd-in-k8s/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://example.com/zh-cn/upgrade-dockerd-in-k8s/" data-title="升级 k8s 集群 docker" data-via="lexuscyborg103" data-hashtags="Kubernetes,Docker"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://example.com/zh-cn/upgrade-dockerd-in-k8s/" data-title="升级 k8s 集群 docker" data-ralateuid="thehackercat"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://example.com/zh-cn/upgrade-dockerd-in-k8s/" data-title="升级 k8s 集群 docker"><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://example.com/zh-cn/upgrade-dockerd-in-k8s/" data-title="升级 k8s 集群 docker" data-via="lexuscyborg103" data-hashtags="Kubernetes,Docker"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://example.com/zh-cn/upgrade-dockerd-in-k8s/" data-title="升级 k8s 集群 docker"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://example.com/zh-cn/upgrade-dockerd-in-k8s/" data-title="升级 k8s 集群 docker"><i class="fab fa-evernote fa-fw"></i></a></span>
             </div>
         </div>
     </div>
@@ -178,7 +178,8 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/zh-cn/alert-convergence/" class="prev" rel="prev" title="告警收敛设计"><i class="fas fa-angle-left fa-fw"></i>告警收敛设计</a></div>
+    <div class="post-nav"><a href="/zh-cn/alert-convergence/" class="prev" rel="prev" title="告警收敛设计"><i class="fas fa-angle-left fa-fw"></i>告警收敛设计</a>
+            <a href="/zh-cn/apps-liat-for-macbook/" class="next" rel="next" title="一名开发的 Macbook 常用 app 整理">一名开发的 Macbook 常用 app 整理<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 </article></div>
             </main><footer class="footer">
