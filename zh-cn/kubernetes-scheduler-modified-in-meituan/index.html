@@ -256,6 +256,14 @@
         title="调度 bad case" /></p>
 <p><strong>降级方案:</strong></p>
 <p>当 ActiveQ 出现大量积压时, 且存在 Unscheduled pods 时 PriorityQueue 降级为 FIFO Queue, 确保 bad pods 在下一个调度周期进入到队列尾, 保证 good pod 能被正常调度</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/68a22bf1-2aa8-4411-95e0-491b38e5ad0e/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20211009%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20211009T021928Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=42b05b27786551396c10767c9d09b76758afe8f98b4d1b530410f97624a932ac&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22Untitled.png%22"
+        data-srcset="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/68a22bf1-2aa8-4411-95e0-491b38e5ad0e/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20211009%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20211009T021928Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=42b05b27786551396c10767c9d09b76758afe8f98b4d1b530410f97624a932ac&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22Untitled.png%22, https://s3.us-west-2.amazonaws.com/secure.notion-static.com/68a22bf1-2aa8-4411-95e0-491b38e5ad0e/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20211009%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20211009T021928Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=42b05b27786551396c10767c9d09b76758afe8f98b4d1b530410f97624a932ac&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22Untitled.png%22 1.5x, https://s3.us-west-2.amazonaws.com/secure.notion-static.com/68a22bf1-2aa8-4411-95e0-491b38e5ad0e/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20211009%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20211009T021928Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=42b05b27786551396c10767c9d09b76758afe8f98b4d1b530410f97624a932ac&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22Untitled.png%22 2x"
+        data-sizes="auto"
+        alt="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/68a22bf1-2aa8-4411-95e0-491b38e5ad0e/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20211009%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20211009T021928Z&amp;X-Amz-Expires=86400&amp;X-Amz-Signature=42b05b27786551396c10767c9d09b76758afe8f98b4d1b530410f97624a932ac&amp;X-Amz-SignedHeaders=host&amp;response-content-disposition=filename%20%3D%22Untitled.png%22"
+        title="降级方案流程图" /></p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
